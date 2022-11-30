@@ -121,3 +121,10 @@ public class Company {
   private CompanyType companyType;
   
 }
+
+
+
+
+
+
+//ersin deneme1
