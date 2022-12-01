@@ -32,28 +32,34 @@ public class WorkManagement {
 	  @Id
 	  @GeneratedValue(strategy=GenerationType.IDENTITY)
 	  private Long id;
-	  @Column
+	  
+	  @Column(length = 50, nullable = false)
 	  private String title;
-	  @Column
-	  private Date startDate;
-	  @Column
+	  
+	  @Column(nullable = false)
+	  private Date startDate;//işe başlama tarihi... . 
+	  
+	  @Column( nullable = false)
 	  private Date expectedEndDate;
-	 	 
-	  @Column
+	  	 	 
+	  @Column(length = 250)
 	  private String comments;
+	  
 	  @Column
-	  private  Date createDate;
+	  private  Date createDate;//o günün tarihi atılabilir otomatik
+	  
 	  @Column
 	  private  Date updateDate;
-	  @Column
-	  private  Date finishedDate;
-	  @Column
-	  private String description;
 	  
+	  @Column( nullable = false)
+	  private  Date finishedDate;
+	  
+	  @Column(length = 250, nullable = false)
+	  private String description;//işin tarifi... fabrika ziyareti yapılacak
+	  	  
 	  @ManyToOne
 	  private CompanyEmployees assignee;//path ile göndereceğiz
-	  
-	  
+	  	  
 	  @Enumerated(EnumType.STRING)
 	  private WMStatus status;
 	  

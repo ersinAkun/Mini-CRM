@@ -32,60 +32,67 @@ public class Company {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
  private Long id;
 	
-  @Column
+  @Column(length = 30, nullable = false)
   private String name;
   
-  @Column
+  @Column(length = 30, nullable = false)
   private String owner;
   
-  @Column
+  @Column(length = 90, nullable = false)
   private String address;
   
-  @Column
+  @Column(length = 30, nullable = false)
   private String country;
   
-  @Column
+  @Column(length = 30, nullable = false)
   private String city;
   
-  @Column
+  @Column(length = 14, nullable = false)
   private String phone;
   
-  @Column
+  @Column(length = 14)
   private String leadWhatsapp;
  
-  @Column
+  @Column(length = 90)
   private String lastActivity;
   
-  @Column
+  @Column(nullable = false)
   private Date lastActivityDate;
   
-  @Column
+  @Column(length = 30)
   private String linkedPage;
   
-  @Column
+  @Column(length = 10, nullable = false)
   private String timeZone;
   
-  @Column
+  @Column(length = 30)
   private String webPage;
   
-  @Column
+  @Column(length = 250, nullable = false)
   private String RFQ;
   
   @Column
   private Long whoFind;//path ile gönderebiliriz.
-  @Column
+  
+  @Column(length = 40, nullable = false)
   private String whoContacted;//yereldeki şirket sahibi olabilir.body ile gönderelim
-  @Column
+  
+  @Column(length = 250)
   private String about;
-  @Column
+  
+  @Column(nullable = false)
   private Date firstContactDate;
-  @Column
+  
+  @Column(length = 10, nullable = false)
   private Boolean isMailSent;
-  @Column
+  
+  @Column(length = 10, nullable = false)
   private Boolean isMsgSent;
-  @Column 
+  
+  @Column(length = 10, nullable = false) 
   private Boolean isOrder;
-  @Column
+  
+  @Column(length = 255)
   private String note;
  // @Column
  // private Set<Emails> emails;

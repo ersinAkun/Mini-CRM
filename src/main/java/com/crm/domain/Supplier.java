@@ -33,28 +33,28 @@ public class Supplier {
 	  @GeneratedValue(strategy=GenerationType.IDENTITY)
 	 private Long id;
 		
-	  @Column
+	 @Column(length = 50, nullable = false)
 	  private String name;
 	  
-	  @Column
+	 @Column(length = 30, nullable = false)
 	  private String owner;
 	  
-	  @Column
+	 @Column(length = 50, nullable = false)
 	  private String address;
 	  
-	  @Column
+	 @Column(length = 30, nullable = false)
 	  private String city;
 	  
-	  @Column
+	 @Column(length = 14, nullable = false)
 	  private String phone;
 	  
-	  @Column
+	 @Column(length = 14)
 	  private String OwnerWhatsapp;
 	  
-	  @Column
+	 @Column(length = 50)
 	  private String linkedPage;
 	    
-	  @Column
+	 @Column(length = 50)
 	  private String webPage;
 	  
 	  @OneToMany

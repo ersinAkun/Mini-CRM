@@ -10,9 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import com.crm.domain.enums.CurrencyType;
 import com.crm.domain.enums.OrderStatus;
 import com.crm.domain.enums.OrderType;
@@ -20,7 +18,6 @@ import com.crm.domain.enums.PackingArrangement;
 import com.crm.domain.enums.PaymentMethod;
 import com.crm.domain.enums.Shipment;
 import com.crm.domain.enums.TypeOfDelivery;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,39 +32,50 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@Column
-	private String supplyHouse;
-	@Column
+	
+	
+	
+	 @Column(nullable = false)
 	private Double orderAmount;
-	@Column
+	
+	 @Column(length = 250, nullable = false)
 	private String RFQ;
 
-	@Column
+	 @Column(nullable = false)
 	private Integer orderQuantity;
-	@Column
+	
+	 @Column
 	private Double totalWeight;
+	
 	@Column
-	private Double freightCost;
+	private Double freightCost;//navlun ücreti
+	
+	 @Column(length = 50)
+	private String forwarder;//kargo firması
+	
+	 @Column
+	private Date estimatedDeliveryDate;//planlanan teslim tarihi
+	
 	@Column
-	private String forwarder;
+	private Date deliveryDate;//teslim tarihi(gerçekleşen)
+	
 	@Column
-	private Date estimatedDeliverDate;
-	@Column
-	private Date deliverDate;
-	@Column
-	private Date dateOfPurchase;
+	private Date orderDate;//siparişi verdiği tarih
+	
 	@Column
 	private Double profit;
+	
 	@Column
 	private Double profitPercentage;
-	@Column
+	
+	 @Column(length = 250, nullable = false)
 	private String notes;
 	
-	//@ManyToOne
-	//private String whoFoundCustomer;
 	
-	//@Column
-	//private String whoContacted;
+	 
+	 @ManyToMany
+		private Supplier supplier;
+	 
 	
 		
 	@Enumerated(EnumType.STRING)

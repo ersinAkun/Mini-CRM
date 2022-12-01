@@ -23,7 +23,7 @@ public class Emails {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
     
-    @Column
+    @Column(length = 50, nullable = false,unique = true)
     private String email;
     
 }

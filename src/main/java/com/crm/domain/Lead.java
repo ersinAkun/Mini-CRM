@@ -31,48 +31,53 @@ public class Lead {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@Column
+
+	@Column(length = 30, nullable = false)
 	private String firstName;
-	@Column
+
+	@Column(length = 30, nullable = false)
 	private String lastName;
-	@Column
+	@Column(length = 50, nullable = false, unique = true)
 	private String email;
-	
+
 	@OneToOne
-	private Company company;//ilişkiden gelsin.
-	@Column
-	private String industry;//bunu company üzerinden çekip set edebiliriz.
-	
+	private Company company;// ilişkiden gelsin.
+
+	@Column(length = 50)
+	private String industry;// bunu company üzerinden çekip set edebiliriz.
+
 	@Enumerated(EnumType.STRING)
 	private Department employeeDepartment;
-	@Column
+
+	@Column(length = 14)
 	private String businessNumber;
-	@Column
+	@Column(length = 14)
 	private String personelNumber;
+
 	@Column
 	private Date contactedDate;
-	@Column
+
+	@Column(length = 50)
 	private String address;
-	@Column
+
+	@Column(length = 30)
 	private String city;
-	@Column
+	@Column(length = 30)
 	private String state;
-	@Column
+	@Column(length = 30, nullable = false)
 	private String country;
-	@Column
+	@Column(length = 14)
 	private Boolean hasWhatsapp;
-	@Column
-	private String Linked; 
-	@Column
+	@Column(length = 50)
+	private String Linked;
+	@Column(length = 30)
 	private String skype;
 	@Column
 	private String notes;
-	@Column
+	@Column(length = 30)
 	private String speaks;
-		
+
 	@Enumerated(EnumType.STRING)
 	private LeadStatus status;
-	
-	
+
 }
