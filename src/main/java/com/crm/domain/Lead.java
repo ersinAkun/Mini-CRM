@@ -2,12 +2,17 @@ package com.crm.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+import com.crm.domain.enums.Department;
 import com.crm.domain.enums.LeadStatus;
 
 import lombok.AllArgsConstructor;
@@ -20,54 +25,53 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "tbl_Lead")
 
 public class Lead {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	
+	@Column
 	private String firstName;
-	
+	@Column
 	private String lastName;
-	
+	@Column
 	private String email;
 	
-	private String companyName;
+	@OneToOne
+	private Company company;//ilişkiden gelsin.
+	@Column
+	private String industry;//bunu company üzerinden çekip set edebiliriz.
 	
-	private String industry;
-	
-	private String jobTitle;
-	
+	@Enumerated(EnumType.STRING)
+	private Department employeeDepartment;
+	@Column
 	private String businessNumber;
-	
+	@Column
 	private String personelNumber;
-	
-	private String businessEmail;
-	
+	@Column
 	private Date contactedDate;
-
+	@Column
 	private String address;
-	
+	@Column
 	private String city;
-	
+	@Column
 	private String state;
-	
+	@Column
 	private String country;
-	
-	private Boolean useWhatsapp;
-	
-	private String inLinked; 
-	
+	@Column
+	private Boolean hasWhatsapp;
+	@Column
+	private String Linked; 
+	@Column
 	private String skype;
-	
+	@Column
 	private String notes;
-	
+	@Column
 	private String speaks;
-	
-	
-	@Enumerated
-	
+		
+	@Enumerated(EnumType.STRING)
 	private LeadStatus status;
 	
 	
