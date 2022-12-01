@@ -22,23 +22,31 @@ public class OrderedProducts {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 private Long productId;
-	@Column
+	  @Column(length = 30, nullable = false)
 	private String productCode;
-	@Column
+	  
+	  @Column(length = 30, nullable = false)
 	private String productName;
-	@Column
+	  
+	  @Column(length = 50)
 	private String size;
-	@Column
-	private String weight;
-	@Column
+	  
+	  @Column(length = 30)
+	private Integer weight;
+	  
+	  @Column(length = 30, nullable = false)
 	private Double purchasePrice;
-	@Column
+	  
+	  @Column(length = 30, nullable = false)
 	private Double salePrice;
-	@Column
+	
+	  @Column(length = 30)//ön tarafta gözükmesin ama db'de olsun.. @JsonIGnore olabilir
 	private Double profit;
-	@Column
+	
+	  @Column(length = 30)
 	private Double netProfit;
-	@Column//null olsun. kayıt ederken biz kendimiz set edelim.
+	
+	  @Column(length = 30)//ön tarafta gözükmesin ama db'de olsun.. @JsonIGnore olabilir
 	private String companyName;
 
 }
