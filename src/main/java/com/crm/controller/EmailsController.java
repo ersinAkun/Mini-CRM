@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 @Entity
 public class EmailsController {
-@Autowired
+
 }
