@@ -17,12 +17,8 @@ import lombok.Setter;
 @Entity
 public class EmailsDTO {
 
-       
-    @NotEmpty(message = "Email cannot be left blank.")
-    @Email
-    @Size(min = 5, max = 50,  message = "Email must be between 5 and 50 characters")
-    @NotNull(message = "Please enter email")  
-    private String email;
+ 
 }
+
 
 
