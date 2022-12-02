@@ -1,17 +1,13 @@
-package com.crm.dto.request;
+package com.crm.requestDTO;
 
 import java.util.Date;
-
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import com.crm.domain.enums.WMCategory;
 import com.crm.domain.enums.WMPriority;
 import com.crm.domain.enums.WMStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,19 +41,17 @@ public class WorkManagementRequestDTO {
 	  private String reporter;
 	  
 	  @Size(max = 250)
-	  @NotBlank(message = "Comment cannot be empty")
+	 // @NotBlank(message = "Comment cannot be empty")
 	  private String  comments;
 	  
-	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-	  @NotNull(message = "Please provide create date of job")
-	  private  Date createDate;
+	
 	  
 	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-	  @NotNull(message = "Please provide update date of job")
+	  //@NotNull(message = "Please provide update date of job")
 	  private  Date updateDate;
 	  
 	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-	  @NotNull(message = "Please provide Finished date of job")
+	 // @NotNull(message = "Please provide Finished date of job")
 	  private  Date finishedDate;
 	  
 	  @Size(max = 250)

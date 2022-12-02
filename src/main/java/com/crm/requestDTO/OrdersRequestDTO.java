@@ -1,7 +1,6 @@
-package com.crm.dto.request;
+package com.crm.requestDTO;
 
 import java.util.Date;
-
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,7 +15,6 @@ import com.crm.domain.enums.PaymentMethod;
 import com.crm.domain.enums.Shipment;
 import com.crm.domain.enums.TypeOfDelivery;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,7 +48,7 @@ public class OrdersRequestDTO {
 	private Double freightCost;//navlun ücreti
 	
 	@Size(max = 20)
-	@NotNull(message = "Please provide Forwarder")
+	//@NotNull(message = "Please provide Forwarder")
 	private String forwarder;//kargo firması
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
@@ -58,7 +56,7 @@ public class OrdersRequestDTO {
 	private Date estimatedDeliveryDate;//planlanan teslim tarihi
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-	@NotNull(message = "Please provide Delivery Date")
+	//@NotNull(message = "Please provide Delivery Date")
 	private Date deliveryDate;//teslim tarihi(gerçekleşen)
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
@@ -75,10 +73,7 @@ public class OrdersRequestDTO {
 	
 	@Size(max = 200)
 	private String notes;
-	
-	
-	
-	
+
 	
 	@Enumerated(EnumType.STRING)
 	private Shipment shipping;
