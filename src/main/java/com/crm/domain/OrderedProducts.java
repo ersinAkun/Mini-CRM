@@ -48,5 +48,7 @@ private Long productId;
 	
 	  @Column(length = 30)//ön tarafta gözükmesin ama db'de olsun.. @JsonIGnore olabilir
 	private String companyName;
+	  
+	 
 
 }
