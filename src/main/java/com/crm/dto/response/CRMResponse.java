@@ -1,17 +1,18 @@
-package com.crm.dto;
-
-import javax.persistence.Entity;
+package com.crm.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+public class CRMResponse {
+	
+	private String message;
+    boolean success;
 
-public class ImageDataDTO {
 
 }
