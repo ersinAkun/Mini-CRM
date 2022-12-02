@@ -62,18 +62,25 @@ public class Lead {
 
 	@Column(length = 30)
 	private String city;
+	
 	@Column(length = 30)
 	private String state;
+	
 	@Column(length = 30, nullable = false)
 	private String country;
+	
 	@Column(length = 14)
 	private Boolean hasWhatsapp;
+	
 	@Column(length = 50)
 	private String Linked;
+	
 	@Column(length = 30)
 	private String skype;
+	
 	@Column
 	private String notes;
+	
 	@Column(length = 30)
 	private String speaks;
 

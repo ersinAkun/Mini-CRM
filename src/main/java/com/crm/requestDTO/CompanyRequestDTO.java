@@ -1,4 +1,4 @@
-package com.crm.dto.request;
+package com.crm.requestDTO;
 
 import java.util.Date;
 import javax.persistence.EnumType;

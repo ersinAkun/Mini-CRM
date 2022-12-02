@@ -1,4 +1,4 @@
-package com.crm.dto.response;
+package com.crm.responseDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
