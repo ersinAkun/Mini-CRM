@@ -1,4 +1,4 @@
-package com.crm.dto.request;
+package com.crm.requestDTO;
 
 
 import javax.validation.constraints.NotBlank;
