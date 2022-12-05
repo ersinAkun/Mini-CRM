@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class EmailsResponseDTO {
 
-	private Long id;
+	
 	
     private String email;
     
