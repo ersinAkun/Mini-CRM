@@ -12,8 +12,11 @@ public class SupplierController {
 	@Autowired
 	SupplierService supplierService;
 	
-	
-	
-	
-
+	//create
+	//get
+	//get all
+	//get pageble 
+	//update
+	//delete
+	//sipariş alınmış ürünleri listele	
 }
