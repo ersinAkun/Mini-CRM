@@ -23,10 +23,13 @@ public class ImageFile {
     @GenericGenerator(name="uuid", strategy="uuid2")
     private String id;
 
+	
     private String name;
 
+    
     private String type;
 
+    
     private long length;
 
     @OneToOne(cascade=CascadeType.ALL)// ImageFile silinirse, imageData da silinsin
