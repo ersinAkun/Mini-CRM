@@ -12,7 +12,7 @@ import lombok.Setter;
 public class CrmResponse {
 	
 	private String message;
-    boolean success;
+    Boolean success;
 
 
 }
