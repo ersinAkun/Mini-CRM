@@ -94,8 +94,6 @@ public class Company {
   
   @Column(length = 255)
   private String note;
- // @Column
- // private Set<Emails> emails;
   
   @OneToOne(fetch = FetchType.LAZY)
   private Lead lead;

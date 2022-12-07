@@ -29,9 +29,7 @@ public class OrderedProductsRequestDTO {
 	@Size(max=15)
 	@NotNull(message="Please provide PurhasePrice")
 	@NotBlank
-	private Double purchasePrice;
-	
-	
+	private Double purchasePrice;	
 	
 	@Size(max=15)
 	@NotNull(message="Please provide SalePrice")
