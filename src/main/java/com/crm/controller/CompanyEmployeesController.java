@@ -39,9 +39,7 @@ public class CompanyEmployeesController {
 		
 		CrmResponse crmResponse = new CrmResponse();
 		crmResponse.setMessage(ResponseMessage.COMPANY_EMPLOYEES_CREATE_RESPONSE);
-		crmResponse.setSuccess(true);
-		
-		
+		crmResponse.setSuccess(true);				
 		return ResponseEntity.ok(crmResponse);
 		
 	}
