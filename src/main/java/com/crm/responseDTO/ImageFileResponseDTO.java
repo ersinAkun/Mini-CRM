@@ -9,10 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CRMResponse {
+public class ImageFileResponseDTO {
 	
-	private String message;
-    boolean success;
-
+	private String name ;
+	private String url;
+	private String type;
+	private long size; // length !!!
 
 }

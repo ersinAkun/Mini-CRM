@@ -8,9 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.crm.domain.enums.Department;
-
+import com.crm.domain.enums.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,11 +30,11 @@ public class Role {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
-	private Department employeeDepartment;
+	private RoleType type;
 
 	@Override
 	public String toString() {
-		return "Role [type=" + employeeDepartment + "]";
+		return "Role [type=" + type + "]";
 	}
 
 }
