@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ImageSavedResponse extends CRMResponse {
+public class ImageSavedResponse extends CrmResponse {
 	
 
 	private String imageId;

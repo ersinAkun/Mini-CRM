@@ -40,6 +40,8 @@ public class CompanyEmployees {
 	private String lastName;
 	@Column(length = 50, nullable = false)
 	private String email;
+	@Column(length = 120, nullable = false)
+	private String password;
 	@Column(length = 50, nullable = false)
 	private String jobTitle;
 	@Column(length = 14, nullable = false)

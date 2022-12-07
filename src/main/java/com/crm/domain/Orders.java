@@ -33,9 +33,7 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
-	
-	
+		
 	 @Column(nullable = false)
 	private Double orderAmount;
 	
@@ -64,21 +62,18 @@ public class Orders {
 	private Date orderDate;//siparişi verdiği tarih
 	
 	@Column
-	private Double profit;
+	private Double profit; //kar
 	
 	@Column
-	private Double profitPercentage;
+	private Double profitPercentage;//kar yüzdesi
 	
 	 @Column(length = 250, nullable = false)
 	private String notes;
-	
-	
+		
 	 
 	 	@ManyToMany
 		private List<Supplier>supplier;
-	 
-	
-		
+	 			
 	@Enumerated(EnumType.STRING)
 	private Shipment shipping;
 	@Enumerated(EnumType.STRING)

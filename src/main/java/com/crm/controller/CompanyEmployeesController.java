@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.crm.requestDTO.CompanyEmployeesRequestDTO;
-import com.crm.responseDTO.CRMResponse;
+import com.crm.responseDTO.CrmResponse;
+import com.crm.responseDTO.ResponseMessage;
 import com.crm.service.CompanyEmployeesService;
 
 @RestController
@@ -34,11 +34,12 @@ public class CompanyEmployeesController {
 	
 	@PostMapping("employees/add")
 	//@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<CRMResponse> createCompanyEmployees(@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
+	public ResponseEntity<CrmResponse> createCompanyEmployees(@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
 		companyEmployeesService.createCompanyEmployees(companyEmployeesRequestDTO);
 		
-		CRMResponse crmResponse = new CRMResponse();
-		crmResponse.setMessage(CRMMessage.COMPANY_EMPLOYEES_CREATE_RESPONSE,true);
+		CrmResponse crmResponse = new CrmResponse();
+		crmResponse.setMessage(ResponseMessage.COMPANY_EMPLOYEES_CREATE_RESPONSE);
+		crmResponse.setSuccess(true);
 		
 		
 		return ResponseEntity.ok(crmResponse);

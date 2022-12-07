@@ -49,6 +49,9 @@ public class Supplier {
 	    
 	 @Column(length = 50)
 	  private String webPage;
+	 
+	 //@Column
+	// private Double totalAmount;  //her satışta üzerine eklencek
 	  
 	  @OneToMany
 	  private List<OrderedProducts> orderedProducts; 
