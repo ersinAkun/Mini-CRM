@@ -37,8 +37,12 @@ public class CompanyEmployeesRequestDTO {
 	@NotNull(message = "Please provide email")
 	private String email;
 	
+	@Size(max = 30)
+	@NotNull(message = "Please provide password")
+	private String password;
+	
+	
 	@Size(max = 50)
-	@NotNull
 	@NotBlank(message = "Please provide job Title")
 	private String jobTitle;
 	
