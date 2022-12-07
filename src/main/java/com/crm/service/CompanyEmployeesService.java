@@ -3,6 +3,8 @@ package com.crm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.crm.domain.CompanyEmployees;
 import com.crm.exception.ConflictException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyEmployeesRepository;
@@ -20,10 +22,16 @@ public class CompanyEmployeesService {
 		if (companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail())) {
 			throw new ConflictException(
 					String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE, companyEmployeesRequestDTO.getEmail()));
+			
 		}
-		
-		
-		
+			
 	}
+
+		//security için
+	public CompanyEmployees getEmployeeByEmail(String email) {
+		// BURASI EMRULLAH HOCADA.. security için lazım. direkt pojo olarak
+		return null;
+	}
+
 
 }
