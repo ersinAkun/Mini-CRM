@@ -4,6 +4,7 @@ package com.crm.service;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.crm.domain.CompanyEmployees;
@@ -22,18 +23,18 @@ import com.crm.requestDTO.CompanyEmployeesRequestDTO;
 @Service
 public class CompanyEmployeesService {
 	
-	@Autowired
+	
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private CompanyEmployeesRepository companyEmployeesRepository;
 	
-	@Autowired
+	
 	private RoleService roleService;
 	
 	
 	@Autowired
-	public CompanyEmployeesService(PasswordEncoder passwordEncoder,
+	public CompanyEmployeesService(@Lazy PasswordEncoder passwordEncoder,
 			CompanyEmployeesRepository companyEmployeesRepository, RoleService roleService) {
 		super();
 		this.passwordEncoder = passwordEncoder;
@@ -47,9 +48,6 @@ public class CompanyEmployeesService {
 					String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE, companyEmployeesRequestDTO.getEmail()));
 		}
 		
-
-		
-			
 
 		Role role = roleService.findByType(RoleType.ROLE_USER);
 		Set<Role> roles = new HashSet<>();
