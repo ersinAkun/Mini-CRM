@@ -2,6 +2,8 @@ package com.crm.repository;
 
 
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.crm.domain.CompanyEmployees;
@@ -13,7 +15,7 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 	
 	Boolean existsByEmail(String email);
 
-	Object findByEmail(String email);
+	Optional<CompanyEmployees> findByEmail(String email);
 	
 	
 	

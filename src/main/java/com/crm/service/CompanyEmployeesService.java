@@ -3,7 +3,6 @@ package com.crm.service;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,11 +10,11 @@ import com.crm.domain.CompanyEmployees;
 import com.crm.domain.Role;
 import com.crm.domain.enums.RoleType;
 import com.crm.exception.ConflictException;
+import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyEmployeesRepository;
 import com.crm.requestDTO.CompanyEmployeesRequestDTO;
-import com.visionrent.domain.User;
-import com.visionrent.exception.ResourceNotFoundException;
+
 
 
 
@@ -70,7 +69,7 @@ public class CompanyEmployeesService {
 		companyEmployees.setPhoneNumber(companyEmployeesRequestDTO.getPhoneNumber());
 		companyEmployees.setSpeaks(companyEmployeesRequestDTO.getSpeaks());
 		companyEmployees.setState(companyEmployeesRequestDTO.getState());
-	
+		companyEmployees.setBuiltIn(false);
 		companyEmployeesRepository.save(companyEmployees);
 		
 	}
