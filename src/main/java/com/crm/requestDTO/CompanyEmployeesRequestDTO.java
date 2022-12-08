@@ -46,8 +46,8 @@ public class CompanyEmployeesRequestDTO {
 	@NotBlank(message = "Please provide job Title")
 	private String jobTitle;
 	
-	@Pattern(regexp = "^((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$", message = "Please enter valid phone number")
-	@Size(min = 14, max = 14, message = "Phone number should be exact 10 characters")
+	//@Pattern(regexp = "^((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$", message = "Please enter valid phone number")
+	@Size(min = 11, max = 14, message = "Please enter valid phone number")
 	//@NotNull(message = "Please enter phone number")
 	private String phoneNumber;
 	

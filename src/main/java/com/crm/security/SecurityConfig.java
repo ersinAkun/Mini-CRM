@@ -42,7 +42,7 @@ public class SecurityConfig {
     					  						"/files/download/**",
     					  						"/contactmessage/visitors",
     					  						"/files/display/**",
-    					  						"/car/visitors/**",
+    					  						
     					  						"/actuator/info","/actuator/health").permitAll().
     			  anyRequest().authenticated();
     	
