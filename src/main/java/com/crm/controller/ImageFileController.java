@@ -31,7 +31,7 @@ public class ImageFileController {
 	
 	// *********** Upload ********************
 	@PostMapping("/upload")
-	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')  ")   
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")   
 	public ResponseEntity<ImageSavedResponse> uploadFile(@RequestParam("file") MultipartFile file) {
 		
 		  String imageId = imageFileService.saveImage(file);
