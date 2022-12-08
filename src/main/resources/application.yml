@@ -50,7 +50,7 @@ management: #actuator
 
 crm:
  app:
-  jwtSecret: crm(mesef)
+  jwtSecret: crm@!23
   jwtExpirationMs: 8640000000
   # şimdi 100 gün verdik...uzun verelim sonra 1 günlüğe çekebiliriz    iki sıfır sil
    
