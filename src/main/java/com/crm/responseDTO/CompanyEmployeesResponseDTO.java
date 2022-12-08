@@ -67,5 +67,19 @@ public class CompanyEmployeesResponseDTO {
 	
 	List<Company> foundedCompanies = new ArrayList<>();
 
-	private Set<Role> roles = new HashSet<>();
+	private  Set<String> roles;
+	
+	public void setRoles(Set<Role> roles) {
+		Set<String> roleStr=new HashSet<>();
+		roles.forEach(r->{
+			roleStr.add(r.getType().getName()); //Administrator veya Customer gozukecek
+		});
+		this.roles = roleStr;
+	}
+	
+	
+	
+	
+	
+	
 }
