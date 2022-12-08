@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -70,8 +71,7 @@ public class CompanyEmployees {
 	@JoinTable(name = "tbl_employee_company", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
 	List<Company> foundedCompanies = new ArrayList<>();
 
-	@ManyToMany // Roller için 3.tablo
+	@ManyToMany(fetch = FetchType.EAGER)// Roller için 3.tablo
 	@JoinTable(name = "t_employee_role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-
 }

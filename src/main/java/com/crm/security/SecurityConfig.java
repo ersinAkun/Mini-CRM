@@ -41,8 +41,7 @@ public class SecurityConfig {
     					  						"/register",
     					  						"/files/download/**",
     					  						"/contactmessage/visitors",
-    					  						"/files/display/**",
-    					  						
+    					  						"/files/display/**",    					  						
     					  						"/actuator/info","/actuator/health").permitAll().
     			  anyRequest().authenticated();
     	
