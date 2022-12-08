@@ -33,7 +33,7 @@ public class Company {
  private Long id;
 	
   @Column(length = 30, nullable = false)
-  private String name;
+  private String name;//unique olan kısım name
   
   @Column(length = 30, nullable = false)
   private String owner;
