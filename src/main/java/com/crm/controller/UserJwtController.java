@@ -62,7 +62,6 @@ public class UserJwtController {
  //******CREATE EMPLOYEES****
 	
  	@PostMapping("register")
- 	@PreAuthorize("hasRole('ADMIN')")
  	public ResponseEntity<CrmResponse> createCompanyEmployees(@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
  		companyEmployeesService.createCompanyEmployees(companyEmployeesRequestDTO);
  		
