@@ -25,9 +25,9 @@ public class OrderedProductsController {
 	@Autowired
 	OrderedProductsService orderedProductsService;
 	
-	@PostMapping("/{sid}/add/")//sid= supplier id... yani bu ürün hangü üreticiye ait onu path'dan alcaz
+	@PostMapping("/{sid}/add/")//sid= supplier id... yani bu ürün hangi üreticiye ait onu path'dan alcaz
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<CrmResponse> createProperty(@Valid @RequestBody OrderedProductsRequestDTO orderedProductsRequestDTO,
+	public ResponseEntity<CrmResponse> createProduct(@Valid @RequestBody OrderedProductsRequestDTO orderedProductsRequestDTO,
 			@PathVariable("sid") Long sID, @RequestParam("id") String iID) {//iID ise bu ürüne ait image id'si.
 
 		
