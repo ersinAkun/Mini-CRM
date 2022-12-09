@@ -76,7 +76,7 @@ public class ImageFileController {
 	}
 	
 	//*****************Delete Image ******************
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')  ")
 	public ResponseEntity<CrmResponse> deleteImageFile(@PathVariable String id) {
 		imageFileService.removeById(id);
