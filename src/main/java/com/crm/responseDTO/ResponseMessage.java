@@ -11,6 +11,8 @@ public class ResponseMessage {
 	public final static String IMAGE_SAVED_RESPONSE_MESSAGE= "ImageFile Successfully Uploaded";
 	public final static String IMAGE_DELETE_RESPONSE_MESSAGE= "ImageFile Successfully Deleted";
 	public final static String COMPANY_EMPLOYEES_CREATE_RESPONSE="CompanyEmployees successfully created";
+	public final static String ORDERED_PRODUCT_CREATED_MESSAGE="Ordered Product successfully created";
+	
 	
 
 }
