@@ -29,7 +29,8 @@ public class OrderedProducts {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-private Long productId;
+private Long id;
+	
 	  @Column(length = 30, nullable = false)
 	private String productCode;
 	  
