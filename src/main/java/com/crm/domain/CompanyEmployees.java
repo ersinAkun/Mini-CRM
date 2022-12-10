@@ -35,32 +35,46 @@ public class CompanyEmployees {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(length = 30, nullable = false)
 	private String firstName;
+	
 	@Column(length = 30, nullable = false)
 	private String lastName;
+	
 	@Column(length = 50, nullable = false)
 	private String email;
+	
 	@Column(length = 120, nullable = false)
 	private String password;
+	
 	@Column(length = 50, nullable = false)
 	private String jobTitle;
+	
 	@Column(length = 14, nullable = false)
 	private String phoneNumber;
+	
 	@Column(length = 30, nullable = false)
 	private String address;
+	
 	@Column(length = 30, nullable = false)
 	private String city;
+	
 	@Column(length = 30, nullable = false)
 	private String country;
+	
 	@Column(length = 30, nullable = false)
 	private String state;
+	
 	@Column
 	private Boolean hasWhatsapp;
+	
 	@Column
 	private String notes;
+	
 	@Column(length = 30)
 	private String speaks;
+	
 	@Column
 	private Boolean builtIn;
 

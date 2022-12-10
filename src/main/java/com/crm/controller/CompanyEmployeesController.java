@@ -24,11 +24,4 @@ public class CompanyEmployeesController {
 	private CompanyEmployeesService companyEmployeesService;
 	
 	
-	
-	
-	
-		
-		
-	
-	
 }
