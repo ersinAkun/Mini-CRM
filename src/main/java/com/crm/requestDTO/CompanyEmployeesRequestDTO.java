@@ -79,9 +79,6 @@ public class CompanyEmployeesRequestDTO {
 	@Size(max = 50)
 	@NotBlank
 	private String speaks;
-	
-	
-	private Boolean builtIn;
 
 	@Enumerated(EnumType.STRING)
 	private Department employeeDepartment;

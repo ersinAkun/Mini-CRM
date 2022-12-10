@@ -79,7 +79,6 @@ public class CompanyEmployeesService {
 		companyEmployees.setPhoneNumber(companyEmployeesRequestDTO.getPhoneNumber());
 		companyEmployees.setSpeaks(companyEmployeesRequestDTO.getSpeaks());
 		companyEmployees.setState(companyEmployeesRequestDTO.getState());
-		companyEmployees.setBuiltIn(false);
 		companyEmployees.setRoles(roles);
 		companyEmployeesRepository.save(companyEmployees);
 		

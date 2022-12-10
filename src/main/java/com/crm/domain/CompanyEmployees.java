@@ -62,7 +62,7 @@ public class CompanyEmployees {
 	@Column(length = 30)
 	private String speaks;
 	@Column
-	private Boolean builtIn;
+	private Boolean builtIn=false;
 
 	@Enumerated(EnumType.STRING)
 	private Department employeeDepartment;
