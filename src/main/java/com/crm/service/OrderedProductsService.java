@@ -9,6 +9,7 @@ import com.crm.domain.ImageFile;
 import com.crm.domain.OrderedProducts;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
+import com.crm.mapper.OrderedProductsMapper;
 import com.crm.repository.ImageFileRepository;
 import com.crm.repository.OrderedProductsRepository;
 import com.crm.requestDTO.OrderedProductsRequestDTO;
@@ -30,6 +31,9 @@ public class OrderedProductsService {
 	
 	@Autowired
 	SupplierService supplierService;
+	
+	@Autowired(required = false)
+	OrderedProductsMapper orderedProductsMapper;
 
 	
 	//******************SAVE PRODUCT*******EMİN*********
@@ -139,6 +143,13 @@ public class OrderedProductsService {
 		//bu ürünü silmeden önce buna ait bitmemiş bir sipariş var mı kontrol etmem lazım!!!
 		
 		orderedProductsRepository.delete(orderedProducts);
+	}
+
+	public List<OrderedProducts> getAllOrderedProducts() {
+	
+		List<OrderedProducts> orderedProductsList = orderedProductsRepository.findAll();
+		//return orderedProductsMapper.pojoListToResponseList(orderedProductsList);
+		return orderedProductsList;
 	}
 
 

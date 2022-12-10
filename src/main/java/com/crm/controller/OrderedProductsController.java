@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.crm.domain.OrderedProducts;
 import com.crm.requestDTO.OrderedProductsRequestDTO;
 import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.OrderedProductsResponseDTO;
@@ -77,12 +79,12 @@ public class OrderedProductsController {
 	
 	//*******************EMIN ***GET ALL ORDERED PRODUCT 10.12.22*****************//
 	
-//	@GetMapping("/getAll")
-//	public ResponseEntity<List<OrderedProductsResponseDTO>> getAllOrderedProducts(){
-//		
-//		List<OrderedProductsResponseDTO> allProducts = orderedProductsService.getAllOrderedProducts();
-//		
-//		return ResponseEntity.ok(allProducts);
-//	}
+	@GetMapping("/getAll")
+	public ResponseEntity<List<OrderedProducts>> getAllOrderedProducts(){
+		
+		List<OrderedProducts> allProducts = orderedProductsService.getAllOrderedProducts();
+		
+		return ResponseEntity.ok(allProducts);
+	}
 	
 }
