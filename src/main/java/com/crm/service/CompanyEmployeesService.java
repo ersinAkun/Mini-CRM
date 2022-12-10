@@ -97,40 +97,40 @@ public class CompanyEmployeesService {
 	}
 
 	//*************GET BY ID EMPLOYEES**********************
-//	public CompanyEmployeesResponseDTO getEmployeesById(Long id) {
-//		CompanyEmployees companyEmployees= companyEmployeesRepository.findById(id).orElseThrow(()->
-//		   new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
-//		
-//		Role role = roleService.findByType(RoleType.ROLE_USER);
-//		Set<Role> roles = new HashSet<>();
-//		roles.add(role);
-//		
-//		//List<Company> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(id);
-//		
-//		
-//		
-//		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
-//		
-//		companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
-//		companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
-//		companyEmployeesResponseDTO.setEmail(companyEmployees.getEmail());
-//		companyEmployeesResponseDTO.setJobTitle(companyEmployees.getJobTitle());
-//		companyEmployeesResponseDTO.setPhoneNumber(companyEmployees.getPhoneNumber());
-//		companyEmployeesResponseDTO.setAddress(companyEmployees.getAddress());
-//		companyEmployeesResponseDTO.setCity(companyEmployees.getCity());
-//		companyEmployeesResponseDTO.setCountry(companyEmployees.getCountry());
-//		companyEmployeesResponseDTO.setState(companyEmployees.getState());
-//		companyEmployeesResponseDTO.setHasWhatsapp(companyEmployees.getHasWhatsapp());
-//		companyEmployeesResponseDTO.setNotes(companyEmployees.getNotes());
-//		companyEmployeesResponseDTO.setSpeaks(companyEmployees.getSpeaks());
-//		companyEmployeesResponseDTO.setBuiltIn(companyEmployees.getBuiltIn());
-//		companyEmployeesResponseDTO.setEmployeeDepartment(companyEmployees.getEmployeeDepartment());
-//		//companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
-//		companyEmployeesResponseDTO.setRoles(roles);
-//		
-//		
-//		return companyEmployeesResponseDTO;
-//	}
+	public CompanyEmployeesResponseDTO getEmployeesById(Long id) {
+		CompanyEmployees companyEmployees= companyEmployeesRepository.findById(id).orElseThrow(()->
+		   new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+		
+		Role role = roleService.findByType(RoleType.ROLE_USER);
+		Set<Role> roles = new HashSet<>();
+		roles.add(role);
+		
+		//List<Company> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(id);
+		
+		
+		
+		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
+		
+		companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
+		companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
+		companyEmployeesResponseDTO.setEmail(companyEmployees.getEmail());
+		companyEmployeesResponseDTO.setJobTitle(companyEmployees.getJobTitle());
+		companyEmployeesResponseDTO.setPhoneNumber(companyEmployees.getPhoneNumber());
+		companyEmployeesResponseDTO.setAddress(companyEmployees.getAddress());
+		companyEmployeesResponseDTO.setCity(companyEmployees.getCity());
+		companyEmployeesResponseDTO.setCountry(companyEmployees.getCountry());
+		companyEmployeesResponseDTO.setState(companyEmployees.getState());
+		companyEmployeesResponseDTO.setHasWhatsapp(companyEmployees.getHasWhatsapp());
+		companyEmployeesResponseDTO.setNotes(companyEmployees.getNotes());
+		companyEmployeesResponseDTO.setSpeaks(companyEmployees.getSpeaks());
+		companyEmployeesResponseDTO.setBuiltIn(companyEmployees.getBuiltIn());
+		companyEmployeesResponseDTO.setEmployeeDepartment(companyEmployees.getEmployeeDepartment());
+		//companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
+		companyEmployeesResponseDTO.setRoles(roles);
+		
+		
+		return companyEmployeesResponseDTO;
+	}
 
 
 }

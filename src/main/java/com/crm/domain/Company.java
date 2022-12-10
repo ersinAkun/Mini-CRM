@@ -103,7 +103,6 @@ public class Company {
   private List<Orders> orders;
   
   @OneToMany
-  @JoinColumn(name="company_id")
   private List<Emails> emails; //???
   
   @Enumerated(EnumType.STRING)

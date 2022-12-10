@@ -58,7 +58,7 @@ private Long id;
 	  @Column//ön tarafta gözükmesin ama db'de olsun.. @JsonIGnore olabilir
 	//private Long supplierId;
 	  
-	  @OneToMany(orphanRemoval = true)
+	  @OneToMany//(orphanRemoval = true)
 		@JoinColumn(name = "orderedProduct_id")
 		private Set<ImageFile> image;
 	  
