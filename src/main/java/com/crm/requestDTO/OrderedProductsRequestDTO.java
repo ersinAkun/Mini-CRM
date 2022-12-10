@@ -16,37 +16,37 @@ public class OrderedProductsRequestDTO {
 	
 	@Size(max=15)
 	@NotNull(message="Please provide ProductCode")
-	@NotBlank
+	//@NotBlank
 	private String productCode;
 	  
 	@Size(max=50)
 	@NotNull(message="Please provide ProductName")
-	@NotBlank
+	//@NotBlank
 	private String productName;
 	  
 	@Size(max=25)// 100cmx100cmx100cm
 	//@NotNull(message="Please provide Size")
-	@NotBlank
+	//@NotBlank
 	private String size;
 	  
-	@Size(max=15)
+	//@Size(max=15)
 	//@NotNull(message="Please provide weight")
-	@NotBlank
+	//@NotBlank
 	private Double weight;
 	  
-	@Size(max=15)
+	//@Size(max=15)
 	@NotNull(message="Please provide PurhasePrice")
-	@NotBlank
+	//@NotBlank
 	private Double purchasePrice;//fiyat ne türden olcak. tl mi € mu filan?	
 	
-	@Size(max=15)
+	//@Size(max=15)
 	@NotNull(message="Please provide SalePrice")
-	@NotBlank
+	//@NotBlank
     private Double salePrice;//fiyat ne türden olcak. tl mi € mu filan?	
 	
-	@Size(max=15)
+	//@Size(max=15)
 	//@NotNull(message="Please provide NetProfit")
-	@NotBlank
+	//@NotBlank
     private Double netProfit;
 	
 	

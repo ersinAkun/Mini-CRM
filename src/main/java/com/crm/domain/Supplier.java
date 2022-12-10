@@ -1,6 +1,7 @@
 package com.crm.domain;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,9 +54,8 @@ public class Supplier {
 	 //@Column
 	// private Double totalAmount;  //her satışta üzerine eklencek
 	  
-	  @OneToMany
-	  private List<OrderedProducts> orderedProducts; 
-	  //sonradan join coloum yapılıp istediğimiz ismi verebiliriz
+	  @OneToMany(mappedBy = "supplier")
+	  private List<OrderedProducts> orderedProducts = new ArrayList<>(); 
 	  
-
+	  
 }
