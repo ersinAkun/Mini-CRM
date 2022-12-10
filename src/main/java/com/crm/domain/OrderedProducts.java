@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -58,7 +61,8 @@ private Long productId;
 		@JoinColumn(name = "orderedProduct_id")
 		private Set<ImageFile> image;
 	  
-	  @ManyToOne(fetch = FetchType.LAZY)
+	  @JsonIgnore//stackoverflow olmaması için.
+	  @ManyToOne()
 	  @JoinColumn(name="supplier_id")
 	  private Supplier supplier;
 	 
