@@ -141,12 +141,6 @@ public class OrderedProductsService {
 		orderedProductsRepository.delete(orderedProducts);
 	}
 
-	public List<OrderedProductsResponseDTO> getAllOrderedProducts() {
-		
-		List<OrderedProducts> orderedProductsList = orderedProductsRepository.findAll();
-		
-		
-		
-	}
+
 
 }

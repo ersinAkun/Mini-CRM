@@ -34,7 +34,7 @@ public class CompanyEmployeesRequestDTO {
 	
 	@Size(max = 50)
 	@Email
-	@NotNull(message = "Please provide email")
+	//@NotNull(message = "Please provide email")
 	private String email;
 	
 	@Size(max = 30)
@@ -79,9 +79,6 @@ public class CompanyEmployeesRequestDTO {
 	@Size(max = 50)
 	@NotBlank
 	private String speaks;
-	
-	
-	private Boolean builtIn;
 
 	@Enumerated(EnumType.STRING)
 	private Department employeeDepartment;
