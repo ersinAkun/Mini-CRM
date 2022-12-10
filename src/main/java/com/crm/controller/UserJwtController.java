@@ -59,8 +59,7 @@ public class UserJwtController {
    
  //******CREATE EMPLOYEES****
 	
- 	@PostMapping("register")
-
+ 	@PostMapping("/register")
  	public ResponseEntity<CrmResponse> createCompanyEmployees(@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
  		companyEmployeesService.createCompanyEmployees(companyEmployeesRequestDTO);
  		
