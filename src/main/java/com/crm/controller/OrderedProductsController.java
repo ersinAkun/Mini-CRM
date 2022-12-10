@@ -77,12 +77,12 @@ public class OrderedProductsController {
 	
 	//*******************EMIN ***GET ALL ORDERED PRODUCT 10.12.22*****************//
 	
-	@GetMapping("/getAll")
-	public ResponseEntity<List<OrderedProductsResponseDTO>> getAllOrderedProducts(){
-		
-		List<OrderedProductsResponseDTO> allProducts = orderedProductsService.getAllOrderedProducts();
-		
-		return ResponseEntity.ok(allProducts);
-	}
+//	@GetMapping("/getAll")
+//	public ResponseEntity<List<OrderedProductsResponseDTO>> getAllOrderedProducts(){
+//		
+//		List<OrderedProductsResponseDTO> allProducts = orderedProductsService.getAllOrderedProducts();
+//		
+//		return ResponseEntity.ok(allProducts);
+//	}
 	
 }
