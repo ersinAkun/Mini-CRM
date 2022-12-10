@@ -34,7 +34,7 @@ public class CompanyEmployeesRequestDTO {
 	
 	@Size(max = 50)
 	@Email
-	@NotNull(message = "Please provide email")
+	//@NotNull(message = "Please provide email")
 	private String email;
 	
 	@Size(max = 30)

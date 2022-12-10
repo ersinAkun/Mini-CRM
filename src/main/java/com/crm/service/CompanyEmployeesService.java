@@ -17,7 +17,7 @@ import com.crm.exception.ConflictException;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyEmployeesRepository;
-import com.crm.repository.CompanyRepository;
+
 import com.crm.requestDTO.CompanyEmployeesRequestDTO;
 import com.crm.responseDTO.CompanyEmployeesResponseDTO;
 
@@ -35,19 +35,19 @@ public class CompanyEmployeesService {
 	private CompanyEmployeesRepository companyEmployeesRepository;
 	
 	
-	private CompanyRepository companyRepository;
+	//private CompanyRepository companyRepository;
 	
 	private RoleService roleService;
 	
 	
 	@Autowired
 	public CompanyEmployeesService(@Lazy PasswordEncoder passwordEncoder,
-			CompanyEmployeesRepository companyEmployeesRepository, RoleService roleService, CompanyRepository companyRepository) {
+			CompanyEmployeesRepository companyEmployeesRepository, RoleService roleService) {
 		super();
 		this.passwordEncoder = passwordEncoder;
 		this.companyEmployeesRepository = companyEmployeesRepository;
 		this.roleService = roleService;
-		this.companyRepository=companyRepository;
+		//this.companyRepository=companyRepository;
 	}
 
 	public void createCompanyEmployees(CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
@@ -98,40 +98,40 @@ public class CompanyEmployeesService {
 	}
 
 	//*************GET BY ID EMPLOYEES**********************
-	public CompanyEmployeesResponseDTO getEmployeesById(Long id) {
-		CompanyEmployees companyEmployees= companyEmployeesRepository.findById(id).orElseThrow(()->
-		   new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
-		
-		Role role = roleService.findByType(RoleType.ROLE_USER);
-		Set<Role> roles = new HashSet<>();
-		roles.add(role);
-		
-		List<Company> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(id);
-		
-		
-		
-		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
-		
-		companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
-		companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
-		companyEmployeesResponseDTO.setEmail(companyEmployees.getEmail());
-		companyEmployeesResponseDTO.setJobTitle(companyEmployees.getJobTitle());
-		companyEmployeesResponseDTO.setPhoneNumber(companyEmployees.getPhoneNumber());
-		companyEmployeesResponseDTO.setAddress(companyEmployees.getAddress());
-		companyEmployeesResponseDTO.setCity(companyEmployees.getCity());
-		companyEmployeesResponseDTO.setCountry(companyEmployees.getCountry());
-		companyEmployeesResponseDTO.setState(companyEmployees.getState());
-		companyEmployeesResponseDTO.setHasWhatsapp(companyEmployees.getHasWhatsapp());
-		companyEmployeesResponseDTO.setNotes(companyEmployees.getNotes());
-		companyEmployeesResponseDTO.setSpeaks(companyEmployees.getSpeaks());
-		companyEmployeesResponseDTO.setBuiltIn(companyEmployees.getBuiltIn());
-		companyEmployeesResponseDTO.setEmployeeDepartment(companyEmployees.getEmployeeDepartment());
-		companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
-		companyEmployeesResponseDTO.setRoles(roles);
-		
-		
-		return companyEmployeesResponseDTO;
-	}
+//	public CompanyEmployeesResponseDTO getEmployeesById(Long id) {
+//		CompanyEmployees companyEmployees= companyEmployeesRepository.findById(id).orElseThrow(()->
+//		   new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+//		
+//		Role role = roleService.findByType(RoleType.ROLE_USER);
+//		Set<Role> roles = new HashSet<>();
+//		roles.add(role);
+//		
+//		//List<Company> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(id);
+//		
+//		
+//		
+//		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
+//		
+//		companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
+//		companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
+//		companyEmployeesResponseDTO.setEmail(companyEmployees.getEmail());
+//		companyEmployeesResponseDTO.setJobTitle(companyEmployees.getJobTitle());
+//		companyEmployeesResponseDTO.setPhoneNumber(companyEmployees.getPhoneNumber());
+//		companyEmployeesResponseDTO.setAddress(companyEmployees.getAddress());
+//		companyEmployeesResponseDTO.setCity(companyEmployees.getCity());
+//		companyEmployeesResponseDTO.setCountry(companyEmployees.getCountry());
+//		companyEmployeesResponseDTO.setState(companyEmployees.getState());
+//		companyEmployeesResponseDTO.setHasWhatsapp(companyEmployees.getHasWhatsapp());
+//		companyEmployeesResponseDTO.setNotes(companyEmployees.getNotes());
+//		companyEmployeesResponseDTO.setSpeaks(companyEmployees.getSpeaks());
+//		companyEmployeesResponseDTO.setBuiltIn(companyEmployees.getBuiltIn());
+//		companyEmployeesResponseDTO.setEmployeeDepartment(companyEmployees.getEmployeeDepartment());
+//		//companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
+//		companyEmployeesResponseDTO.setRoles(roles);
+//		
+//		
+//		return companyEmployeesResponseDTO;
+//	}
 
 
 }

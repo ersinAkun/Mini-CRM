@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import com.crm.domain.CompanyEmployees;
 
-@Component
 @Repository
 public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmployees, Long>   {
 
@@ -23,7 +22,7 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 	
 	// User ve Role arasında ManyToMany ilişkide default olarak LAZY tanımlıydı,
 	//			biz bunu EAGER olmasını sağladık @EntityGraph ile
-	@EntityGraph(attributePaths = "roles")
+	//@EntityGraph(attributePaths = "roles")
 	Optional<CompanyEmployees> findByEmail(String email);
 	
 	

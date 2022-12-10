@@ -29,13 +29,13 @@ public class CompanyEmployeesController {
 	
 	//*************GET BY ID EMPLOYEES**********************
 	
-	@GetMapping("/{id}/auth")
-	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<CompanyEmployeesResponseDTO> getEmployeesById(@PathVariable Long id){
-		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = companyEmployeesService.getEmployeesById(id);
-		
-		return ResponseEntity.ok(companyEmployeesResponseDTO);
-	}
+//	@GetMapping("/{id}/auth")
+//	@PreAuthorize("hasRole('ADMIN')")
+//	public ResponseEntity<CompanyEmployeesResponseDTO> getEmployeesById(@PathVariable Long id){
+//		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = companyEmployeesService.getEmployeesById(id);
+//		
+//		return ResponseEntity.ok(companyEmployeesResponseDTO);
+//	}
 	
 	
 	
