@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.crm.requestDTO.OrderedProductsRequestDTO;
 import com.crm.responseDTO.CrmResponse;
+import com.crm.responseDTO.OrderedProductsResponseDTO;
 import com.crm.responseDTO.ResponseMessage;
 import com.crm.service.OrderedProductsService;
 
@@ -25,6 +27,7 @@ public class OrderedProductsController {
 	@Autowired
 	OrderedProductsService orderedProductsService;
 	
+	//EMİN ADD PRODUCT 10.12.22
 	@PostMapping("/{sid}/add/")//sid= supplier id... yani bu ürün hangi üreticiye ait onu path'dan alcaz
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> createProduct(@Valid @RequestBody OrderedProductsRequestDTO orderedProductsRequestDTO,
@@ -37,6 +40,18 @@ public class OrderedProductsController {
 		response.setSuccess(true);
 		return ResponseEntity.ok(response);
 	}
+	
+	//EMİN GET PRODUCT 10.12.22
+	
+	@GetMapping("/get/{id}")
+	public ResponseEntity<OrderedProductsResponseDTO> getOrderById(@PathVariable Long id)
+	{
+		OrderedProductsResponseDTO orderedProductsResponseDTO = orderedProductsService.findById(id);
+		return ResponseEntity.ok(orderedProductsResponseDTO);
+	}
+	
+	
+	
 	
 	
 	

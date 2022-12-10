@@ -1,5 +1,8 @@
 package com.crm.repository;
 
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,5 +16,8 @@ public interface OrderedProductsRepository extends JpaRepository<OrderedProducts
 	
 	@Query( "SELECT count(*) from OrderedProducts p join p.image img where img.id=:id")
 	Integer findProductCountByImageId(@Param("id") String id );
+	
+	@EntityGraph(attributePaths = "id")
+	Optional<OrderedProducts>findOrderedProductsById(Long id);
 
 }

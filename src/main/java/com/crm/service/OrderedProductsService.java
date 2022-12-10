@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.crm.domain.ImageFile;
 import com.crm.domain.OrderedProducts;
+import com.crm.exception.ResourceNotFoundException;
+import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.ImageFileRepository;
 import com.crm.repository.OrderedProductsRepository;
 import com.crm.requestDTO.OrderedProductsRequestDTO;
+import com.crm.responseDTO.OrderedProductsResponseDTO;
+
 
 
 @Service
@@ -57,6 +61,25 @@ public class OrderedProductsService {
 		orderedProducts.setWeight(orderedProductsRequestDTO.getWeight());	
 		
 		orderedProductsRepository.save(orderedProducts);	
+	}
+
+	public OrderedProductsResponseDTO findById(Long id) {
+		
+		OrderedProducts orderedProducts= orderedProductsRepository.findById(id).orElseThrow(
+				() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));;
+	
+			OrderedProductsResponseDTO orderedProductsResponseDTO = new OrderedProductsResponseDTO();
+			orderedProductsResponseDTO.setNetProfit(orderedProducts.getNetProfit());
+			orderedProductsResponseDTO.setProductCode(orderedProducts.getProductCode());
+			orderedProductsResponseDTO.setProductName(orderedProducts.getProductName());
+			orderedProductsResponseDTO.setPurchasePrice(orderedProducts.getPurchasePrice());
+			orderedProductsResponseDTO.setSalePrice(orderedProducts.getSalePrice());
+			orderedProductsResponseDTO.setSize(orderedProducts.getSize());
+			orderedProductsResponseDTO.setWeight(orderedProducts.getWeight());
+			orderedProductsResponseDTO.setSupplierName(orderedProducts.getSupplier().getName());
+		
+			return orderedProductsResponseDTO;
+			
 	}
 
 }

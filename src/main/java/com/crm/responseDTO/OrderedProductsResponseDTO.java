@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderProductsResponseDTO {
+public class OrderedProductsResponseDTO {
 	
 	
 	
@@ -23,18 +23,18 @@ public class OrderProductsResponseDTO {
 	private String size;
 	  
 	
-	private Integer weight;
+	private Double weight;
 	  
 	
 	private Double purchasePrice;
 	  
 	 
 	private Double salePrice;
-	
-	  
-	
+		
 	
 	private Double netProfit;
+	
+	private String supplierName;
 	
 	  
 	  
