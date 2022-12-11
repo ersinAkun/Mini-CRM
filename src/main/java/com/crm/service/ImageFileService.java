@@ -87,24 +87,3 @@ public class ImageFileService {
 	}
 
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
