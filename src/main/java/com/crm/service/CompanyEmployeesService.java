@@ -1,15 +1,17 @@
 package com.crm.service;
 
 
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import com.crm.domain.Company;
 import com.crm.domain.CompanyEmployees;
 import com.crm.domain.Role;
 import com.crm.domain.enums.RoleType;
@@ -17,11 +19,8 @@ import com.crm.exception.ConflictException;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyEmployeesRepository;
-
 import com.crm.requestDTO.CompanyEmployeesRequestDTO;
 import com.crm.responseDTO.CompanyEmployeesResponseDTO;
-
-
 
 
 
@@ -40,6 +39,7 @@ public class CompanyEmployeesService {
 	private RoleService roleService;
 	
 	
+	
 	@Autowired
 	public CompanyEmployeesService(@Lazy PasswordEncoder passwordEncoder,
 			CompanyEmployeesRepository companyEmployeesRepository, RoleService roleService) {
@@ -47,7 +47,8 @@ public class CompanyEmployeesService {
 		this.passwordEncoder = passwordEncoder;
 		this.companyEmployeesRepository = companyEmployeesRepository;
 		this.roleService = roleService;
-		//this.companyRepository=companyRepository;
+		
+		
 	}
 
 	public void createCompanyEmployees(CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
@@ -132,5 +133,49 @@ public class CompanyEmployeesService {
 		return companyEmployeesResponseDTO;
 	}
 
+	
+	//*************GET ALL EMPLOYEES**********************
+	public List<CompanyEmployeesResponseDTO> getAllEmployees() {
+		List<CompanyEmployees> companyEmployees = companyEmployeesRepository.findAll();
+ 
+				
+	
+		
+		//CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
+		List<CompanyEmployeesResponseDTO> companyEmployeesResponseDTOs= new ArrayList<>();
+		
+				for (CompanyEmployees employees : companyEmployees) {
+					
+					CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
+					companyEmployeesResponseDTO.setFirstName(employees.getFirstName());
+					companyEmployeesResponseDTO.setLastName(employees.getLastName());
+					companyEmployeesResponseDTO.setEmail(employees.getEmail());
+					companyEmployeesResponseDTO.setJobTitle(employees.getJobTitle());
+					companyEmployeesResponseDTO.setPhoneNumber(employees.getPhoneNumber());
+					companyEmployeesResponseDTO.setAddress(employees.getAddress());
+					companyEmployeesResponseDTO.setCity(employees.getCity());
+					companyEmployeesResponseDTO.setCountry(employees.getCountry());
+					companyEmployeesResponseDTO.setState(employees.getState());
+					companyEmployeesResponseDTO.setHasWhatsapp(employees.getHasWhatsapp());
+					companyEmployeesResponseDTO.setNotes(employees.getNotes());
+					companyEmployeesResponseDTO.setSpeaks(employees.getSpeaks());
+					companyEmployeesResponseDTO.setBuiltIn(employees.getBuiltIn());
+					companyEmployeesResponseDTO.setEmployeeDepartment(employees.getEmployeeDepartment());
+					//companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
+					companyEmployeesResponseDTO.setRoles(employees.getRoles());
+					
+					companyEmployeesResponseDTOs.add(companyEmployeesResponseDTO);//list e ekliyoruz
+				}
+		
+		return companyEmployeesResponseDTOs;
+	}
+
+//	public Page<CompanyEmployeesResponseDTO> getEmployeesPage(Pageable pageable) {
+//		Page<CompanyEmployees> employeesPage = companyEmployeesRepository.findAll(pageable);
+//		return null;
+//	}
+	
+	
+	
 
 }
