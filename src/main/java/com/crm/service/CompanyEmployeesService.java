@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyEmployeesRepository;
 import com.crm.requestDTO.CompanyEmployeesRequestDTO;
 import com.crm.responseDTO.CompanyEmployeesResponseDTO;
+
 
 
 
@@ -40,6 +42,7 @@ public class CompanyEmployeesService {
 	
 	
 	
+	
 	@Autowired
 	public CompanyEmployeesService(@Lazy PasswordEncoder passwordEncoder,
 			CompanyEmployeesRepository companyEmployeesRepository, RoleService roleService) {
@@ -47,10 +50,14 @@ public class CompanyEmployeesService {
 		this.passwordEncoder = passwordEncoder;
 		this.companyEmployeesRepository = companyEmployeesRepository;
 		this.roleService = roleService;
+
 		
 		
 	}
 
+	
+	//*****CELEBI********CREATE EMPLOYEES**********************
+	
 	public void createCompanyEmployees(CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
 		if (companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail())) {
 			throw new ConflictException(
@@ -86,6 +93,8 @@ public class CompanyEmployeesService {
 
 	}
 
+	
+	//*****CELEBI********GET BY EMAIL EMPLOYEES**********************
 		//security için
 	public CompanyEmployees getEmployeeByEmail(String email) {
 	
@@ -97,7 +106,7 @@ public class CompanyEmployeesService {
 		return companyEmployees ;
 	}
 
-	//*************GET BY ID EMPLOYEES**********************
+	//*****CELEBI********GET BY ID EMPLOYEES**********************
 	public CompanyEmployeesResponseDTO getEmployeesById(Long id) {
 		CompanyEmployees companyEmployees= companyEmployeesRepository.findById(id).orElseThrow(()->
 		   new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
@@ -113,6 +122,7 @@ public class CompanyEmployeesService {
 		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
 		
 		companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
+		companyEmployeesResponseDTO.setId(companyEmployees.getId());
 		companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
 		companyEmployeesResponseDTO.setEmail(companyEmployees.getEmail());
 		companyEmployeesResponseDTO.setJobTitle(companyEmployees.getJobTitle());
@@ -134,7 +144,7 @@ public class CompanyEmployeesService {
 	}
 
 	
-	//*************GET ALL EMPLOYEES**********************
+	//******CELEBI*******GET ALL EMPLOYEES**********************
 	public List<CompanyEmployeesResponseDTO> getAllEmployees() {
 		List<CompanyEmployees> companyEmployees = companyEmployeesRepository.findAll();
  
@@ -147,6 +157,7 @@ public class CompanyEmployeesService {
 				for (CompanyEmployees employees : companyEmployees) {
 					
 					CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
+					companyEmployeesResponseDTO.setId(employees.getId());
 					companyEmployeesResponseDTO.setFirstName(employees.getFirstName());
 					companyEmployeesResponseDTO.setLastName(employees.getLastName());
 					companyEmployeesResponseDTO.setEmail(employees.getEmail());
@@ -169,11 +180,105 @@ public class CompanyEmployeesService {
 		
 		return companyEmployeesResponseDTOs;
 	}
+	
+	
+	//****CELEBI*********GET PAGE EMPLOYEES**********************
 
-//	public Page<CompanyEmployeesResponseDTO> getEmployeesPage(Pageable pageable) {
-//		Page<CompanyEmployees> employeesPage = companyEmployeesRepository.findAll(pageable);
-//		return null;
-//	}
+	public Page<CompanyEmployeesResponseDTO> getEmployeesPage(Pageable pageable) {
+		Page<CompanyEmployees> employeesPage = companyEmployeesRepository.findAll(pageable);
+		
+		Page<CompanyEmployeesResponseDTO> responsePage = employeesPage.map(new Function<CompanyEmployees, CompanyEmployeesResponseDTO>() {
+
+			@Override
+			public CompanyEmployeesResponseDTO apply(CompanyEmployees companyEmployees) {
+				CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
+				
+				companyEmployeesResponseDTO.setId(companyEmployees.getId());
+				companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
+				companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
+				companyEmployeesResponseDTO.setEmail(companyEmployees.getEmail());
+				companyEmployeesResponseDTO.setJobTitle(companyEmployees.getJobTitle());
+				companyEmployeesResponseDTO.setPhoneNumber(companyEmployees.getPhoneNumber());
+				companyEmployeesResponseDTO.setAddress(companyEmployees.getAddress());
+				companyEmployeesResponseDTO.setCity(companyEmployees.getCity());
+				companyEmployeesResponseDTO.setCountry(companyEmployees.getCountry());
+				companyEmployeesResponseDTO.setState(companyEmployees.getState());
+				companyEmployeesResponseDTO.setHasWhatsapp(companyEmployees.getHasWhatsapp());
+				companyEmployeesResponseDTO.setNotes(companyEmployees.getNotes());
+				companyEmployeesResponseDTO.setSpeaks(companyEmployees.getSpeaks());
+				companyEmployeesResponseDTO.setBuiltIn(companyEmployees.getBuiltIn());
+				companyEmployeesResponseDTO.setEmployeeDepartment(companyEmployees.getEmployeeDepartment());
+				//companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
+				companyEmployeesResponseDTO.setRoles(companyEmployees.getRoles());
+				
+				
+				return companyEmployeesResponseDTO;
+			}
+		
+		});
+		
+		return responsePage;
+	}
+
+	
+	//GET BY ID POJO
+	public CompanyEmployees getCompanyEmployees(Long id) {
+		
+		CompanyEmployees companyEmployeesById= companyEmployeesRepository.findEmployeesById(id).orElseThrow(()->
+		new ResourceNotFoundException(String.format(ErrorMessage.EMPLOYEES_NOT_FOUND_MESSAGE,id))
+				);
+		return companyEmployeesById;
+	}
+	
+	
+	
+	//****CELEBI*********UPDATE EMPLOYEES**********************
+
+	public void updateEmployees(Long id, CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
+		
+		
+		//TODO role degistirilecek mi ?
+		
+		
+		CompanyEmployees companyEmployeesById =getCompanyEmployees(id);
+	   
+	      boolean emailExist  = companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail());
+	     
+	      if(emailExist && ! companyEmployeesRequestDTO.getEmail().equals(companyEmployeesById.getEmail())) {
+	    	  throw new ConflictException(String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE,companyEmployeesRequestDTO.getEmail()));
+	      }
+		
+	   // password boş ise
+	      if(companyEmployeesRequestDTO.getPassword()==null) {
+	    	  companyEmployeesRequestDTO.setPassword(companyEmployeesById.getPassword());
+	      } else  {
+	    	  String encodedPassword =  passwordEncoder.encode(companyEmployeesRequestDTO.getPassword());
+	    	  companyEmployeesRequestDTO.setPassword(encodedPassword);
+	      }
+	      
+	      
+	      
+		
+		
+	      companyEmployeesById.setAddress(companyEmployeesRequestDTO.getAddress());
+	      companyEmployeesById.setPassword(companyEmployeesRequestDTO.getPassword());
+	      companyEmployeesById.setCity(companyEmployeesRequestDTO.getCity());
+	      companyEmployeesById.setCountry(companyEmployeesRequestDTO.getCountry());
+	      companyEmployeesById.setEmail(companyEmployeesRequestDTO.getEmail());
+	      companyEmployeesById.setEmployeeDepartment(companyEmployeesRequestDTO.getEmployeeDepartment());
+	      companyEmployeesById.setFirstName(companyEmployeesRequestDTO.getFirstName());
+	      companyEmployeesById.setHasWhatsapp(companyEmployeesRequestDTO.getHasWhatsapp());
+	      companyEmployeesById.setJobTitle(companyEmployeesRequestDTO.getJobTitle());
+	      companyEmployeesById.setLastName(companyEmployeesRequestDTO.getLastName());
+	      companyEmployeesById.setNotes(companyEmployeesRequestDTO.getNotes());
+	      companyEmployeesById.setPhoneNumber(companyEmployeesRequestDTO.getPhoneNumber());
+	      companyEmployeesById.setSpeaks(companyEmployeesRequestDTO.getSpeaks());
+	      companyEmployeesById.setState(companyEmployeesRequestDTO.getState());
+//		companyEmployees.setRoles(roles);
+		companyEmployeesRepository.save(companyEmployeesById);
+	}
+
+
 	
 	
 	
