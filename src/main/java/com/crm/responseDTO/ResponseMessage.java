@@ -15,6 +15,7 @@ public class ResponseMessage {
 	public static final String ORDERED_PRODUCT_UPDATED_MESSAGE = "Ordered Product successfully updated";
 	public static final String ORDERED_PRODUCT_DELETED_MESSAGE = "Ordered Product successfully deleted";
 	public final static String LEAD_CREATE_RESPONSE="Lead succesfully created";
-	
+	public final static String COMPANY_CREATED_RESPONSE="Company successfully created";
+
 
 }
