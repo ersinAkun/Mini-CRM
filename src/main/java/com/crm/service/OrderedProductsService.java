@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.crm.domain.ImageFile;
 import com.crm.domain.OrderedProducts;
@@ -168,6 +172,33 @@ public class OrderedProductsService {
 
 		// return orderedProductsMapper.pojoListToResponseList(orderedProductsList);
 
+	}
+
+	public Page<OrderedProductsResponseDTO> findAllWithPage(Pageable pageable) {
+		
+		Page<OrderedProducts> productsPage = orderedProductsRepository.findAll(pageable);
+		
+		Page<OrderedProductsResponseDTO> responsePage = productsPage.map(new Function<OrderedProducts, OrderedProductsResponseDTO>() {
+
+			@Override
+			public OrderedProductsResponseDTO apply(OrderedProducts orderedProducts) {
+				
+				OrderedProductsResponseDTO orderedProductsResponseDTO = new OrderedProductsResponseDTO();
+				orderedProductsResponseDTO.setId(orderedProducts.getId());
+				orderedProductsResponseDTO.setNetProfit(orderedProducts.getNetProfit());
+				orderedProductsResponseDTO.setProductCode(orderedProducts.getProductCode());
+				orderedProductsResponseDTO.setProductName(orderedProducts.getProductName());
+				orderedProductsResponseDTO.setPurchasePrice(orderedProducts.getPurchasePrice());
+				orderedProductsResponseDTO.setSalePrice(orderedProducts.getSalePrice());
+				orderedProductsResponseDTO.setSize(orderedProducts.getSize());
+				orderedProductsResponseDTO.setWeight(orderedProducts.getWeight());
+				orderedProductsResponseDTO.setSupplierName(orderedProducts.getSupplier().getName());
+
+				return orderedProductsResponseDTO;
+				
+			}
+		});
+		return responsePage;
 	}
 
 }
