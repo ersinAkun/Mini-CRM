@@ -1,7 +1,6 @@
 package com.crm.controller;
 
 import java.util.List;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.OrderedProductsResponseDTO;
 import com.crm.responseDTO.ResponseMessage;
 import com.crm.service.OrderedProductsService;
-
 
 @RestController
 @RequestMapping("/product")
@@ -43,7 +41,8 @@ public class OrderedProductsController {
 		return ResponseEntity.ok(response);
 	}
 
-	// ********************EMİN ***GET PRODUCT 10.12.22*****************************//
+	// ********************EMİN ***GET PRODUCT
+	// 10.12.22*****************************//
 
 	@GetMapping("/get/{id}")
 	public ResponseEntity<OrderedProductsResponseDTO> getOrderById(@PathVariable Long id) {
@@ -51,7 +50,8 @@ public class OrderedProductsController {
 		return ResponseEntity.ok(orderedProductsResponseDTO);
 	}
 
-	// ****************EMIN ***UPDATE PRODUCT 10.12.22******************************//
+	// ****************EMIN ***UPDATE PRODUCT
+	// 10.12.22******************************//
 
 	@PutMapping("/update")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -59,30 +59,31 @@ public class OrderedProductsController {
 			@RequestParam("imageId") String imageId, @RequestParam("supplierId") Long sId,
 			@Valid @RequestBody OrderedProductsRequestDTO orderedProductsRequestDTO) {
 
-		orderedProductsService.updateOrderedProduct(id,sId,imageId,orderedProductsRequestDTO);
-		CrmResponse crmResponse = new CrmResponse(ResponseMessage.ORDERED_PRODUCT_UPDATED_MESSAGE,true);
+		orderedProductsService.updateOrderedProduct(id, sId, imageId, orderedProductsRequestDTO);
+		CrmResponse crmResponse = new CrmResponse(ResponseMessage.ORDERED_PRODUCT_UPDATED_MESSAGE, true);
 		return ResponseEntity.ok(crmResponse);
-		
+
 	}
-	
-	//*******************EMIN ***DELETE ORDERED PRODUCT 10.12.22*****************//
-	
+
+	// *******************EMIN ***DELETE ORDERED PRODUCT 10.12.22*****************//
+
 	@DeleteMapping("/delete/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<CrmResponse> deleteOrderedProduct (@PathVariable Long id){
+	public ResponseEntity<CrmResponse> deleteOrderedProduct(@PathVariable Long id) {
 		orderedProductsService.removeById(id);
-		CrmResponse response = new CrmResponse(ResponseMessage.ORDERED_PRODUCT_DELETED_MESSAGE,true);
+		CrmResponse response = new CrmResponse(ResponseMessage.ORDERED_PRODUCT_DELETED_MESSAGE, true);
 		return ResponseEntity.ok(response);
 	}
-	
-	//*******************EMIN ***GET ALL ORDERED PRODUCT 10.12.22*****************//
-	
-//	@GetMapping("/getAll")
-//	public ResponseEntity<List<OrderedProductsResponseDTO>> getAllOrderedProducts(){
-//		
-//		List<OrderedProductsResponseDTO> allProducts = orderedProductsService.getAllOrderedProducts();
-//		
-//		return ResponseEntity.ok(allProducts);
-//	}
-	
+
+	// *******************EMIN ***GET ALL ORDERED PRODUCT
+	// 10.12.22*****************//
+
+	@GetMapping("/getAll")
+	public ResponseEntity<List<OrderedProductsResponseDTO>> getAllOrderedProducts() {
+
+		List<OrderedProductsResponseDTO> allProducts = orderedProductsService.getAllOrderedProducts();
+
+		return ResponseEntity.ok(allProducts);
+	}
+
 }

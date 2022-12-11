@@ -1,13 +1,14 @@
 package com.crm.repository;
 
-import java.util.Optional;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.crm.domain.OrderedProducts;
+
 
 @Repository
 public interface OrderedProductsRepository extends JpaRepository<OrderedProducts, Long>{
@@ -19,5 +20,8 @@ public interface OrderedProductsRepository extends JpaRepository<OrderedProducts
 	
 	@EntityGraph(attributePaths = "id")
 	Optional<OrderedProducts>findOrderedProductsById(Long id);
+	
+	//@EntityGraph(attributePaths = "id")
+	//List<OrderedProducts> findAll();
 
 }

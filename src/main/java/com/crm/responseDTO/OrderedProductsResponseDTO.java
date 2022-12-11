@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrderedProductsResponseDTO {
 	
-	
+	private Long id;
 	
 	private String productCode;
 	  
