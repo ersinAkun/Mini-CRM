@@ -50,15 +50,12 @@ private Long id;
 	private Double salePrice;
 	
 	  @Column(length = 30)//ön tarafta gözükmesin ama db'de olsun.. @JsonIGnore olabilir
-	private Double profit;
-	
-	  @Column(length = 30)
 	private Double netProfit;
 	
-	  @Column//ön tarafta gözükmesin ama db'de olsun.. @JsonIGnore olabilir
-	//private Long supplierId;
+	
+
 	  
-	  @OneToMany//(orphanRemoval = true)
+	  @OneToMany(orphanRemoval = true)//orphanRemoval = true...hata alırsam sil
 		@JoinColumn(name = "orderedProduct_id")
 		private Set<ImageFile> image;
 	  
