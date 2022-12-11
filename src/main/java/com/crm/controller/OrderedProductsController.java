@@ -1,8 +1,15 @@
 package com.crm.controller;
 
 import java.util.List;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +34,7 @@ public class OrderedProductsController {
 	@Autowired
 	OrderedProductsService orderedProductsService;
 
-	// ******************EMİN ***ADD PRODUCT 10.12.22********************//
+	// *************EMİN ***ADD PRODUCT 10.12.22***************//
 	@PostMapping("/{sid}/add/") // sid= supplier id... yani bu ürün hangi üreticiye ait onu path'dan alcaz
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> createProduct(
@@ -41,8 +48,7 @@ public class OrderedProductsController {
 		return ResponseEntity.ok(response);
 	}
 
-	// ********************EMİN ***GET PRODUCT
-	// 10.12.22*****************************//
+	// **************EMİN ***GET PRODUCT 10.12.22***************//
 
 	@GetMapping("/get/{id}")
 	public ResponseEntity<OrderedProductsResponseDTO> getOrderById(@PathVariable Long id) {
@@ -50,8 +56,7 @@ public class OrderedProductsController {
 		return ResponseEntity.ok(orderedProductsResponseDTO);
 	}
 
-	// ****************EMIN ***UPDATE PRODUCT
-	// 10.12.22******************************//
+	// *************EMIN ***UPDATE PRODUCT 10.12.22**************//
 
 	@PutMapping("/update")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -65,7 +70,7 @@ public class OrderedProductsController {
 
 	}
 
-	// *******************EMIN ***DELETE ORDERED PRODUCT 10.12.22*****************//
+	// **********EMIN ***DELETE ORDERED PRODUCT 10.12.22*****************//
 
 	@DeleteMapping("/delete/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -75,8 +80,7 @@ public class OrderedProductsController {
 		return ResponseEntity.ok(response);
 	}
 
-	// *******************EMIN ***GET ALL ORDERED PRODUCT
-	// 10.12.22*****************//
+	// *************EMIN ***GET ALL ORDERED PRODUCT 11.12.22************//
 
 	@GetMapping("/getAll")
 	public ResponseEntity<List<OrderedProductsResponseDTO>> getAllOrderedProducts() {
@@ -86,4 +90,17 @@ public class OrderedProductsController {
 		return ResponseEntity.ok(allProducts);
 	}
 
+	// *************EMIN ***GET ALL ORDERED PRODUCT BY PAGE 11.12.22************//
+
+	@GetMapping("/pages")
+	public ResponseEntity<Page<OrderedProductsResponseDTO>> getAllOrderedProductsWithPage(@RequestParam("page") int page,
+			@RequestParam("size") int size, @RequestParam("sort") String prop, // neye göre sıralanacağı belirtiliyor
+			@RequestParam(value = "direction", required = false, // direction required olmasın
+					defaultValue = "DESC") Direction direction) {
+	
+		Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
+		Page<OrderedProductsResponseDTO> pageDTO = orderedProductsService.findAllWithPage(pageable);
+		return ResponseEntity.ok(pageDTO);
+
+}
 }
