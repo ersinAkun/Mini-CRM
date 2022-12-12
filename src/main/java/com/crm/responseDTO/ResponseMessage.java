@@ -19,6 +19,7 @@ public class ResponseMessage {
 
 
 	public final static String LEAD_CREATE_RESPONSE="Lead succesfully created";
+	public static final String TASK_CREATED_MESSAGE = "Task successfully created";
 
 	
 

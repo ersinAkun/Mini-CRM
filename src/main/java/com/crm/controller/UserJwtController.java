@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,6 +38,7 @@ public class UserJwtController {
    
    
    // login
+ 
    @PostMapping("/login")
    public ResponseEntity<LoginResponse> authenticate( @Valid @RequestBody LoginRequest loginRequest    )  {
 	   
@@ -58,7 +60,7 @@ public class UserJwtController {
    
    
  //******CREATE EMPLOYEES****
-	
+  
  	@PostMapping("/register")
  	public ResponseEntity<CrmResponse> createCompanyEmployees(@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
  		companyEmployeesService.createCompanyEmployees(companyEmployeesRequestDTO);
