@@ -107,8 +107,19 @@ public class CompanyEmployeesController {
 		
 		//********CELEBI*****DELETE EMPLOYEES**********************
 		
-//		@DeleteMapping("/delete/{id}")
-//		@PreAuthorize("hasRole('ADMIN')")
+		@DeleteMapping("/delete/{id}")
+		@PreAuthorize("hasRole('ADMIN')")
+		public ResponseEntity<CrmResponse> deleteCompanyEmployees(@PathVariable Long id){
+		
+			companyEmployeesService.removeEmployeesById(id);
+			
+			CrmResponse crmResponse = new CrmResponse();
+	 		crmResponse.setMessage(ResponseMessage.EMPLOYEES_DELETE_RESPONSE_MESSAGE);
+	 		crmResponse.setSuccess(true);				
+	 		return ResponseEntity.ok(crmResponse);
+			
+		}
+		
 		
 		
 		
