@@ -224,10 +224,10 @@ public class CompanyEmployeesService {
 	//GET BY ID POJO
 	public CompanyEmployees getCompanyEmployees(Long id) {
 		
-		CompanyEmployees companyEmployeesById= companyEmployeesRepository.findEmployeesById(id).orElseThrow(()->
+		CompanyEmployees companyEmployees= companyEmployeesRepository.findEmployeesById(id).orElseThrow(()->
 		new ResourceNotFoundException(String.format(ErrorMessage.EMPLOYEES_NOT_FOUND_MESSAGE,id))
 				);
-		return companyEmployeesById;
+		return companyEmployees;
 	}
 	
 	
@@ -240,17 +240,17 @@ public class CompanyEmployeesService {
 		//TODO role degistirilecek mi ?
 		
 		
-		CompanyEmployees companyEmployeesById =getCompanyEmployees(id);
+		CompanyEmployees companyEmployees =getCompanyEmployees(id);
 	   
 	      boolean emailExist  = companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail());
 	     
-	      if(emailExist && ! companyEmployeesRequestDTO.getEmail().equals(companyEmployeesById.getEmail())) {
+	      if(emailExist && ! companyEmployeesRequestDTO.getEmail().equals(companyEmployees.getEmail())) {
 	    	  throw new ConflictException(String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE,companyEmployeesRequestDTO.getEmail()));
 	      }
 		
 	   // password boş ise
 	      if(companyEmployeesRequestDTO.getPassword()==null) {
-	    	  companyEmployeesRequestDTO.setPassword(companyEmployeesById.getPassword());
+	    	  companyEmployeesRequestDTO.setPassword(companyEmployees.getPassword());
 	      } else  {
 	    	  String encodedPassword =  passwordEncoder.encode(companyEmployeesRequestDTO.getPassword());
 	    	  companyEmployeesRequestDTO.setPassword(encodedPassword);
@@ -259,23 +259,23 @@ public class CompanyEmployeesService {
 	      
 	      
 		
-		
-	      companyEmployeesById.setAddress(companyEmployeesRequestDTO.getAddress());
-	      companyEmployeesById.setPassword(companyEmployeesRequestDTO.getPassword());
-	      companyEmployeesById.setCity(companyEmployeesRequestDTO.getCity());
-	      companyEmployeesById.setCountry(companyEmployeesRequestDTO.getCountry());
-	      companyEmployeesById.setEmail(companyEmployeesRequestDTO.getEmail());
-	      companyEmployeesById.setEmployeeDepartment(companyEmployeesRequestDTO.getEmployeeDepartment());
-	      companyEmployeesById.setFirstName(companyEmployeesRequestDTO.getFirstName());
-	      companyEmployeesById.setHasWhatsapp(companyEmployeesRequestDTO.getHasWhatsapp());
-	      companyEmployeesById.setJobTitle(companyEmployeesRequestDTO.getJobTitle());
-	      companyEmployeesById.setLastName(companyEmployeesRequestDTO.getLastName());
-	      companyEmployeesById.setNotes(companyEmployeesRequestDTO.getNotes());
-	      companyEmployeesById.setPhoneNumber(companyEmployeesRequestDTO.getPhoneNumber());
-	      companyEmployeesById.setSpeaks(companyEmployeesRequestDTO.getSpeaks());
-	      companyEmployeesById.setState(companyEmployeesRequestDTO.getState());
+	      companyEmployees.setBuiltIn(companyEmployeesRequestDTO.getBuiltIn());
+	      companyEmployees.setAddress(companyEmployeesRequestDTO.getAddress());
+	      companyEmployees.setPassword(companyEmployeesRequestDTO.getPassword());
+	      companyEmployees.setCity(companyEmployeesRequestDTO.getCity());
+	      companyEmployees.setCountry(companyEmployeesRequestDTO.getCountry());
+	      companyEmployees.setEmail(companyEmployeesRequestDTO.getEmail());
+	      companyEmployees.setEmployeeDepartment(companyEmployeesRequestDTO.getEmployeeDepartment());
+	      companyEmployees.setFirstName(companyEmployeesRequestDTO.getFirstName());
+	      companyEmployees.setHasWhatsapp(companyEmployeesRequestDTO.getHasWhatsapp());
+	      companyEmployees.setJobTitle(companyEmployeesRequestDTO.getJobTitle());
+	      companyEmployees.setLastName(companyEmployeesRequestDTO.getLastName());
+	      companyEmployees.setNotes(companyEmployeesRequestDTO.getNotes());
+	      companyEmployees.setPhoneNumber(companyEmployeesRequestDTO.getPhoneNumber());
+	      companyEmployees.setSpeaks(companyEmployeesRequestDTO.getSpeaks());
+	      companyEmployees.setState(companyEmployeesRequestDTO.getState());
 //		companyEmployees.setRoles(roles);
-		companyEmployeesRepository.save(companyEmployeesById);
+		companyEmployeesRepository.save(companyEmployees);
 	}
 
 
