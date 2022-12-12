@@ -14,12 +14,11 @@ public class ResponseMessage {
 	public final static String ORDERED_PRODUCT_CREATED_MESSAGE="Ordered Product successfully created";
 	public static final String ORDERED_PRODUCT_UPDATED_MESSAGE = "Ordered Product successfully updated";
 	public static final String ORDERED_PRODUCT_DELETED_MESSAGE = "Ordered Product successfully deleted";
-
 	public static final String SUPPLIER_CREATED_MESSAGE = "Supplier successfully created";
-
-
 	public final static String LEAD_CREATE_RESPONSE="Lead succesfully created";
 	public static final String TASK_CREATED_MESSAGE = "Task successfully created";
+	public static final String TASK_UPDATED_MESSAGE = "Task successfully updated";
+	public static final String TASK_DELETED_MESSAGE = "Task successfully deleted";
 
 	
 
