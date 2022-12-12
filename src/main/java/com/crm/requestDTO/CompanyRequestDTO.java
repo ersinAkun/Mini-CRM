@@ -94,7 +94,7 @@ public class CompanyRequestDTO {
 	private Boolean isMsgSent;
 
 	@Size(max = 10)
-	@NotBlank(message = "Please provide information")
+	@NotNull(message = "Please provide information")
 	private Boolean isOrder;
 
 	@Size(max = 255)

@@ -55,17 +55,25 @@ private CompanyRepository companyRepository;
         company.setTimeZone(companyRequestDTO.getTimeZone());
         company.setWebPage(companyRequestDTO.getWebPage());
         company.setRFQ(companyRequestDTO.getRFQ());
-        company.setWhoFind(companyRequestDTO.getWhoFind());
+        //company.setWhoFind(companyRequestDTO.getWhoFind());
         company.setWhoContacted(companyRequestDTO.getWhoContacted());
         company.setAbout(companyRequestDTO.getAbout());
-       // LocalDateTime now = LocalDateTime.now();
-       // company.setFirstContactDate();
+        //LocalDateTime now = LocalDateTime.now();
+        //company.setFirstContactDate();
         company.setIsMailSent(companyRequestDTO.getIsMailSent());
         company.setIsMsgSent(companyRequestDTO.getIsMsgSent());
         company.setIsOrder(companyRequestDTO.getIsOrder());
         company.setNote(companyRequestDTO.getNote());
-       // company.setLead(companyRequestDTO.);
+        // company.setLead(companyRequestDTO.);
         //company.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
+        //company.setEmails
+        company.setCompanyStatus(companyRequestDTO.getCompanyStatus());
+        company.setIndustry(companyRequestDTO.getIndustry());
+        company.setCompanyWhereWasFound(companyRequestDTO.getCompanyWhereWasFound());
+        company.setCompanyType(companyRequestDTO.getCompanyType());
+
+        companyRepository.save(company);
+
 
 
     }
