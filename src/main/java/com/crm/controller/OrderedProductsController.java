@@ -93,14 +93,17 @@ public class OrderedProductsController {
 	// *************EMIN ***GET ALL ORDERED PRODUCT BY PAGE 11.12.22************//
 
 	@GetMapping("/pages")
-	public ResponseEntity<Page<OrderedProductsResponseDTO>> getAllOrderedProductsWithPage(@RequestParam("page") int page,
-			@RequestParam("size") int size, @RequestParam("sort") String prop, // neye göre sıralanacağı belirtiliyor
+	public ResponseEntity<Page<OrderedProductsResponseDTO>> getAllOrderedProductsWithPage(
+			@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("sort") String prop, // neye
+																												// göre
+																												// sıralanacağı
+																												// belirtiliyor
 			@RequestParam(value = "direction", required = false, // direction required olmasın
 					defaultValue = "DESC") Direction direction) {
-	
+
 		Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
 		Page<OrderedProductsResponseDTO> pageDTO = orderedProductsService.findAllWithPage(pageable);
 		return ResponseEntity.ok(pageDTO);
 
-}
+	}
 }

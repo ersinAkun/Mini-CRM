@@ -33,6 +33,7 @@ public class UserJwtController {
    
    
    // login
+ 
    @PostMapping("/login")
    public ResponseEntity<LoginResponse> authenticate( @Valid @RequestBody LoginRequest loginRequest    )  {
 	   
@@ -51,9 +52,5 @@ public class UserJwtController {
 	   return new ResponseEntity<>(loginResponse,HttpStatus.OK);
 	   
    }
-   
-   
-
-     
    
 }
