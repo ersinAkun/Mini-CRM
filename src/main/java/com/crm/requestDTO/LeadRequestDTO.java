@@ -47,7 +47,7 @@ public class LeadRequestDTO {
 	//@NotNull(message = "Please enter phone number")
 	private String personelNumber;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy ")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	@NotNull(message = "Please provide the pick up time of the reservation")
 	private Date contactedDate;
 
@@ -74,7 +74,7 @@ public class LeadRequestDTO {
 	private Boolean hasWhatsapp;
 
 	@Size(max = 50)
-	private String Linked;
+	private String linked;
 
 	@Size(max = 50)
 	private String skype;
@@ -85,6 +85,8 @@ public class LeadRequestDTO {
 	@Size(max = 50)
 	@NotBlank
 	private String speaks;
+	
+	private String industry;
 
 	@Enumerated(EnumType.STRING)
 	private LeadStatus status;
