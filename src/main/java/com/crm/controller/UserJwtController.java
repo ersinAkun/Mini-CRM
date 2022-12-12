@@ -11,13 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.crm.requestDTO.CompanyEmployeesRequestDTO;
 import com.crm.requestDTO.LoginRequest;
-import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.LoginResponse;
-import com.crm.responseDTO.ResponseMessage;
 import com.crm.security.jwt.JwtUtils;
-import com.crm.service.CompanyEmployeesService;
+
 
 @RestController
 public class UserJwtController {
@@ -31,8 +28,7 @@ public class UserJwtController {
    @Autowired
    private JwtUtils  jwtUtils;
    
-   @Autowired
-   private CompanyEmployeesService companyEmployeesService;
+   
   
    
    
@@ -57,18 +53,7 @@ public class UserJwtController {
    }
    
    
- //******CREATE EMPLOYEES****
-	
- 	@PostMapping("/register")
- 	public ResponseEntity<CrmResponse> createCompanyEmployees(@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
- 		companyEmployeesService.createCompanyEmployees(companyEmployeesRequestDTO);
- 		
- 		CrmResponse crmResponse = new CrmResponse();
- 		crmResponse.setMessage(ResponseMessage.COMPANY_EMPLOYEES_CREATE_RESPONSE);
- 		crmResponse.setSuccess(true);				
- 		return ResponseEntity.ok(crmResponse);
- 		
- 	}
+
      
    
 }
