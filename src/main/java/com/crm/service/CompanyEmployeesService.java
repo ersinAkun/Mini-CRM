@@ -16,12 +16,14 @@ import org.springframework.stereotype.Service;
 import com.crm.domain.CompanyEmployees;
 import com.crm.domain.Role;
 import com.crm.domain.enums.RoleType;
+import com.crm.exception.BadRequestException;
 import com.crm.exception.ConflictException;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyEmployeesRepository;
 import com.crm.requestDTO.CompanyEmployeesRequestDTO;
 import com.crm.responseDTO.CompanyEmployeesResponseDTO;
+
 
 
 
@@ -276,6 +278,21 @@ public class CompanyEmployeesService {
 	      companyEmployees.setState(companyEmployeesRequestDTO.getState());
 //		companyEmployees.setRoles(roles);
 		companyEmployeesRepository.save(companyEmployees);
+	}
+
+	
+	//****CELEBI*********DELETE BY ID EMPLOYEES**********************
+
+	public void removeEmployeesById(Long id) {
+		CompanyEmployees companyEmployees = getCompanyEmployees(id);
+		
+		// builtIn mi kontrol ediyoruz
+	     if(companyEmployees.getBuiltIn()) {
+	    	 throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
+	    	
+	     }
+	     companyEmployeesRepository.deleteById(id);
+	     
 	}
 
 
