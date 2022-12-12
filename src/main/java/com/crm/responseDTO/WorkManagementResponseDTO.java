@@ -1,7 +1,6 @@
 package com.crm.responseDTO;
 
 import java.time.LocalDate;
-import java.util.Date;
 import com.crm.domain.enums.WMCategory;
 import com.crm.domain.enums.WMPriority;
 import com.crm.domain.enums.WMStatus;
@@ -14,7 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorkManagemenetResponseDTO {
+public class WorkManagementResponseDTO {
 
 	  private String title;
 	  
