@@ -1,5 +1,6 @@
 package com.crm.responseDTO;
 
+import java.time.LocalDate;
 import java.util.Date;
 import com.crm.domain.enums.WMCategory;
 import com.crm.domain.enums.WMPriority;
@@ -17,19 +18,19 @@ public class WorkManagemenetResponseDTO {
 
 	  private String title;
 	  
-	  private Date startDate;
+	  private LocalDate startDate;
 
-	  private Date expectedEndDate;
+	  private LocalDate expectedEndDate;
 
-	  private String assignee;
+	  private String assigneeName;
 
-	  private String reporter;
+	 // private String reporter; bunu nasıl kontrol edelim
 
 	  private String  comments;
 	  
-	  private  Date updateDate;
+	  private  LocalDate updateDate;
 	  
-	  private  Date finishedDate;
+	  private  LocalDate finishedDate;
 
 	  private String description;
 
