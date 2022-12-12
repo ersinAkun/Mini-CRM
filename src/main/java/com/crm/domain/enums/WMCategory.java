@@ -4,5 +4,6 @@ public enum WMCategory {
 MAIL,
 WHATSAPP,
 TOCALL,
+FINDCUSTOMER,
 OTHER;
 }

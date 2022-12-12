@@ -1,5 +1,6 @@
 package com.crm.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -36,23 +37,23 @@ public class WorkManagement {
 	  @Column(length = 50, nullable = false)
 	  private String title;
 	  
-	  @Column(nullable = false)
-	  private Date startDate;//işe başlama tarihi... . 
+	  @Column(nullable = true)
+	  private LocalDate startDate;//işe başlama tarihi... . 
 	  
-	  @Column( nullable = false)
-	  private Date expectedEndDate;
+	  @Column( nullable = true)
+	  private LocalDate expectedEndDate;
 	  	 	 
 	  @Column(length = 250)
 	  private String comments;
 	  
 	  @Column
-	  private  Date createDate;//o günün tarihi atılabilir otomatik
+	  private  LocalDate createDate;//o günün tarihi atılabilir otomatik
 	  
-	  @Column
-	  private  Date updateDate;
+	  @Column( nullable = true)
+	  private  LocalDate updateDate;
 	  
-	  @Column( nullable = false)
-	  private  Date finishedDate;
+	  @Column( nullable = true)
+	  private  LocalDate finishedDate;
 	  
 	  @Column(length = 250, nullable = false)
 	  private String description;//işin tarifi... fabrika ziyareti yapılacak
