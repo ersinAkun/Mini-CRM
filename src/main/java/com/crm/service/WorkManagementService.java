@@ -1,17 +1,16 @@
 package com.crm.service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
+import java.util.function.Function;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.crm.domain.CompanyEmployees;
 import com.crm.domain.WorkManagement;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
@@ -28,12 +27,14 @@ public class WorkManagementService {
 	@Autowired
 	CompanyEmployeesService companyEmployeesService;
 	
+	LocalDate today = LocalDate.now();
+	
 	//*************CREATE-TASK**EMIN**12.12.22*******
 	public void saveTask(@Valid WorkManagementRequestDTO workManagementRequestDTO, Long empId) {
 		
 		WorkManagement workManagement = new WorkManagement();
 		
-		LocalDate today = LocalDate.now();
+		
 		//String formattedDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)); 
 		
 		workManagement.setAssignee(companyEmployeesService.getCompanyEmployees(empId));
@@ -48,6 +49,8 @@ public class WorkManagementService {
 		workManagement.setStartDate(workManagementRequestDTO.getStartDate());
 		workManagement.setStatus(workManagementRequestDTO.getStatus());
 		workManagement.setTitle(workManagementRequestDTO.getTitle());
+		workManagement.setUpdateDate(workManagementRequestDTO.getUpdateDate());
+		
 		
 		workManagementRepository.save(workManagement);
 		
@@ -98,5 +101,70 @@ public class WorkManagementService {
 		}
 		return dtoList;
 	}
+
+	public Page<WorkManagementResponseDTO> findAllWithPage(Pageable pageable) {
+		
+		Page<WorkManagement> tasksPage = workManagementRepository.findAll(pageable);
+		
+		Page<WorkManagementResponseDTO> responsePage = tasksPage.map(new Function<WorkManagement, WorkManagementResponseDTO>() {
+			
+			
+			@Override
+			public WorkManagementResponseDTO apply(WorkManagement workManagement) {
+				
+				WorkManagementResponseDTO workManagementResponseDTO = new WorkManagementResponseDTO();
+				
+				workManagementResponseDTO.setAssigneeName(workManagement.getAssignee().getFirstName());
+				workManagementResponseDTO.setCategory(workManagement.getCategory());
+				workManagementResponseDTO.setComments(workManagement.getComments());
+				workManagementResponseDTO.setDescription(workManagement.getDescription());
+				workManagementResponseDTO.setExpectedEndDate(workManagement.getExpectedEndDate());
+				workManagementResponseDTO.setFinishedDate(workManagement.getFinishedDate());
+				workManagementResponseDTO.setPriority(workManagement.getPriority());
+				workManagementResponseDTO.setStartDate(workManagement.getStartDate());
+				workManagementResponseDTO.setStatus(workManagement.getStatus());
+				workManagementResponseDTO.setTitle(workManagement.getTitle());
+				workManagementResponseDTO.setUpdateDate(workManagement.getUpdateDate());
+				
+				return workManagementResponseDTO;
+				
+			}
+		});
+		
+		return responsePage;
+	
+	}
+
+	public void updateTask(Long id, @Valid WorkManagementRequestDTO workManagementRequestDTO,Long eId) {
+		
+		WorkManagement workManagement = workManagementRepository.findById(id).orElseThrow(
+				() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));;
+		
+				workManagement.setAssignee(companyEmployeesService.getCompanyEmployees(eId));
+				workManagement.setCategory(workManagementRequestDTO.getCategory());
+				workManagement.setComments(workManagementRequestDTO.getComments());
+				workManagement.setCreateDate(workManagementRequestDTO.getCreateDate());
+				workManagement.setCategory(workManagementRequestDTO.getCategory());
+				workManagement.setDescription(workManagementRequestDTO.getDescription());
+				workManagement.setExpectedEndDate(workManagementRequestDTO.getExpectedEndDate());
+				workManagement.setFinishedDate(workManagementRequestDTO.getFinishedDate());
+				workManagement.setPriority(workManagementRequestDTO.getPriority());
+				workManagement.setStartDate(workManagementRequestDTO.getStartDate());
+				workManagement.setStatus(workManagementRequestDTO.getStatus());
+				workManagement.setTitle(workManagementRequestDTO.getTitle());
+				workManagement.setUpdateDate(workManagementRequestDTO.getUpdateDate());
+				
+				workManagementRepository.save(workManagement);
+				
+	}
+
+	public void deleteTaskById(Long id) {
+		WorkManagement workManagement = workManagementRepository.findById(id).orElseThrow(
+				() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+		
+		workManagementRepository.delete(workManagement);
+	}
+	
+	
 
 }

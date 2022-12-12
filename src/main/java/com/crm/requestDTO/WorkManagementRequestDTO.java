@@ -29,6 +29,10 @@ public class WorkManagementRequestDTO {
 	  private LocalDate startDate;
 	  
 	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
+	  //@NotNull(message = "Please provide Job create Date")
+	  private LocalDate createDate;
+	  
+	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	  @NotNull(message = "Please provide expected completion date of job")
 	  private LocalDate expectedEndDate;
 	  
