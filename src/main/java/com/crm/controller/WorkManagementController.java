@@ -1,8 +1,8 @@
 package com.crm.controller;
 
-import javax.validation.Valid;
+import java.util.List;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crm.requestDTO.WorkManagementRequestDTO;
 import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.ResponseMessage;
-import com.crm.responseDTO.WorkManagemenetResponseDTO;
+import com.crm.responseDTO.WorkManagementResponseDTO;
 import com.crm.service.WorkManagementService;
 
 @RestController
@@ -44,13 +44,24 @@ public class WorkManagementController {
 		
 		@GetMapping("/get-task/{id}")
 		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-		public ResponseEntity<WorkManagemenetResponseDTO> getTask(@PathVariable("id") Long id){
+		public ResponseEntity<WorkManagementResponseDTO> getTask(@PathVariable("id") Long id){
 			
-			WorkManagemenetResponseDTO workManagemenetResponseDTO = workManagementService.findById(id);
+			WorkManagementResponseDTO workManagemenetResponseDTO = workManagementService.findById(id);
 			return ResponseEntity.ok(workManagemenetResponseDTO);
 		}
 		
-	}
 	
 
 
+	//***********EMIN****GET ALL TASKS *** 12.12.22**********
+
+@GetMapping("/getAll")
+public ResponseEntity<List<WorkManagementResponseDTO>> getAllTasks(){
+	
+	List<WorkManagementResponseDTO> allTasks = workManagementService.getAllTasks();
+	return ResponseEntity.ok(allTasks);
+}
+	
+
+
+}

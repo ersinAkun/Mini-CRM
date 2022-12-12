@@ -3,7 +3,9 @@ package com.crm.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,7 +17,7 @@ import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.WorkManagementRepository;
 import com.crm.requestDTO.WorkManagementRequestDTO;
-import com.crm.responseDTO.WorkManagemenetResponseDTO;
+import com.crm.responseDTO.WorkManagementResponseDTO;
 
 @Service
 public class WorkManagementService {
@@ -51,11 +53,11 @@ public class WorkManagementService {
 		
 	}
 
-	public WorkManagemenetResponseDTO findById(Long id) {
+	public WorkManagementResponseDTO findById(Long id) {
 		WorkManagement workManagement = workManagementRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 		
-		WorkManagemenetResponseDTO workManagemenetResponseDTO = new WorkManagemenetResponseDTO();
+		WorkManagementResponseDTO workManagemenetResponseDTO = new WorkManagementResponseDTO();
 		workManagemenetResponseDTO.setAssigneeName(workManagement.getAssignee().getFirstName());
 		workManagemenetResponseDTO.setCategory(workManagement.getCategory());
 		workManagemenetResponseDTO.setComments(workManagement.getComments());
@@ -71,6 +73,30 @@ public class WorkManagementService {
 		
 		return workManagemenetResponseDTO;
 		
+	}
+
+	public List<WorkManagementResponseDTO> getAllTasks() {
+	
+		List<WorkManagement> allTasksList = workManagementRepository.findAll();
+		List<WorkManagementResponseDTO> dtoList = new ArrayList<>();
+		for (WorkManagement task : allTasksList) {
+			
+			WorkManagementResponseDTO workManagementResponseDTO = new WorkManagementResponseDTO();
+			
+			workManagementResponseDTO.setAssigneeName(task.getAssignee().getFirstName());
+			workManagementResponseDTO.setCategory(task.getCategory());
+			workManagementResponseDTO.setComments(task.getComments());
+			workManagementResponseDTO.setDescription(task.getDescription());
+			workManagementResponseDTO.setExpectedEndDate(task.getExpectedEndDate());
+			workManagementResponseDTO.setFinishedDate(task.getFinishedDate());
+			workManagementResponseDTO.setPriority(task.getPriority());
+			workManagementResponseDTO.setStartDate(task.getStartDate());
+			workManagementResponseDTO.setStatus(task.getStatus());
+			workManagementResponseDTO.setTitle(task.getTitle());
+			workManagementResponseDTO.setUpdateDate(task.getUpdateDate());
+			dtoList.add(workManagementResponseDTO);
+		}
+		return dtoList;
 	}
 
 }
