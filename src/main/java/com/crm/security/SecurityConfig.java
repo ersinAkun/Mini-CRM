@@ -38,7 +38,6 @@ public class SecurityConfig {
     			  authorizeRequests().
     			  antMatchers(
     					  						"/login",
-    					  						"/register",
     					  						"/files/download/**",
     					  						"/contactmessage/visitors",
     					  						"/files/display/**",    					  						

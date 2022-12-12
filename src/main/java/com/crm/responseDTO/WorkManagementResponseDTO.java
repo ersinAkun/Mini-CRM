@@ -1,6 +1,6 @@
 package com.crm.responseDTO;
 
-import java.util.Date;
+import java.time.LocalDate;
 import com.crm.domain.enums.WMCategory;
 import com.crm.domain.enums.WMPriority;
 import com.crm.domain.enums.WMStatus;
@@ -13,23 +13,23 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorkManagemenetResponseDTO {
+public class WorkManagementResponseDTO {
 
 	  private String title;
 	  
-	  private Date startDate;
+	  private LocalDate startDate;
 
-	  private Date expectedEndDate;
+	  private LocalDate expectedEndDate;
 
-	  private String assignee;
+	  private String assigneeName;
 
-	  private String reporter;
+	 // private String reporter; bunu nasıl kontrol edelim
 
 	  private String  comments;
 	  
-	  private  Date updateDate;
+	  private  LocalDate updateDate;
 	  
-	  private  Date finishedDate;
+	  private  LocalDate finishedDate;
 
 	  private String description;
 

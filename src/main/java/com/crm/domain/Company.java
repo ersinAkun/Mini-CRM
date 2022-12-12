@@ -98,11 +98,11 @@ public class Company {
   @OneToOne(fetch = FetchType.LAZY)
   private Lead lead;
   
-  @OneToMany
-  private List<Orders> orders;
+//  @OneToMany
+//  private List<Orders> orders;
   
-  @OneToMany
-  private List<Emails> emails; //???
+//  @OneToMany
+//  private List<Emails> emails; //???
   
   @Enumerated(EnumType.STRING)
   private CompanyStatus companyStatus;

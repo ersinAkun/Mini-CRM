@@ -1,6 +1,6 @@
 package com.crm.requestDTO;
 
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,19 +26,20 @@ public class WorkManagementRequestDTO {
 	  
 	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	  @NotNull(message = "Please provide Job Start Date")
-	  private Date startDate;
+	  private LocalDate startDate;
+	  
+	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
+	  //@NotNull(message = "Please provide Job create Date")
+	  private LocalDate createDate;
 	  
 	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	  @NotNull(message = "Please provide expected completion date of job")
-	  private Date expectedEndDate;
+	  private LocalDate expectedEndDate;
 	  
-	  @Size(max = 50)
-      @NotNull(message = "Please provide assignee")
-	  private String assignee;
+//	  @Size(max = 50)
+//      @NotNull(message = "Please provide assignee")
+//	  private String assignee;
 	  
-	  @Size(max = 50)
-	  @NotNull(message = "Please provide raporter")
-	  private String reporter;
 	  
 	  @Size(max = 250)
 	 // @NotBlank(message = "Comment cannot be empty")
@@ -48,11 +49,11 @@ public class WorkManagementRequestDTO {
 	  
 	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	  //@NotNull(message = "Please provide update date of job")
-	  private  Date updateDate;
+	  private  LocalDate updateDate;
 	  
 	  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	 // @NotNull(message = "Please provide Finished date of job")
-	  private  Date finishedDate;
+	  private  LocalDate finishedDate;
 	  
 	  @Size(max = 250)
 	  @NotNull(message = "Please provide detailed description")
