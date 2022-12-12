@@ -22,7 +22,7 @@ import lombok.Setter;
 public class CompanyEmployeesResponseDTO {
 
 	
-	
+	private Long id;
 	
 	private String firstName;
 	
