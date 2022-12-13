@@ -56,7 +56,7 @@ private CompanyRepository companyRepository;
         company.setLinkedPage(companyRequestDTO.getLinkedPage());
         company.setTimeZone(companyRequestDTO.getTimeZone());
         company.setWebPage(companyRequestDTO.getWebPage());
-        //company.setRFQ(companyRequestDTO.getRFQ());
+        company.setRFQ(companyRequestDTO.getRFQ());
         //company.setWhoFind(companyRequestDTO.getWhoFind());
         company.setWhoContacted(companyRequestDTO.getWhoContacted());
         company.setAbout(companyRequestDTO.getAbout());

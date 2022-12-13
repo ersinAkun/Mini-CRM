@@ -26,7 +26,7 @@ import lombok.Setter;
 public class CompanyRequestDTO {
 
 
-	@NotBlank(message = "Please provide First name")
+	@NotBlank(message = "Please provide company name")
 	private String name;
 
 	@Size(max = 50)
@@ -70,15 +70,14 @@ public class CompanyRequestDTO {
 	private String webPage;
 
 	//@Size(max = 150)
-	//@NotBlank(message = "Please provide RFQ")
-	//@NotNull
-	//private String RFQ;
+	//@NotNull(message = "Please provide RFQ")
+	private String RFQ;
 
 	//@Size(max = 5)
 	//private Long whoFind;// path ile gönderebiliriz.
 
 	@Size(max = 50)
-	@NotBlank(message = "Please provide name")
+	@NotBlank(message = "Please provide employee name")
 	private String whoContacted;// yereldeki şirket sahibi olabilir.body ile gönderelim
 
 	@Size(max = 250)
@@ -88,15 +87,15 @@ public class CompanyRequestDTO {
 	private LocalDateTime firstContactDate;
 
 
-	@NotNull(message = "Please provide information")
+	@NotNull(message = "Please provide  mail information")
 	private Boolean isMailSent;
 
 
-	@NotNull(message = "Please provide information")
+	@NotNull(message = "Please provide msg information")
 	private Boolean isMsgSent;
 
 
-	@NotNull(message = "Please provide information")
+	@NotNull(message = "Please provide order information")
 	private Boolean isOrder;
 
 	@Size(max = 255)

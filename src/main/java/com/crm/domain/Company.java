@@ -70,7 +70,7 @@ public class Company {
   @Column(length = 30)
   private String webPage;
   
-  @Column(length = 250, nullable = false)
+  @Column(length = 150, nullable = false)
   private String RFQ;
   
   //@Column
