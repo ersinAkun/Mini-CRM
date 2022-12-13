@@ -24,4 +24,5 @@ public class ResponseMessage {
 	public final static String COMPANY_CREATED_RESPONSE="Company successfully created";
 
 
+    public static final String COMPANY_UPDATE_RESPONSE = "Company successfully updated";
 }

@@ -1,5 +1,7 @@
 package com.crm.requestDTO;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,7 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CompanyRequestDTO {
 
-	@Size(max = 50)
+
 	@NotBlank(message = "Please provide First name")
 	private String name;
 
@@ -67,12 +69,13 @@ public class CompanyRequestDTO {
 	@Size(max = 50)
 	private String webPage;
 
-	@Size(max = 150)
-	@NotBlank(message = "Please provide RFQ")
-	private String RFQ; 
+	//@Size(max = 150)
+	//@NotBlank(message = "Please provide RFQ")
+	//@NotNull
+	//private String RFQ;
 
-	@Size(max = 50)
-	private Long whoFind;// path ile gönderebiliriz.
+	//@Size(max = 5)
+	//private Long whoFind;// path ile gönderebiliriz.
 
 	@Size(max = 50)
 	@NotBlank(message = "Please provide name")
@@ -82,18 +85,17 @@ public class CompanyRequestDTO {
 	private String about;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-	@NotNull(message = "Please provide first Contact Date")
-	private Date firstContactDate;
+	private LocalDateTime firstContactDate;
 
-	@Size(max = 10)
+
 	@NotNull(message = "Please provide information")
 	private Boolean isMailSent;
 
-	@Size(max = 10)
-	@NotBlank(message = "Please provide information")
+
+	@NotNull(message = "Please provide information")
 	private Boolean isMsgSent;
 
-	@Size(max = 10)
+
 	@NotNull(message = "Please provide information")
 	private Boolean isOrder;
 

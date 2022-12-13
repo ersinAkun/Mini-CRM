@@ -42,6 +42,8 @@ private CompanyRepository companyRepository;
 
         Company company= new Company();
 
+        LocalDateTime now = LocalDateTime.now();
+
         company.setName(companyRequestDTO.getName());
         company.setOwner(companyRequestDTO.getOwner());
         company.setAddress(companyRequestDTO.getAddress());
@@ -54,17 +56,16 @@ private CompanyRepository companyRepository;
         company.setLinkedPage(companyRequestDTO.getLinkedPage());
         company.setTimeZone(companyRequestDTO.getTimeZone());
         company.setWebPage(companyRequestDTO.getWebPage());
-        company.setRFQ(companyRequestDTO.getRFQ());
+        //company.setRFQ(companyRequestDTO.getRFQ());
         //company.setWhoFind(companyRequestDTO.getWhoFind());
         company.setWhoContacted(companyRequestDTO.getWhoContacted());
         company.setAbout(companyRequestDTO.getAbout());
-        //LocalDateTime now = LocalDateTime.now();
-        //company.setFirstContactDate();
+        company.setFirstContactDate(now);
         company.setIsMailSent(companyRequestDTO.getIsMailSent());
         company.setIsMsgSent(companyRequestDTO.getIsMsgSent());
         company.setIsOrder(companyRequestDTO.getIsOrder());
         company.setNote(companyRequestDTO.getNote());
-        // company.setLead(companyRequestDTO.);
+        //company.setLead(companyRequestDTO.);
         //company.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
         //company.setEmails
         company.setCompanyStatus(companyRequestDTO.getCompanyStatus());
@@ -78,4 +79,9 @@ private CompanyRepository companyRepository;
 
     }
 
+
+    public void updateCompany(Long id, CompanyRequestDTO companyRequestDTO) {
+
+
+    }
 }
