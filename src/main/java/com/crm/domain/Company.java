@@ -1,5 +1,8 @@
 package com.crm.domain;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -13,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
@@ -68,11 +73,11 @@ public class Company {
   @Column(length = 30)
   private String webPage;
   
-  @Column(length = 250, nullable = false)
+  @Column(length = 150, nullable = false)
   private String RFQ;
   
-  @Column
-  private Long whoFind;//path ile gönderebiliriz.
+  //@Column
+  //private Long whoFind;//path ile gönderebiliriz.
   
   @Column(length = 40, nullable = false)
   private String whoContacted;//yereldeki şirket sahibi olabilir.body ile gönderelim
@@ -81,7 +86,7 @@ public class Company {
   private String about;
   
   @Column(nullable = false)
-  private Date firstContactDate;
+  private LocalDateTime firstContactDate;
   
   @Column(length = 10, nullable = false)
   private Boolean isMailSent;
@@ -98,11 +103,14 @@ public class Company {
   @OneToOne(fetch = FetchType.LAZY)
   private Lead lead;
   
+ // Size 300 filan olsun
+  //string olarak email tutalım.{asd@dmail.com,ert@df.com}
+  
 //  @OneToMany
 //  private List<Orders> orders;
   
-//  @OneToMany
-//  private List<Emails> emails; //???
+  @OneToMany(mappedBy = "company")
+  private List<Emails>  emails= new ArrayList<>();
   
   @Enumerated(EnumType.STRING)
   private CompanyStatus companyStatus;
