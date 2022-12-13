@@ -22,6 +22,7 @@ public class CompanyService {
 @Autowired
 private CompanyRepository companyRepository;
 
+@Autowired CompanyEmployeesService companyEmployeesService;
 
 //	public Company findCompanyById(Long id) {
 //		
@@ -31,7 +32,7 @@ private CompanyRepository companyRepository;
 //	}
 
 
-    public void saveCompany(CompanyRequestDTO companyRequestDTO) {
+    public void saveCompany(CompanyRequestDTO companyRequestDTO,Long eId) {
 
         //girilen isimdeki company sayısına bakıyoruz
         Integer amountCompany=companyRepository.countByCompanyWithName(companyRequestDTO.getName());
@@ -56,9 +57,9 @@ private CompanyRepository companyRepository;
         company.setLinkedPage(companyRequestDTO.getLinkedPage());
         company.setTimeZone(companyRequestDTO.getTimeZone());
         company.setWebPage(companyRequestDTO.getWebPage());
-        company.setRFQ(companyRequestDTO.getRFQ());
+        company.setRFQ(companyRequestDTO.getRfq());
         //company.setWhoFind(companyRequestDTO.getWhoFind());
-        company.setWhoContacted(companyRequestDTO.getWhoContacted());
+        //company.setWhoContacted(companyRequestDTO.getWhoContacted());
         company.setAbout(companyRequestDTO.getAbout());
         company.setFirstContactDate(now);
         company.setIsMailSent(companyRequestDTO.getIsMailSent());
@@ -72,6 +73,7 @@ private CompanyRepository companyRepository;
         company.setIndustry(companyRequestDTO.getIndustry());
         company.setCompanyWhereWasFound(companyRequestDTO.getCompanyWhereWasFound());
         company.setCompanyType(companyRequestDTO.getCompanyType());
+        //company.setWhoContacted(companyEmployeesService.getCompanyEmployees(eId));
 
         companyRepository.save(company);
 

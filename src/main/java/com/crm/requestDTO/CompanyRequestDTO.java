@@ -70,8 +70,8 @@ public class CompanyRequestDTO {
 	private String webPage;
 
 	//@Size(max = 150)
-	//@NotNull(message = "Please provide RFQ")
-	private String RFQ;
+	@NotNull(message = "Please provide RFQ")
+	private String rfq;
 
 	//@Size(max = 5)
 	//private Long whoFind;// path ile gönderebiliriz.
