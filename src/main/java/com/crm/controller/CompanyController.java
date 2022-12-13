@@ -20,10 +20,10 @@ public class CompanyController {
     private CompanyService companyService;
 
 //************************* CREATE **************************************
-    @PostMapping("/create")
+    @PostMapping("/create/{eId}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<CrmResponse> createCompany(@Valid @RequestBody CompanyRequestDTO companyRequestDTO){
-        companyService.saveCompany(companyRequestDTO);
+    public ResponseEntity<CrmResponse> createCompany(@Valid @RequestBody CompanyRequestDTO companyRequestDTO ,@PathVariable Long eId){
+        companyService.saveCompany(companyRequestDTO,eId );
 
         CrmResponse response = new CrmResponse(ResponseMessage.COMPANY_CREATED_RESPONSE,true);
 
