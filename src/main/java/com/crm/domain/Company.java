@@ -1,5 +1,7 @@
 package com.crm.domain;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -68,11 +70,11 @@ public class Company {
   @Column(length = 30)
   private String webPage;
   
-  @Column(length = 250, nullable = false)
+  @Column(length = 150, nullable = false)
   private String RFQ;
   
-  @Column
-  private Long whoFind;//path ile gönderebiliriz.
+  //@Column
+  //private Long whoFind;//path ile gönderebiliriz.
   
   @Column(length = 40, nullable = false)
   private String whoContacted;//yereldeki şirket sahibi olabilir.body ile gönderelim
@@ -81,7 +83,7 @@ public class Company {
   private String about;
   
   @Column(nullable = false)
-  private Date firstContactDate;
+  private LocalDateTime firstContactDate;
   
   @Column(length = 10, nullable = false)
   private Boolean isMailSent;
