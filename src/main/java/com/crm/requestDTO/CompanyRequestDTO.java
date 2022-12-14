@@ -1,5 +1,7 @@
 package com.crm.requestDTO;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,8 +25,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CompanyRequestDTO {
 
-	@Size(max = 50)
-	@NotBlank(message = "Please provide First name")
+
+	@NotBlank(message = "Please provide company name")
 	private String name;
 
 	@Size(max = 50)
@@ -67,34 +69,33 @@ public class CompanyRequestDTO {
 	@Size(max = 50)
 	private String webPage;
 
-	@Size(max = 150)
-	@NotBlank(message = "Please provide RFQ")
-	private String RFQ; 
+	//@Size(max = 150)
+	@NotNull(message = "Please provide RFQ")
+	private String rfq;
+
+	//@Size(max = 5)
+	//private Long whoFind;// path ile gönderebiliriz.
 
 	@Size(max = 50)
-	private Long whoFind;// path ile gönderebiliriz.
-
-	@Size(max = 50)
-	@NotBlank(message = "Please provide name")
+	@NotBlank(message = "Please provide employee name")
 	private String whoContacted;// yereldeki şirket sahibi olabilir.body ile gönderelim
 
 	@Size(max = 250)
 	private String about;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-	@NotNull(message = "Please provide first Contact Date")
-	private Date firstContactDate;
+	private LocalDateTime firstContactDate;
 
-	@Size(max = 10)
-	@NotNull(message = "Please provide information")
+
+	@NotNull(message = "Please provide  mail information")
 	private Boolean isMailSent;
 
-	@Size(max = 10)
-	@NotBlank(message = "Please provide information")
+
+	@NotNull(message = "Please provide msg information")
 	private Boolean isMsgSent;
 
-	@Size(max = 10)
-	@NotBlank(message = "Please provide information")
+
+	@NotNull(message = "Please provide order information")
 	private Boolean isOrder;
 
 	@Size(max = 255)
