@@ -1,6 +1,8 @@
 package com.crm.controller;
 
+import com.crm.domain.Company;
 import com.crm.requestDTO.CompanyRequestDTO;
+import com.crm.responseDTO.CompanyResponseDTO;
 import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.ResponseMessage;
 import com.crm.service.CompanyService;
@@ -44,6 +46,12 @@ public ResponseEntity<CrmResponse> updateCompany(@PathVariable("id") Long id, @V
 
 //************************* DELETE **************************************
 //************************* GET *****************************************
+    @GetMapping("/get/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<CompanyResponseDTO> getCompanyById(@PathVariable Long id) {
+        CompanyResponseDTO companyResponseDTO =companyService.getCompanyById(id);
+        return ResponseEntity.ok(companyResponseDTO);
+    }
 //************************* GET ALL *************************************
 //************************* GET PAGEABLE ********************************
 //************************* getCompanyWithStatus ************************

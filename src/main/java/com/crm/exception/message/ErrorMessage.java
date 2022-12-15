@@ -15,4 +15,5 @@ public class ErrorMessage {
 	public final static String EXCEL_REPORT_ERROR_MESSAGE = "Error occured while generating excel report";
 	public final static String COMPANY_ALREADY_CREATED_MESSAGE = "Company: %s has  already  created";
 
+    public static final String COMPANY_IS_NOT_EXIST_MESSAGE ="Company: %s is not exist" ;
 }
