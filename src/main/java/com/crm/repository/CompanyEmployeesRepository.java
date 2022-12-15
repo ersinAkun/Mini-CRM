@@ -52,6 +52,8 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 			   					@Param("speaks") String speaks
 			   					
 			   					);
-	
-	
+
+
+	@Query("SELECT count (e) FROM CompanyEmployees e where e.id=:eId")
+    Integer countById(@Param("eId") Long eId);
 }
