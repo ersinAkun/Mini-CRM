@@ -1,7 +1,7 @@
 package com.crm.requestDTO;
 
 
-import java.util.Set;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompanyEmployeesRequestDTO {
+public class CompanyEmployeesUpdateRequestDTO {
 
 	
 	
@@ -35,13 +35,8 @@ public class CompanyEmployeesRequestDTO {
 	
 	@Size(max = 50)
 	@Email
-	//@NotNull(message = "Please provide email")
+	@NotNull(message = "Please provide email")
 	private String email;
-	
-	@Size(max = 30)
-	@NotNull(message = "Please provide password")
-	private String password;
-	
 	
 	@Size(max = 50)
 	@NotBlank(message = "Please provide job Title")
@@ -80,12 +75,8 @@ public class CompanyEmployeesRequestDTO {
 	@Size(max = 50)
 	@NotBlank
 	private String speaks;
-	
-	
-	private Boolean builtIn;
 
 	@Enumerated(EnumType.STRING)
 	private Department employeeDepartment;
 
-	private Set<String> roles ;
 }
