@@ -7,12 +7,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.crm.domain.CompanyEmployees;
 import com.crm.domain.Role;
 import com.crm.domain.enums.RoleType;
@@ -22,7 +24,13 @@ import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyEmployeesRepository;
 import com.crm.requestDTO.CompanyEmployeesRequestDTO;
+import com.crm.requestDTO.CompanyEmployeesUpdateAdminRequestDTO;
+import com.crm.requestDTO.CompanyEmployeesUpdatePasswordRequestDTO;
+import com.crm.requestDTO.CompanyEmployeesUpdateRequestDTO;
 import com.crm.responseDTO.CompanyEmployeesResponseDTO;
+import com.crm.security.SecurityUtils;
+
+
 
 
 
@@ -56,10 +64,23 @@ public class CompanyEmployeesService {
 		
 		
 	}
-
+//********************LoginEmployees********************
+	public CompanyEmployees getCurrentEmployee() {
+		
+		String email = SecurityUtils.getCurrentUserLogin().orElseThrow(()->
+		 new ResourceNotFoundException(ErrorMessage.PRINCIPAL_FOUND_MESSAGE));
+		CompanyEmployees companyEmployees =  getEmployeeByEmail(email);
+		return companyEmployees ;
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	//*****CELEBI********CREATE EMPLOYEES**********************
-	
 	public void createCompanyEmployees(CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
 		if (companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail())) {
 			throw new ConflictException(
@@ -185,7 +206,6 @@ public class CompanyEmployeesService {
 	
 	
 	//****CELEBI*********GET PAGE EMPLOYEES**********************
-
 	public Page<CompanyEmployeesResponseDTO> getEmployeesPage(Pageable pageable) {
 		Page<CompanyEmployees> employeesPage = companyEmployeesRepository.findAll(pageable);
 		
@@ -232,57 +252,139 @@ public class CompanyEmployeesService {
 		return companyEmployees;
 	}
 	
+	//********Request ten gelen Role bilgisini bizim istedigimiz ROLE_USER gibi sekle ceviriyor*****
+		public Set<Role> convertRoles(Set<String> pRoles) {
+			Set<Role> roles = new HashSet<>();
+			
+			if(pRoles==null) {
+				 Role userRole =  roleService.findByType(RoleType.ROLE_USER);
+				 roles.add(userRole);
+			}else {
+				pRoles.forEach(roleStr->{
+					if(roleStr.equals(RoleType.ROLE_ADMIN.getName())) { // Administrator
+						 Role adminRole = roleService.findByType(RoleType.ROLE_ADMIN);
+						roles.add(adminRole);
+						
+					}else {
+						Role userRole = roleService.findByType(RoleType.ROLE_USER);
+						roles.add(userRole);
+					}
+				});
+			}
+			
+			return roles;
+		}
 	
+	//********CELEBI*****UPDATE LOGIN EMPLOYEES**********************
+	@Transactional
+	// // Veritabanı üzerinde gerçekleştirilen bir grup SQL işleminin tek bir bütün
+	//olarak ele alınmasını sağlar, bir veya daha fazla SQL işluseremi tek bir işlem gibi ele alınır.
+	public void updateLoginEmployees(@Valid CompanyEmployeesUpdateRequestDTO companyEmployeesUpdateRequestDTO) {
+		CompanyEmployees companyEmployees= getCurrentEmployee();
+		
+		//builtIn kontrolu
+		if(companyEmployees.getBuiltIn()) {
+	    	 throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
+	     }
+		
+		boolean emailExist  = companyEmployeesRepository.existsByEmail(companyEmployeesUpdateRequestDTO.getEmail());
+	     
+	      if(emailExist && ! companyEmployeesUpdateRequestDTO.getEmail().equals(companyEmployees.getEmail())) {
+	    	  throw new ConflictException(String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE,companyEmployeesUpdateRequestDTO.getEmail()));
+	      }
+	   // password boş ise
+//	      if(companyEmployeesRequestDTO.getPassword()==null) {
+//	    	  companyEmployeesRequestDTO.setPassword(companyEmployees.getPassword());
+//	      } else  {
+//	    	  String encodedPassword =  passwordEncoder.encode(companyEmployeesRequestDTO.getPassword());
+//	    	  companyEmployeesRequestDTO.setPassword(encodedPassword);
+//	      }
+	      
+	      
+	      companyEmployeesRepository.update(companyEmployees.getId(), 
+								    		  companyEmployeesUpdateRequestDTO.getFirstName(), 
+								    		  companyEmployeesUpdateRequestDTO.getLastName(), 
+								    		  companyEmployeesUpdateRequestDTO.getPhoneNumber(), 
+								    		  companyEmployeesUpdateRequestDTO.getEmail(), 
+								    		  companyEmployeesUpdateRequestDTO.getAddress(), 
+								    		  companyEmployeesUpdateRequestDTO.getCity(), 
+								    		  companyEmployeesUpdateRequestDTO.getCountry(), 
+								    		  companyEmployeesUpdateRequestDTO.getEmployeeDepartment(), 
+								    		  companyEmployeesUpdateRequestDTO.getHasWhatsapp(), 
+								    		  companyEmployeesUpdateRequestDTO.getJobTitle(), 
+								    		  companyEmployeesUpdateRequestDTO.getNotes(), 
+								    		  companyEmployeesUpdateRequestDTO.getSpeaks(),
+								    		  companyEmployeesUpdateRequestDTO.getState()
+								    		  );
+	      
+	      
+	      
+		
+		
+	}
 	
-	//****CELEBI*********UPDATE EMPLOYEES**********************
-
-	public void updateEmployees(Long id, CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
-		
-		
-		//TODO role degistirilecek mi ?
-		
+	//****CELEBI*********ADMIN UPDATE BY ID EMPLOYEES**********************
+	public void updateEmployees(Long id, CompanyEmployeesUpdateAdminRequestDTO companyEmployeesUpdateAdminRequestDTO) {
 		
 		CompanyEmployees companyEmployees =getCompanyEmployees(id);
 	   
-	      boolean emailExist  = companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail());
+	      boolean emailExist  = companyEmployeesRepository.existsByEmail(companyEmployeesUpdateAdminRequestDTO.getEmail());
 	     
-	      if(emailExist && ! companyEmployeesRequestDTO.getEmail().equals(companyEmployees.getEmail())) {
-	    	  throw new ConflictException(String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE,companyEmployeesRequestDTO.getEmail()));
-	      }
-		
-	   // password boş ise
-	      if(companyEmployeesRequestDTO.getPassword()==null) {
-	    	  companyEmployeesRequestDTO.setPassword(companyEmployees.getPassword());
-	      } else  {
-	    	  String encodedPassword =  passwordEncoder.encode(companyEmployeesRequestDTO.getPassword());
-	    	  companyEmployeesRequestDTO.setPassword(encodedPassword);
+	      if(emailExist && ! companyEmployeesUpdateAdminRequestDTO.getEmail().equals(companyEmployees.getEmail())) {
+	    	  throw new ConflictException(String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE,companyEmployeesUpdateAdminRequestDTO.getEmail()));
 	      }
 	      
 	      
+	      //TODO bakilacak
+	      Set<String> employeesStrRoles =   companyEmployeesUpdateAdminRequestDTO.getRoles();
+	      
+	      Set<Role> roles = convertRoles(employeesStrRoles);
+	      
 	      
 		
-	      companyEmployees.setBuiltIn(companyEmployeesRequestDTO.getBuiltIn());
-	      companyEmployees.setAddress(companyEmployeesRequestDTO.getAddress());
-	      companyEmployees.setPassword(companyEmployeesRequestDTO.getPassword());
-	      companyEmployees.setCity(companyEmployeesRequestDTO.getCity());
-	      companyEmployees.setCountry(companyEmployeesRequestDTO.getCountry());
-	      companyEmployees.setEmail(companyEmployeesRequestDTO.getEmail());
-	      companyEmployees.setEmployeeDepartment(companyEmployeesRequestDTO.getEmployeeDepartment());
-	      companyEmployees.setFirstName(companyEmployeesRequestDTO.getFirstName());
-	      companyEmployees.setHasWhatsapp(companyEmployeesRequestDTO.getHasWhatsapp());
-	      companyEmployees.setJobTitle(companyEmployeesRequestDTO.getJobTitle());
-	      companyEmployees.setLastName(companyEmployeesRequestDTO.getLastName());
-	      companyEmployees.setNotes(companyEmployeesRequestDTO.getNotes());
-	      companyEmployees.setPhoneNumber(companyEmployeesRequestDTO.getPhoneNumber());
-	      companyEmployees.setSpeaks(companyEmployeesRequestDTO.getSpeaks());
-	      companyEmployees.setState(companyEmployeesRequestDTO.getState());
-//		companyEmployees.setRoles(roles);
+	      companyEmployees.setBuiltIn(companyEmployeesUpdateAdminRequestDTO.getBuiltIn());
+	      companyEmployees.setAddress(companyEmployeesUpdateAdminRequestDTO.getAddress());
+	      companyEmployees.setCity(companyEmployeesUpdateAdminRequestDTO.getCity());
+	      companyEmployees.setCountry(companyEmployeesUpdateAdminRequestDTO.getCountry());
+	      companyEmployees.setEmail(companyEmployeesUpdateAdminRequestDTO.getEmail());
+	      companyEmployees.setEmployeeDepartment(companyEmployeesUpdateAdminRequestDTO.getEmployeeDepartment());
+	      companyEmployees.setFirstName(companyEmployeesUpdateAdminRequestDTO.getFirstName());
+	      companyEmployees.setHasWhatsapp(companyEmployeesUpdateAdminRequestDTO.getHasWhatsapp());
+	      companyEmployees.setJobTitle(companyEmployeesUpdateAdminRequestDTO.getJobTitle());
+	      companyEmployees.setLastName(companyEmployeesUpdateAdminRequestDTO.getLastName());
+	      companyEmployees.setNotes(companyEmployeesUpdateAdminRequestDTO.getNotes());
+	      companyEmployees.setPhoneNumber(companyEmployeesUpdateAdminRequestDTO.getPhoneNumber());
+	      companyEmployees.setSpeaks(companyEmployeesUpdateAdminRequestDTO.getSpeaks());
+	      companyEmployees.setState(companyEmployeesUpdateAdminRequestDTO.getState());
+	      companyEmployees.setRoles(roles);
 		companyEmployeesRepository.save(companyEmployees);
 	}
 
+	//********CELEBI*****UPDATE PASSWORD LOGIN EMPLOYEES**********************
+	public void updatePassword(
+			@Valid CompanyEmployeesUpdatePasswordRequestDTO companyEmployeesUpdatePasswordRequestDTO) {
+		CompanyEmployees companyEmployees= getCurrentEmployee();
+		
+		//builtIn kontrolu
+				if(companyEmployees.getBuiltIn()) {
+			    	 throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
+			     }
+				
+				 // Formda girilen OldPassword bilgisi ile DB deki password aynı mı kontrol ediyoruz
+			     if(!passwordEncoder.matches(companyEmployeesUpdatePasswordRequestDTO.getOldPassword(), companyEmployees.getPassword())) {
+			    	  throw new BadRequestException(ErrorMessage.PASSWORD_NOT_MATCHED);
+			     }
+			     
+			  // yeni gelen password encode ediliyor
+			     String hashedPassword = passwordEncoder.encode(companyEmployeesUpdatePasswordRequestDTO.getNewPassword());
+			     companyEmployees.setPassword(hashedPassword);
+			     companyEmployeesRepository.save(companyEmployees);
+	}
+
+	
+	
 	
 	//****CELEBI*********DELETE BY ID EMPLOYEES**********************
-
 	public void removeEmployeesById(Long id) {
 		CompanyEmployees companyEmployees = getCompanyEmployees(id);
 		
@@ -294,6 +396,9 @@ public class CompanyEmployeesService {
 	     companyEmployeesRepository.deleteById(id);
 	     
 	}
+	
+
+	
 
 
 	

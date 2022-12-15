@@ -48,8 +48,6 @@ public class CompanyResponseDTO {
 
     private Long whoFind;
 
-    private String whoContacted;// yereldeki şirket sahibi olabilir.body ile gönderelim
-
     private String about;
 
     private LocalDateTime firstContactDate;

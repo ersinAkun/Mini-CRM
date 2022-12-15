@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.crm.domain.CompanyEmployees;
+import com.crm.domain.enums.Department;
 
 
 @Repository
@@ -32,7 +33,7 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 	
 	@Modifying // JpaRepository içinde custom bir query ile DML operasyonları yapılıyor ise  @Modifying konulur
 	   @Query( "UPDATE CompanyEmployees e SET e.firstName=:firstName, e.lastName=:lastName,e.phoneNumber=:phoneNumber,"
-	   		+ "e.email=:email,e.address=:address, e.password=:password, e.city=:city, e.country=:country, "
+	   		+ "e.email=:email,e.address=:address, e.city=:city, e.country=:country, "
 	   		+ "e.employeeDepartment=:employeeDepartment, e.hasWhatsapp=:hasWhatsapp, e.jobTitle=:jobTitle, e.notes=:notes, "
 	   		+ "e.speaks=:speaks, e.state=:state  "
 	   		+ "WHERE e.id=:id" )
@@ -45,7 +46,7 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 			   					@Param("password") String password,
 			   					@Param("city") String city,
 			   					@Param("country") String country,
-			   					@Param("employeeDepartment") String employeeDepartment,
+			   					@Param("employeeDepartment") Department employeeDepartment,
 			   					@Param("hasWhatsapp") Boolean hasWhatsapp,
 			   					@Param("jobTitle") String jobTitle,
 			   					@Param("notes") String notes,
@@ -56,4 +57,7 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 
 	@Query("SELECT count (e) FROM CompanyEmployees e where e.id=:eId")
     Integer countById(@Param("eId") Long eId);
+
+
+
 }
