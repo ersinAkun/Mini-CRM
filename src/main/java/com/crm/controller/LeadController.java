@@ -1,7 +1,6 @@
 package com.crm.controller;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,7 +29,7 @@ public class LeadController {
 		CrmResponse crmResponse = new CrmResponse();
 		crmResponse.setMessage(ResponseMessage.LEAD_CREATE_RESPONSE);
 		crmResponse.setSuccess(true);				
-		return ResponseEntity.ok(crmResponse);
-		
+		return ResponseEntity.ok(crmResponse);		
 }
+	
 }
