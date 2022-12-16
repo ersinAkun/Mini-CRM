@@ -1,11 +1,21 @@
 package com.crm.requestDTO;
 
+<<<<<<< HEAD
 import java.time.LocalDate;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
+=======
+import java.util.Date;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+>>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 import com.crm.domain.enums.CurrencyType;
 import com.crm.domain.enums.OrderStatus;
 import com.crm.domain.enums.OrderType;
@@ -14,7 +24,10 @@ import com.crm.domain.enums.PaymentMethod;
 import com.crm.domain.enums.Shipment;
 import com.crm.domain.enums.TypeOfDelivery;
 import com.fasterxml.jackson.annotation.JsonFormat;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +40,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrdersRequestDTO {
 	
+<<<<<<< HEAD
 	//@Size(max = 20)
 	//@NotBlank(message = "Please provide Order Amount")
 	private Double orderAmount;
@@ -49,10 +63,35 @@ public class OrdersRequestDTO {
 	
 	//@Size(max = 20)
 	@NotNull(message = "Please provide Forwarder")
+=======
+	@Size(max = 20)
+	@NotBlank(message = "Please provide Order Amount")
+	private Double orderAmount;
+	
+	@Size(max = 20)
+	@NotNull(message = "Please provide RFQ")
+	private String RFQ;
+
+	@Size(max = 20)
+	@NotBlank(message = "Please provide Order Quantity")
+	private Integer orderQuantity;
+	
+	@Size(max = 20)
+	@NotBlank(message = "Please provide Total Weight")
+	private Double totalWeight;
+	
+	@Size(max = 20)
+	@NotBlank(message = "Please provide freight Cost")
+	private Double freightCost;//navlun ücreti
+	
+	@Size(max = 20)
+	//@NotNull(message = "Please provide Forwarder")
+>>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 	private String forwarder;//kargo firması
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	@NotNull(message = "Please provide Estimated Delivery Date")
+<<<<<<< HEAD
 	private LocalDate estimatedDeliveryDate;//planlanan teslim tarihi
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
@@ -72,6 +111,27 @@ public class OrdersRequestDTO {
 	private Double profitPercentage;
 	
 	//@Size(max = 200)
+=======
+	private Date estimatedDeliveryDate;//planlanan teslim tarihi
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
+	//@NotNull(message = "Please provide Delivery Date")
+	private Date deliveryDate;//teslim tarihi(gerçekleşen)
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
+	@NotNull(message = "Please provide Orders Date")
+	private Date orderDate;//siparişi verdiği tarih
+	
+	@Size(max = 20)
+	@NotBlank(message = "Please provide profit")
+	private Double profit;
+	
+	@Size(max = 20)
+	@NotBlank(message = "Please provide Profit Percentage")
+	private Double profitPercentage;
+	
+	@Size(max = 200)
+>>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 	private String notes;
 
 	

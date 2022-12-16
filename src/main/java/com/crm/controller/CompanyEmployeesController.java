@@ -34,6 +34,8 @@ import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.ResponseMessage;
 import com.crm.service.CompanyEmployeesService;
 
+
+
 @RestController
 @RequestMapping("/companyEmployees")
 public class CompanyEmployeesController {
@@ -43,9 +45,14 @@ public class CompanyEmployeesController {
 	private CompanyEmployeesService companyEmployeesService;
 	
 
+
 	
  //******CREATE EMPLOYEES****
 	
+
+	
+	//******CREATE EMPLOYEES****
+
  	@PostMapping("/register")
  	@PreAuthorize("hasRole('ADMIN')")
  	public ResponseEntity<CrmResponse> createCompanyEmployees(@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
@@ -71,8 +78,6 @@ public class CompanyEmployeesController {
 	
 	//*******CELEBI******GET ALL EMPLOYEES**********************
 
-	
-
 	@GetMapping("/getAll")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<List<CompanyEmployeesResponseDTO>> getAllEmployees(){
@@ -84,6 +89,7 @@ public class CompanyEmployeesController {
 	
 	
 	
+
 	
 
 		@GetMapping("/getPages")
@@ -122,22 +128,12 @@ public class CompanyEmployeesController {
 		
 		
 		
-		//********CELEBI*****DELETE EMPLOYEES**********************
-		
-		@DeleteMapping("/delete/{id}")
-		@PreAuthorize("hasRole('ADMIN')")
-		public ResponseEntity<CrmResponse> deleteCompanyEmployees(@PathVariable Long id){
-		
-			companyEmployeesService.removeEmployeesById(id);
-			
-			CrmResponse crmResponse = new CrmResponse();
-	 		crmResponse.setMessage(ResponseMessage.EMPLOYEES_DELETE_RESPONSE_MESSAGE);
-	 		crmResponse.setSuccess(true);				
-	 		return ResponseEntity.ok(crmResponse);
-			
-		}
+	
 
 	
+
+	
+
 
 		
 	//********CELEBI*****UPDATE LOGIN EMPLOYEES**********************
@@ -158,7 +154,11 @@ public class CompanyEmployeesController {
 		
 		
 	//********CELEBI*****UPDATE ADMIN EMPLOYEES**********************
-	@PutMapping("/updateEmployee")
+
+
+
+	@PutMapping("/update")
+
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<CrmResponse> updateCompanyEmployees(@RequestParam("id") Long id, @Valid @RequestBody CompanyEmployeesUpdateAdminRequestDTO companyEmployeesUpdateAdminRequestDTO){
 		companyEmployeesService.updateEmployees(id,companyEmployeesUpdateAdminRequestDTO);
@@ -182,4 +182,30 @@ public class CompanyEmployeesController {
 			
 			
 	}
+
+		
+		
+		
+	//********CELEBI*****DELETE EMPLOYEES**********************
+	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<CrmResponse> deleteCompanyEmployees(@PathVariable Long id){
+		
+		companyEmployeesService.removeEmployeesById(id);
+		
+		CrmResponse crmResponse = new CrmResponse();
+	 	crmResponse.setMessage(ResponseMessage.EMPLOYEES_DELETE_RESPONSE_MESSAGE);
+	 	crmResponse.setSuccess(true);				
+	 	return ResponseEntity.ok(crmResponse);
+			
+	}
+		
+		
+		
+		
+		
+		
+		
+		
+
 }

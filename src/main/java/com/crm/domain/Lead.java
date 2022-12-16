@@ -37,8 +37,12 @@ public class Lead {
 
 	@Column(length = 30, nullable = false)
 	private String lastName;
+
 	@Column(length = 100, nullable = false)
 	@Email
+
+	
+
 	private String email;
 
 	//@OneToOne

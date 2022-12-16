@@ -29,6 +29,12 @@ public class Supplier {
 		
 	 @Column(length = 50, nullable = false)
 	  private String name;
+
+
+	 
+	 @Column(length = 50, nullable = true,unique = true)
+	 private String email;
+
 	  
 	 @Column(length = 30, nullable = false)
 	  private String owner;

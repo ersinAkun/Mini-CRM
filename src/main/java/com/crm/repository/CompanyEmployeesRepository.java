@@ -14,6 +14,8 @@ import com.crm.domain.enums.Department;
 
 
 
+
+
 @Repository
 public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmployees, Long>   {
 
@@ -35,7 +37,11 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 	@Modifying // JpaRepository içinde custom bir query ile DML operasyonları yapılıyor ise  @Modifying konulur
 	   @Query( "UPDATE CompanyEmployees e SET e.firstName=:firstName, e.lastName=:lastName,e.phoneNumber=:phoneNumber,"
 
+
 	   		+ "e.email=:email,e.address=:address, e.password=:password, e.city=:city, e.country=:country, "
+
+	   		+ "e.email=:email,e.address=:address, e.city=:city, e.country=:country, "
+
 
 	   		+ "e.email=:email,e.address=:address, e.city=:city, e.country=:country, "
 
@@ -44,11 +50,14 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 	   		+ "WHERE e.id=:id" )
 	   void update(@Param("id") Long id,
 
+
+
 			   					 @Param("firstName") String firstName,
 			   					 @Param("lastName") String lastName,
 			   					 @Param("phoneNumber") String phoneNumber,
 			   					 @Param("email") String email,
 			   					 @Param("address") String address,
+
 			   					@Param("password") String password,
 			   					@Param("city") String city,
 			   					@Param("country") Department department,
@@ -56,11 +65,27 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 			   					@Param("hasWhatsapp") String string,
 			   					@Param("jobTitle") String jobTitle,
 			   					@Param("notes") String notes,
-			   					@Param("speaks") String speaks
+			   					@Param("speaks") String speaks,
+
+			   					
+			   					@Param("country") String country,
+			   					@Param("employeeDepartment") Department employeeDepartment,
+			   					@Param("hasWhatsapp") Boolean hasWhatsapp,
+			   					
+			   				
+			   					@Param("state") String state
+
 			   					
 			   					);
 
 
+
 	
 	
+
+	@Query("SELECT count (e) FROM CompanyEmployees e where e.id=:eId")
+    Integer countById(@Param("eId") Long eId);
+
+
+
 }

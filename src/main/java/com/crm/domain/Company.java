@@ -1,6 +1,7 @@
 package com.crm.domain;
 
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -34,6 +37,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "tbl_company")
 public class Company {
+
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
  private Long id;
@@ -129,6 +133,12 @@ public class Company {
   private List<Emails>  emails= new ArrayList<>();
 
   
+
+
+  
+//  @OneToMany
+//  private List<Emails>  emails= new ArrayList<>();
+
   @Enumerated(EnumType.STRING)
   private CompanyStatus companyStatus;
  
@@ -144,4 +154,12 @@ public class Company {
   @Enumerated(EnumType.STRING)
   private CompanyType companyType;
   
+
+
+
+   // @OneToMany(mappedBy = "company")
+   // private List<Emails> emails = new ArrayList<>();
+
 }
+
+

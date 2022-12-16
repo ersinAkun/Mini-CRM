@@ -1,10 +1,18 @@
 package com.crm.requestDTO;
 
 
+<<<<<<< HEAD
+=======
+import javax.validation.constraints.Email;
+>>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,14 +28,29 @@ public class SupplierRequestDTO {
 	@Size(max = 50)
 	@NotBlank(message = "Please provide Supplier Company name")
 	private String name;
+<<<<<<< HEAD
+=======
+	
+	@Size(max = 50)
+	@NotNull(message = "Please enter email")
+	@Email
+	private String email;
+>>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 
 	@Size(max = 50)
 	@NotBlank(message = "Please provide owner first name")
 	private String ownerName;
 
+<<<<<<< HEAD
 	@Size(max = 50)
 	@NotBlank(message = "Please provide owner last name")
 	private String ownerLastName;
+=======
+	/*@Size(max = 50)
+	@NotBlank(message = "Please provide owner last name")
+	private String ownerLastName;
+	*/
+>>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 
 	@Size(max = 100)
 	@NotBlank(message = "Please provide adress")

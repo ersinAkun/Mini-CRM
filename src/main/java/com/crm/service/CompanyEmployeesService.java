@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.crm.domain.CompanyEmployees;
 import com.crm.domain.Role;
 import com.crm.domain.enums.RoleType;
@@ -75,7 +75,10 @@ public class CompanyEmployeesService {
 
 		
 		
-	//********************LoginEmployees********************
+
+
+//********************LoginEmployees********************
+
 	public CompanyEmployees getCurrentEmployee() {
 		
 		String email = SecurityUtils.getCurrentUserLogin().orElseThrow(()->
@@ -92,6 +95,8 @@ public class CompanyEmployeesService {
 	
 	
 	//*****CELEBI********CREATE EMPLOYEES**********************
+
+
 
 
 	public void createCompanyEmployees(CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
@@ -220,8 +225,6 @@ public class CompanyEmployeesService {
 	
 	//****CELEBI*********GET PAGE EMPLOYEES**********************
 
-
-
 	public Page<CompanyEmployeesResponseDTO> getEmployeesPage(Pageable pageable) {
 		Page<CompanyEmployees> employeesPage = companyEmployeesRepository.findAll(pageable);
 		
@@ -268,6 +271,7 @@ public class CompanyEmployeesService {
 		return companyEmployees;
 	}
 	
+
 
 	
 	
@@ -319,6 +323,7 @@ public class CompanyEmployeesService {
 
 	
 	//****CELEBI*********DELETE BY ID EMPLOYEES**********************
+
 
 
 	//********Request ten gelen Role bilgisini bizim istedigimiz ROLE_USER gibi sekle ceviriyor*****
@@ -468,14 +473,6 @@ public class CompanyEmployeesService {
 	}
 
 
-	
 
-	
-
-
-
-	
-	
-	
 
 }

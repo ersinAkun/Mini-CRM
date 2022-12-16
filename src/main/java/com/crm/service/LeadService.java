@@ -1,6 +1,7 @@
 package com.crm.service;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -29,6 +30,7 @@ private LeadRepository leadRepository;
 // ********  CREATE LEAD  *************/
 
 
+
 public void createLead( LeadRequestDTO leadRequestDTO){
 	
 	Lead lead= new Lead();
@@ -54,6 +56,7 @@ public void createLead( LeadRequestDTO leadRequestDTO){
 	
 	leadRepository.save(lead);	
 }
+
 
 
 //********* GET LEAD ***************/
@@ -205,11 +208,3 @@ public LeadResponseDTO getLeadById(Long id) {
 		leadRepository.delete(lead);
 	}
 	}
-
-
-
-
-
-
-
-

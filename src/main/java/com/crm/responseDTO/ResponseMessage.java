@@ -12,6 +12,7 @@ public class ResponseMessage {
 	public final static String IMAGE_DELETE_RESPONSE_MESSAGE= "ImageFile Successfully Deleted";
 	public final static String COMPANY_EMPLOYEES_CREATE_RESPONSE="CompanyEmployees successfully created";
 
+
 	public final static String ORDERED_PRODUCT_CREATED_MESSAGE="Ordered Product successfully created";
 	public static final String ORDERED_PRODUCT_UPDATED_MESSAGE = "Ordered Product successfully updated";
 	public static final String ORDERED_PRODUCT_DELETED_MESSAGE = "Ordered Product successfully deleted";
@@ -34,14 +35,22 @@ public class ResponseMessage {
 
 
 
+
+	
+	public final static String EMAILS_CREATED_RESPONSE="Emails successfully created";
+	public final static String EMAILS_UPDATE_RESPONSE_MESSAGE= "Email Successfully Updated";
+	public final static String EMAILS_DELETE_RESPONSE_MESSAGE= "Email Successfully Deleted";
+
 	public final static String COMPANY_CREATED_RESPONSE="Company successfully created";
 
 
     public static final String COMPANY_UPDATE_RESPONSE = "Company successfully updated";
 
+
 	public static final String LEAD_DELETED_MESSAGE = "Lead successfully deleted";
 	public static final String ORDER_CREATE_RESPONSE = "Order successfully created";
 	public static final String ORDER_UPDATED_MESSAGE = "Order successfully updated";
 	public static final String ORDER_DELETED_MESSAGE = "Order successfully deleted";
+
 
 }

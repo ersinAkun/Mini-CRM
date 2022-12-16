@@ -1,5 +1,6 @@
 package com.crm.responseDTO;
 
+
 import java.time.LocalDate;
 
 import com.crm.domain.enums.CurrencyType;
@@ -33,11 +34,15 @@ public class OrdersResponseDTO {
 	
 	private String forwarder;//kargo firması
 
+
 	private LocalDate estimatedDeliveryDate;//planlanan teslim tarihi
 	
 	private LocalDate deliveryDate;//teslim tarihi(gerçekleşen)
 	
 	private LocalDate orderDate;//siparişi verdiği tarih
+
+
+
 	
 	private Double profit;
 	

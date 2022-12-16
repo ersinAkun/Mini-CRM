@@ -9,9 +9,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+<<<<<<< HEAD
 
 import com.crm.domain.enums.Department;
 
+=======
+import com.crm.domain.enums.Department;
+>>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

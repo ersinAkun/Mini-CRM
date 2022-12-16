@@ -36,7 +36,9 @@ public class WorkManagementController {
 	//*********EMIN**CREATE-TASK***12.12.22***************
 
 
+
 	
+
 
 	//tarihler genel anlamda kontrol edilmeli.
 	//örneğin işin bitiş tarihi create tarihinden önce olmamalı gibi.
@@ -116,6 +118,8 @@ public ResponseEntity<CrmResponse> deleteTask(@PathVariable Long id){
 	CrmResponse response = new CrmResponse(ResponseMessage.TASK_DELETED_MESSAGE,true);
 	return ResponseEntity.ok(response);
 }
+
+
 
 
 
