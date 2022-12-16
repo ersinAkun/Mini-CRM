@@ -33,12 +33,12 @@ public class CompanyService {
 
 
 
-//	public Company findCompanyById(Long id) {
-//		
-//		Company company= companyRepository.findById(id).orElseThrow(
-//                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));;
-//	return company;	
-//	}
+	public Company findCompanyById(Long id) {
+		
+		Company company= companyRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));;
+	return company;	
+	}
 
 
     public void saveCompany(CompanyRequestDTO companyRequestDTO, Long eId) {

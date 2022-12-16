@@ -18,6 +18,9 @@ public class EmailsRequestDTO {
 	@Email
 	@NotNull(message = "Please provide email")
     private String email;
+    
+    
+    
    
     
 }
