@@ -1,6 +1,5 @@
 package com.crm.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
-
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
@@ -109,8 +106,8 @@ public class Company {
 //  @OneToMany
 //  private List<Orders> orders;
   
-  @OneToMany(mappedBy = "company")
-  private List<Emails>  emails= new ArrayList<>();
+//  @OneToMany
+//  private List<Emails>  emails= new ArrayList<>();
   
   @Enumerated(EnumType.STRING)
   private CompanyStatus companyStatus;
