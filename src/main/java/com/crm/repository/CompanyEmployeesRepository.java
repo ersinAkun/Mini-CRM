@@ -38,21 +38,26 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 	   		+ "e.speaks=:speaks, e.state=:state  "
 	   		+ "WHERE e.id=:id" )
 	   void update(@Param("id") Long id,
-			   		@Param("firstName") String firstName,
-			   		@Param("lastName") String lastName,
-			   		@Param("phoneNumber") String phoneNumber,
-			   		@Param("email") String email,
-			   		@Param("address") String address,
-			   		@Param("city") String city,
-			   		@Param("country") String country,
-			   		@Param("employeeDepartment") Department department,
-			   		@Param("hasWhatsapp") Boolean hasWhatsapp,
-			   		@Param("jobTitle") String jobTitle,
-			   		@Param("notes") String notes,
-			   		@Param("speaks") String speaks,
-			   		@Param("state") String state
-			   				
-			   		);
-	
-	
+			   					 @Param("firstName") String firstName,
+			   					 @Param("lastName") String lastName,
+			   					 @Param("phoneNumber") String phoneNumber,
+			   					 @Param("email") String email,
+			   					 @Param("address") String address,
+			   					@Param("city") String city,
+			   					@Param("country") String country,
+			   					@Param("employeeDepartment") Department employeeDepartment,
+			   					@Param("hasWhatsapp") Boolean hasWhatsapp,
+			   					@Param("jobTitle") String jobTitle,
+			   					@Param("notes") String notes,
+			   					@Param("speaks") String speaks,
+			   					@Param("state") String state
+			   					
+			   					);
+
+
+	@Query("SELECT count (e) FROM CompanyEmployees e where e.id=:eId")
+    Integer countById(@Param("eId") Long eId);
+
+
+
 }
