@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Getter
 @Setter
@@ -73,12 +74,7 @@ public class CompanyRequestDTO {
 	@NotNull(message = "Please provide RFQ")
 	private String rfq;
 
-	//@Size(max = 5)
-	//private Long whoFind;// path ile gönderebiliriz.
-
-	@Size(max = 50)
-	@NotBlank(message = "Please provide employee name")
-	private String whoContacted;// yereldeki şirket sahibi olabilir.body ile gönderelim
+	private Long whoFind;
 
 	@Size(max = 250)
 	private String about;
