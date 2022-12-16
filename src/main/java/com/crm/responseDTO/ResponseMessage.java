@@ -26,9 +26,7 @@ public class ResponseMessage {
 
 
     public static final String COMPANY_UPDATE_RESPONSE = "Company successfully updated";
-    
-    
-    
-    
-    
+
+
+    public static final String COMPANY_DELETE_RESPONSE_MESSAGE ="Company successfully deleted" ;
 }

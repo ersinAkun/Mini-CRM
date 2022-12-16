@@ -18,4 +18,6 @@ public class ErrorMessage {
 	public final static String COMPANY_NOT_FOUND_MESSAGE = "Company : %s not found";
     public static final String COMPANY_IS_NOT_EXIST_MESSAGE ="Company: %s is not exist" ;
 
+    public static final String COMPANY_WITH_STATUS_IS_NOT_EXIST_MESSAGE ="Company with status : %s is not exist" ;
+	public static final String COMPANY_WITH_INDUSTRY_IS_NOT_EXIST_MESSAGE ="Company with industry : %s is not exist" ;
 }
