@@ -43,14 +43,14 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 			   					 @Param("phoneNumber") String phoneNumber,
 			   					 @Param("email") String email,
 			   					 @Param("address") String address,
-			   					@Param("password") String password,
 			   					@Param("city") String city,
 			   					@Param("country") String country,
 			   					@Param("employeeDepartment") Department employeeDepartment,
 			   					@Param("hasWhatsapp") Boolean hasWhatsapp,
 			   					@Param("jobTitle") String jobTitle,
 			   					@Param("notes") String notes,
-			   					@Param("speaks") String speaks
+			   					@Param("speaks") String speaks,
+			   					@Param("state") String state
 			   					
 			   					);
 

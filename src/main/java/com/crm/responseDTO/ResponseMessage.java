@@ -19,10 +19,16 @@ public class ResponseMessage {
 	public static final String TASK_CREATED_MESSAGE = "Task successfully created";
 	public static final String TASK_UPDATED_MESSAGE = "Task successfully updated";
 	public static final String TASK_DELETED_MESSAGE = "Task successfully deleted";
-
-
+	public final static String EMAILS_CREATED_RESPONSE="Emails successfully created";
+	public final static String EMAILS_UPDATE_RESPONSE_MESSAGE= "Email Successfully Updated";
+	public final static String EMAILS_DELETE_RESPONSE_MESSAGE= "Email Successfully Deleted";
 	public final static String COMPANY_CREATED_RESPONSE="Company successfully created";
 
 
     public static final String COMPANY_UPDATE_RESPONSE = "Company successfully updated";
+    
+    
+    
+    
+    
 }
