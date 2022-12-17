@@ -35,17 +35,19 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 
 	
 	@Modifying // JpaRepository içinde custom bir query ile DML operasyonları yapılıyor ise  @Modifying konulur
-	   @Query( "UPDATE CompanyEmployees e SET e.firstName=:firstName, e.lastName=:lastName,e.phoneNumber=:phoneNumber,"
+	   @Query( "UPDATE CompanyEmployees e SET e.firstName=:firstName, e.lastName=:lastName,"
+	   		+ "e.phoneNumber=:phoneNumber,"
 
 
-	   		+ "e.email=:email,e.address=:address, e.password=:password, e.city=:city, e.country=:country, "
+	   		+ "e.email=:email,e.address=:address,"
 
-	   		+ "e.email=:email,e.address=:address, e.city=:city, e.country=:country, "
+	   		+ " e.city=:city, e.country=:country, "
 
 
-	   		+ "e.email=:email,e.address=:address, e.city=:city, e.country=:country, "
+	   		
 
-	   		+ "e.employeeDepartment=:employeeDepartment, e.hasWhatsapp=:hasWhatsapp, e.jobTitle=:jobTitle, e.notes=:notes, "
+	   		+ "e.employeeDepartment=:employeeDepartment, e.hasWhatsapp=:hasWhatsapp,"
+	   		+ " e.jobTitle=:jobTitle, e.notes=:notes, "
 	   		+ "e.speaks=:speaks, e.state=:state  "
 	   		+ "WHERE e.id=:id" )
 	   void update(@Param("id") Long id,
@@ -57,23 +59,16 @@ public interface CompanyEmployeesRepository extends JpaRepository<CompanyEmploye
 			   					 @Param("phoneNumber") String phoneNumber,
 			   					 @Param("email") String email,
 			   					 @Param("address") String address,
-
-			   					@Param("password") String password,
 			   					@Param("city") String city,
-			   					@Param("country") Department department,
-			   					@Param("employeeDepartment") Boolean boolean1,
-			   					@Param("hasWhatsapp") String string,
-			   					@Param("jobTitle") String jobTitle,
-			   					@Param("notes") String notes,
-			   					@Param("speaks") String speaks,
-
-			   					
 			   					@Param("country") String country,
 			   					@Param("employeeDepartment") Department employeeDepartment,
 			   					@Param("hasWhatsapp") Boolean hasWhatsapp,
-			   					
+			   					@Param("jobTitle") String jobTitle,
+			   					@Param("notes") String notes,
+			   					@Param("speaks") String speaks,
+			   					@Param("state") String state			   					
 			   				
-			   					@Param("state") String state
+			   					
 
 			   					
 			   					);
