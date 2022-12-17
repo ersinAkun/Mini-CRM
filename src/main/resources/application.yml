@@ -4,27 +4,13 @@ server:
   include-binding-errors: always
   include-message: always
   include-stacktrace: never
-  
+
 spring:
  datasource:
 
-
-  url: jdbc:postgresql://localhost:5432/miniCrm
-  username: postgres
-  password: Fsjd1000
-
-
   url: jdbc:postgresql://localhost:5432/crm_db
   username: crm_user
   password: 12345
-
-
-
-
-  url: jdbc:postgresql://localhost:5432/crm_db
-  username: crm_user
-  password: 12345
-
   driver-class-name: org.postgresql.Driver
  jpa:
   hibernate: 
@@ -37,8 +23,8 @@ spring:
  servlet:
   multipart:
    max-file-size: 2MB
-   max-request-size: 2MB   
-   
+   max-request-size: 2MB
+
 logging:
  file:
   name: log/crm.log
@@ -48,7 +34,7 @@ logging:
   '[org.springframework.web]' : WARN
   '[org.hibernate]' : INFO
   '[org.visionrent]' : DEBUG
-  
+
 management: #actuator
  endpoints:
   web:
@@ -68,11 +54,9 @@ crm:
   jwtSecret: crm@!23
   jwtExpirationMs: 8640000000
   # şimdi 100 gün verdik...uzun verelim sonra 1 günlüğe çekebiliriz    iki sıfır sil
-   
+
 info:
  application:
   name: 'Mini-CRM Backend App'
   description: 'This is Mini-CRM Backend Project'
   version: '@project.version@'
-   
-
