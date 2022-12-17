@@ -1,7 +1,5 @@
 package com.crm.controller;
 
-
-
 import java.util.List;
 
 import javax.validation.Valid;
@@ -34,178 +32,120 @@ import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.ResponseMessage;
 import com.crm.service.CompanyEmployeesService;
 
-
-
 @RestController
 @RequestMapping("/companyEmployees")
 public class CompanyEmployeesController {
 
-	
 	@Autowired
 	private CompanyEmployeesService companyEmployeesService;
-	
 
+	// ******CREATE EMPLOYEES****
 
-	
- //******CREATE EMPLOYEES****
-	
+	@PostMapping("/register")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<CrmResponse> createCompanyEmployees(
+			@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
+		companyEmployeesService.createCompanyEmployees(companyEmployeesRequestDTO);
 
-	
-	//******CREATE EMPLOYEES****
+		CrmResponse crmResponse = new CrmResponse();
+		crmResponse.setMessage(ResponseMessage.COMPANY_EMPLOYEES_CREATE_RESPONSE);
+		crmResponse.setSuccess(true);
+		return ResponseEntity.ok(crmResponse);
 
- 	@PostMapping("/register")
- 	@PreAuthorize("hasRole('ADMIN')")
- 	public ResponseEntity<CrmResponse> createCompanyEmployees(@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
- 		companyEmployeesService.createCompanyEmployees(companyEmployeesRequestDTO);
- 		
- 		CrmResponse crmResponse = new CrmResponse();
- 		crmResponse.setMessage(ResponseMessage.COMPANY_EMPLOYEES_CREATE_RESPONSE);
- 		crmResponse.setSuccess(true);				
- 		return ResponseEntity.ok(crmResponse);
- 		
- 	}
-	
-	
-	
-	//******CELEBI*******GET BY ID EMPLOYEES**********************
+	}
+
+	// ******CELEBI*******GET BY ID EMPLOYEES**********************
 	@GetMapping("/get/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<CompanyEmployeesResponseDTO> getEmployeesById(@PathVariable Long id){
+	public ResponseEntity<CompanyEmployeesResponseDTO> getEmployeesById(@PathVariable Long id) {
 		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = companyEmployeesService.getEmployeesById(id);
-		
+
 		return ResponseEntity.ok(companyEmployeesResponseDTO);
 	}
-	
-	//*******CELEBI******GET ALL EMPLOYEES**********************
+
+	// *******CELEBI******GET ALL EMPLOYEES**********************
 
 	@GetMapping("/getAll")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<List<CompanyEmployeesResponseDTO>> getAllEmployees(){
+	public ResponseEntity<List<CompanyEmployeesResponseDTO>> getAllEmployees() {
 		List<CompanyEmployeesResponseDTO> companyEmployeesResponseDTO = companyEmployeesService.getAllEmployees();
-		
+
 		return ResponseEntity.ok(companyEmployeesResponseDTO);
 	}
 
-	
-	
-	
+	@GetMapping("/getPages")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	public ResponseEntity<Page<CompanyEmployeesResponseDTO>> getAllEmployeesByPage(@RequestParam("page") int page,
+			@RequestParam("size") int size, @RequestParam("sort") String prop, // neye göre sıralanacağı belirtiliyor
+			@RequestParam(value = "direction", required = false, // direction required olmasın
+					defaultValue = "DESC") Direction direction) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
 
-	
+		Page<CompanyEmployeesResponseDTO> companyEmployeesResponseDTOPage = companyEmployeesService
+				.getEmployeesPage(pageable);
 
-		@GetMapping("/getPages")
-		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-		public ResponseEntity<Page<CompanyEmployeesResponseDTO>> getAllEmployeesByPage(
-							@RequestParam("page") int page,
-							@RequestParam("size") int size,
-							@RequestParam("sort") String prop,//neye göre sıralanacağı belirtiliyor
-							@RequestParam(value="direction",
-							required = false, // direction required olmasın
-							defaultValue = "DESC") Direction direction )  {
-			    Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
-			
-			    Page<CompanyEmployeesResponseDTO> companyEmployeesResponseDTOPage  =   companyEmployeesService.getEmployeesPage(pageable);
-			   
-			    return ResponseEntity.ok(companyEmployeesResponseDTOPage);
-			
-		}
+		return ResponseEntity.ok(companyEmployeesResponseDTOPage);
 
-		
-		
-		
-		//********CELEBI*****UPDATE EMPLOYEES**********************
-		
-		@PutMapping("/update")
-		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-		public ResponseEntity<CrmResponse> updateCompanyEmployees(@RequestParam("id") Long id, @Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
-			companyEmployeesService.updateEmployees(id,companyEmployeesRequestDTO);
-			
-			CrmResponse crmResponse = new CrmResponse();
-	 		crmResponse.setMessage(ResponseMessage.EMPLOYEES_UPDATE_RESPONSE_MESSAGE);
-	 		crmResponse.setSuccess(true);				
-	 		return ResponseEntity.ok(crmResponse);
-		}
-		
-		
-		
-		
-	
+	}
+
 
 	
 
-	
-
-
-		
-	//********CELEBI*****UPDATE LOGIN EMPLOYEES**********************
+	// ********CELEBI*****UPDATE LOGIN EMPLOYEES**********************
 	@PutMapping
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<CrmResponse> updateLoginEmployees(@Valid @RequestBody CompanyEmployeesUpdateRequestDTO companyEmployeesUpdateRequestDTO) {
+	public ResponseEntity<CrmResponse> updateLoginEmployees(
+			@Valid @RequestBody CompanyEmployeesUpdateRequestDTO companyEmployeesUpdateRequestDTO) {
 		companyEmployeesService.updateLoginEmployees(companyEmployeesUpdateRequestDTO);
-			
+
 		CrmResponse crmResponse = new CrmResponse();
-	 	crmResponse.setMessage(ResponseMessage.EMPLOYEES_UPDATE_RESPONSE_MESSAGE);
-	 	crmResponse.setSuccess(true);				
-	 	return ResponseEntity.ok(crmResponse);
-			
-			
+		crmResponse.setMessage(ResponseMessage.EMPLOYEES_UPDATE_RESPONSE_MESSAGE);
+		crmResponse.setSuccess(true);
+		return ResponseEntity.ok(crmResponse);
+
 	}
-		
-		
-		
-		
-	//********CELEBI*****UPDATE ADMIN EMPLOYEES**********************
 
+	// ********CELEBI*****UPDATE ADMIN EMPLOYEES**********************
 
-
-	@PutMapping("/update")
+	@PutMapping("/updateAdmin")
 
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<CrmResponse> updateCompanyEmployees(@RequestParam("id") Long id, @Valid @RequestBody CompanyEmployeesUpdateAdminRequestDTO companyEmployeesUpdateAdminRequestDTO){
-		companyEmployeesService.updateEmployees(id,companyEmployeesUpdateAdminRequestDTO);
-		
+	public ResponseEntity<CrmResponse> updateCompanyEmployees(@RequestParam("id") Long id,
+			@Valid @RequestBody CompanyEmployeesUpdateAdminRequestDTO companyEmployeesUpdateAdminRequestDTO) {
+		companyEmployeesService.updateEmployees(id, companyEmployeesUpdateAdminRequestDTO);
+
 		CrmResponse crmResponse = new CrmResponse();
-	 	crmResponse.setMessage(ResponseMessage.EMPLOYEES_UPDATE_RESPONSE_MESSAGE);
-	 	crmResponse.setSuccess(true);				
-	 	return ResponseEntity.ok(crmResponse);
+		crmResponse.setMessage(ResponseMessage.EMPLOYEES_UPDATE_RESPONSE_MESSAGE);
+		crmResponse.setSuccess(true);
+		return ResponseEntity.ok(crmResponse);
 	}
-		
-	//********CELEBI*****UPDATE PASSWORD LOGIN EMPLOYEES**********************
+
+	// ********CELEBI*****UPDATE PASSWORD LOGIN EMPLOYEES**********************
 	@PatchMapping("/auth")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<CrmResponse> updatePassword(@Valid @RequestBody CompanyEmployeesUpdatePasswordRequestDTO companyEmployeesUpdatePasswordRequestDTO) {
+	public ResponseEntity<CrmResponse> updatePassword(
+			@Valid @RequestBody CompanyEmployeesUpdatePasswordRequestDTO companyEmployeesUpdatePasswordRequestDTO) {
 		companyEmployeesService.updatePassword(companyEmployeesUpdatePasswordRequestDTO);
-		
+
 		CrmResponse crmResponse = new CrmResponse();
-	 	crmResponse.setMessage(ResponseMessage.PASSWORD_CHANGED_RESPONSE_MESSAGE);
-	 	crmResponse.setSuccess(true);				
-	 	return ResponseEntity.ok(crmResponse);
-			
-			
+		crmResponse.setMessage(ResponseMessage.PASSWORD_CHANGED_RESPONSE_MESSAGE);
+		crmResponse.setSuccess(true);
+		return ResponseEntity.ok(crmResponse);
+
 	}
 
-		
-		
-		
-	//********CELEBI*****DELETE EMPLOYEES**********************
+	// ********CELEBI*****DELETE EMPLOYEES**********************
 	@DeleteMapping("/delete/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<CrmResponse> deleteCompanyEmployees(@PathVariable Long id){
-		
+	public ResponseEntity<CrmResponse> deleteCompanyEmployees(@PathVariable Long id) {
+
 		companyEmployeesService.removeEmployeesById(id);
-		
+
 		CrmResponse crmResponse = new CrmResponse();
-	 	crmResponse.setMessage(ResponseMessage.EMPLOYEES_DELETE_RESPONSE_MESSAGE);
-	 	crmResponse.setSuccess(true);				
-	 	return ResponseEntity.ok(crmResponse);
-			
+		crmResponse.setMessage(ResponseMessage.EMPLOYEES_DELETE_RESPONSE_MESSAGE);
+		crmResponse.setSuccess(true);
+		return ResponseEntity.ok(crmResponse);
+
 	}
-		
-		
-		
-		
-		
-		
-		
-		
 
 }
