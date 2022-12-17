@@ -1,4 +1,5 @@
 package com.crm.service;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,7 +20,10 @@ import com.crm.requestDTO.SupplierRequestDTO;
 public class SupplierService {
 	
 	@Autowired
+
+
 	private SupplierRepository supplierRepository;
+
 	
 	
 	public Supplier findSupplierById(Long id) {
@@ -32,8 +36,12 @@ public class SupplierService {
 	public void saveSupplier(@Valid SupplierRequestDTO supplierRequestDTO, Long id) {
 		Supplier supplier = new Supplier();
 		supplier.setName(supplierRequestDTO.getName());
+
+		supplier.setOwner(supplierRequestDTO.getOwnerLastName());//owner a karsilik name ve last name var ben lastname i sectim
+
 		supplier.setEmail(supplierRequestDTO.getEmail());
 		supplier.setOwner(supplierRequestDTO.getOwnerName());//owner a karsilik name ve last name var ben lastname i sectim
+
 		supplier.setAddress(supplierRequestDTO.getAddress());
 		supplier.setCity(supplierRequestDTO.getCity());
 		supplier.setPhone(supplierRequestDTO.getPhone());
@@ -43,6 +51,10 @@ public class SupplierService {
 		supplierRepository.save(supplier);
 		
 	}
+
+
+
+	
 
 	public List<Supplier> getAll() {
 		
@@ -82,6 +94,7 @@ public class SupplierService {
 		supplierRepository.deleteById(supplier.getId());
 		
 	}
+
 	
 
 }

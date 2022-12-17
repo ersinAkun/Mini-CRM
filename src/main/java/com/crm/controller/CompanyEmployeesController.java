@@ -3,7 +3,9 @@ package com.crm.controller;
 
 
 import java.util.List;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.crm.requestDTO.CompanyEmployeesRequestDTO;
 import com.crm.requestDTO.CompanyEmployeesUpdateAdminRequestDTO;
 import com.crm.requestDTO.CompanyEmployeesUpdatePasswordRequestDTO;
@@ -41,8 +44,15 @@ public class CompanyEmployeesController {
 	@Autowired
 	private CompanyEmployeesService companyEmployeesService;
 	
+
+
+	
+ //******CREATE EMPLOYEES****
+	
+
 	
 	//******CREATE EMPLOYEES****
+
  	@PostMapping("/register")
  	@PreAuthorize("hasRole('ADMIN')")
  	public ResponseEntity<CrmResponse> createCompanyEmployees(@Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
@@ -67,6 +77,7 @@ public class CompanyEmployeesController {
 	}
 	
 	//*******CELEBI******GET ALL EMPLOYEES**********************
+
 	@GetMapping("/getAll")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<List<CompanyEmployeesResponseDTO>> getAllEmployees(){
@@ -78,23 +89,51 @@ public class CompanyEmployeesController {
 	
 	
 	
-	//********CELEBI*****GET ALL PAGES EMPLOYEES**********************
-	@GetMapping("/getPages")
-	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<Page<CompanyEmployeesResponseDTO>> getAllEmployeesByPage(
-						@RequestParam("page") int page,
-						@RequestParam("size") int size,
-						@RequestParam("sort") String prop,//neye göre sıralanacağı belirtiliyor
-						@RequestParam(value="direction",
-						required = false, // direction required olmasın
-						defaultValue = "DESC") Direction direction )  {
-		Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
+
+	
+
+		@GetMapping("/getPages")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+		public ResponseEntity<Page<CompanyEmployeesResponseDTO>> getAllEmployeesByPage(
+							@RequestParam("page") int page,
+							@RequestParam("size") int size,
+							@RequestParam("sort") String prop,//neye göre sıralanacağı belirtiliyor
+							@RequestParam(value="direction",
+							required = false, // direction required olmasın
+							defaultValue = "DESC") Direction direction )  {
+			    Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
 			
-		Page<CompanyEmployeesResponseDTO> companyEmployeesResponseDTOPage  =   companyEmployeesService.getEmployeesPage(pageable);
+			    Page<CompanyEmployeesResponseDTO> companyEmployeesResponseDTOPage  =   companyEmployeesService.getEmployeesPage(pageable);
 			   
-	 return ResponseEntity.ok(companyEmployeesResponseDTOPage);
+			    return ResponseEntity.ok(companyEmployeesResponseDTOPage);
 			
-	}
+		}
+
+		
+		
+		
+		//********CELEBI*****UPDATE EMPLOYEES**********************
+		
+		@PutMapping("/update")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+		public ResponseEntity<CrmResponse> updateCompanyEmployees(@RequestParam("id") Long id, @Valid @RequestBody CompanyEmployeesRequestDTO companyEmployeesRequestDTO){
+			companyEmployeesService.updateEmployees(id,companyEmployeesRequestDTO);
+			
+			CrmResponse crmResponse = new CrmResponse();
+	 		crmResponse.setMessage(ResponseMessage.EMPLOYEES_UPDATE_RESPONSE_MESSAGE);
+	 		crmResponse.setSuccess(true);				
+	 		return ResponseEntity.ok(crmResponse);
+		}
+		
+		
+		
+		
+	
+
+	
+
+	
+
 
 		
 	//********CELEBI*****UPDATE LOGIN EMPLOYEES**********************
@@ -115,7 +154,11 @@ public class CompanyEmployeesController {
 		
 		
 	//********CELEBI*****UPDATE ADMIN EMPLOYEES**********************
+
+
+
 	@PutMapping("/update")
+
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<CrmResponse> updateCompanyEmployees(@RequestParam("id") Long id, @Valid @RequestBody CompanyEmployeesUpdateAdminRequestDTO companyEmployeesUpdateAdminRequestDTO){
 		companyEmployeesService.updateEmployees(id,companyEmployeesUpdateAdminRequestDTO);
@@ -139,6 +182,7 @@ public class CompanyEmployeesController {
 			
 			
 	}
+
 		
 		
 		
@@ -157,4 +201,5 @@ public class CompanyEmployeesController {
 	}
 			
 		
+
 }
