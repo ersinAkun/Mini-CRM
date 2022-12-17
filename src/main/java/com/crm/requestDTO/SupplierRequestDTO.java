@@ -4,10 +4,17 @@ package com.crm.requestDTO;
 
 import javax.validation.constraints.Email;
 
+
+import javax.validation.constraints.Email;
+
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+
+
 
 
 import lombok.AllArgsConstructor;
@@ -27,6 +34,9 @@ public class SupplierRequestDTO {
 	private String name;
 
 
+
+
+
 	
 	@Size(max = 50)
 	@NotNull(message = "Please enter email")
@@ -38,6 +48,10 @@ public class SupplierRequestDTO {
 	@NotBlank(message = "Please provide owner first name")
 	private String ownerName;
 
+
+
+
+
 	@Size(max = 50)
 	@NotBlank(message = "Please provide owner last name")
 	private String ownerLastName;
@@ -45,7 +59,12 @@ public class SupplierRequestDTO {
 	/*@Size(max = 50)
 	@NotBlank(message = "Please provide owner last name")
 	private String ownerLastName;
-*/
+<<<<<<< HEAD
+	*/
+
+
+
+
 
 	@Size(max = 100)
 	@NotBlank(message = "Please provide adress")

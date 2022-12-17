@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.crm.domain.Company;
 import com.crm.exception.ConflictException;
+import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyEmployeesRepository;
 import com.crm.repository.CompanyRepository;
 import com.crm.requestDTO.CompanyRequestDTO;
+import com.crm.responseDTO.CompanyResponseDTO;
 
 
 @Service
@@ -36,12 +38,12 @@ CompanyEmployeesService companyEmployeesService;
   
 
 
-//	public Company findCompanyById(Long id) {
-//		
-//		Company company= companyRepository.findById(id).orElseThrow(
-//                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));;
-//	return company;	
-//	}
+	public Company findCompanyById(Long id) {
+		
+		Company company= companyRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));;
+	return company;	
+	}
 
 
 
