@@ -396,13 +396,11 @@ public class CompanyEmployeesService {
 	     companyEmployeesRepository.deleteById(id);
 	     
 	}
-	
-
-	
 
 
-	
-	
-	
+	public String getNameById(Long whoFind) {
+		return	 getCompanyEmployees(whoFind).getFirstName();
 
+
+	}
 }

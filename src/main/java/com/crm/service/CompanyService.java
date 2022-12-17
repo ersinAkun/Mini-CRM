@@ -161,7 +161,7 @@ public class CompanyService {
         companyResponseDTO.setTimeZone(company.getTimeZone());
         companyResponseDTO.setWebPage(company.getWebPage());
         companyResponseDTO.setRfq(company.getRFQ());
-        companyResponseDTO.setWhoFind(company.getWhoFind());
+        companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(company.getWhoFind()));
         companyResponseDTO.setAbout(company.getAbout());
         companyResponseDTO.setFirstContactDate(company.getFirstContactDate());
         companyResponseDTO.setIsMailSent(company.getIsMailSent());
@@ -212,7 +212,7 @@ public class CompanyService {
             companyResponseDTO.setTimeZone(companies.getTimeZone());
             companyResponseDTO.setWebPage(companies.getWebPage());
             companyResponseDTO.setRfq(companies.getRFQ());
-            companyResponseDTO.setWhoFind(companies.getWhoFind());
+            companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(companies.getWhoFind()));
             companyResponseDTO.setAbout(companies.getAbout());
             companyResponseDTO.setFirstContactDate(companies.getFirstContactDate());
             companyResponseDTO.setIsMailSent(companies.getIsMailSent());
@@ -257,7 +257,7 @@ public class CompanyService {
                 companyResponseDTO.setTimeZone(company.getTimeZone());
                 companyResponseDTO.setWebPage(company.getWebPage());
                 companyResponseDTO.setRfq(company.getRFQ());
-                companyResponseDTO.setWhoFind(company.getWhoFind());
+                companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(company.getWhoFind()));
                 companyResponseDTO.setAbout(company.getAbout());
                 companyResponseDTO.setFirstContactDate(company.getFirstContactDate());
                 companyResponseDTO.setIsMailSent(company.getIsMailSent());
@@ -310,7 +310,7 @@ public class CompanyService {
             companyResponseDTO.setTimeZone(companies.getTimeZone());
             companyResponseDTO.setWebPage(companies.getWebPage());
             companyResponseDTO.setRfq(companies.getRFQ());
-            companyResponseDTO.setWhoFind(companies.getWhoFind());
+            companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(companies.getWhoFind()));
             companyResponseDTO.setAbout(companies.getAbout());
             companyResponseDTO.setFirstContactDate(companies.getFirstContactDate());
             companyResponseDTO.setIsMailSent(companies.getIsMailSent());
@@ -356,7 +356,7 @@ public class CompanyService {
             companyResponseDTO.setTimeZone(companies.getTimeZone());
             companyResponseDTO.setWebPage(companies.getWebPage());
             companyResponseDTO.setRfq(companies.getRFQ());
-            companyResponseDTO.setWhoFind(companies.getWhoFind());
+            companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(companies.getWhoFind()));
             companyResponseDTO.setAbout(companies.getAbout());
             companyResponseDTO.setFirstContactDate(companies.getFirstContactDate());
             companyResponseDTO.setIsMailSent(companies.getIsMailSent());
@@ -404,7 +404,7 @@ public class CompanyService {
             companyResponseDTO.setTimeZone(companies.getTimeZone());
             companyResponseDTO.setWebPage(companies.getWebPage());
             companyResponseDTO.setRfq(companies.getRFQ());
-            companyResponseDTO.setWhoFind(companies.getWhoFind());
+            companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(companies.getWhoFind()));
             companyResponseDTO.setAbout(companies.getAbout());
             companyResponseDTO.setFirstContactDate(companies.getFirstContactDate());
             companyResponseDTO.setIsMailSent(companies.getIsMailSent());
