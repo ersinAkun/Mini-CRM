@@ -1,6 +1,9 @@
 package com.crm.domain;
 
+import java.time.LocalDate;
+
 import java.util.Date;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+
+
 import com.crm.domain.enums.CurrencyType;
 import com.crm.domain.enums.OrderStatus;
 import com.crm.domain.enums.OrderType;
@@ -19,6 +25,9 @@ import com.crm.domain.enums.PackingArrangement;
 import com.crm.domain.enums.PaymentMethod;
 import com.crm.domain.enums.Shipment;
 import com.crm.domain.enums.TypeOfDelivery;
+
+
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,13 +62,16 @@ public class Orders {
 	private String forwarder;//kargo firması
 	
 	 @Column
-	private Date estimatedDeliveryDate;//planlanan teslim tarihi
+
+	private LocalDate estimatedDeliveryDate;//planlanan teslim tarihi
 	
 	@Column
-	private Date deliveryDate;//teslim tarihi(gerçekleşen)
+	private LocalDate deliveryDate;//teslim tarihi(gerçekleşen)
 	
 	@Column
-	private Date orderDate;//siparişi verdiği tarih
+	private LocalDate orderDate;//siparişi verdiği tarih
+
+	
 	
 	@Column
 	private Double profit; //kar

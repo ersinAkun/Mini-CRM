@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.crm.domain.CompanyEmployees;
 import com.crm.domain.Role;
 import com.crm.domain.enums.RoleType;
@@ -61,10 +64,21 @@ public class CompanyEmployeesService {
 		this.companyEmployeesRepository = companyEmployeesRepository;
 		this.roleService = roleService;
 
+
 		
 		
 	}
+
+	
+	
+
+
+		
+		
+
+
 //********************LoginEmployees********************
+
 	public CompanyEmployees getCurrentEmployee() {
 		
 		String email = SecurityUtils.getCurrentUserLogin().orElseThrow(()->
@@ -81,6 +95,10 @@ public class CompanyEmployeesService {
 	
 	
 	//*****CELEBI********CREATE EMPLOYEES**********************
+
+
+
+
 	public void createCompanyEmployees(CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
 		if (companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail())) {
 			throw new ConflictException(
@@ -206,6 +224,7 @@ public class CompanyEmployeesService {
 	
 	
 	//****CELEBI*********GET PAGE EMPLOYEES**********************
+
 	public Page<CompanyEmployeesResponseDTO> getEmployeesPage(Pageable pageable) {
 		Page<CompanyEmployees> employeesPage = companyEmployeesRepository.findAll(pageable);
 		
@@ -252,6 +271,61 @@ public class CompanyEmployeesService {
 		return companyEmployees;
 	}
 	
+
+
+	
+	
+	//****CELEBI*********UPDATE EMPLOYEES**********************
+
+	public void updateEmployees(Long id, CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
+		
+		
+		//TODO role degistirilecek mi ?
+		
+		
+		CompanyEmployees companyEmployees =getCompanyEmployees(id);
+	   
+	      boolean emailExist  = companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail());
+	     
+	      if(emailExist && ! companyEmployeesRequestDTO.getEmail().equals(companyEmployees.getEmail())) {
+	    	  throw new ConflictException(String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE,companyEmployeesRequestDTO.getEmail()));
+	      }
+		
+	   // password boş ise
+	      if(companyEmployeesRequestDTO.getPassword()==null) {
+	    	  companyEmployeesRequestDTO.setPassword(companyEmployees.getPassword());
+	      } else  {
+	    	  String encodedPassword =  passwordEncoder.encode(companyEmployeesRequestDTO.getPassword());
+	    	  companyEmployeesRequestDTO.setPassword(encodedPassword);
+	      }
+	      
+	      
+	      
+		
+	      companyEmployees.setBuiltIn(companyEmployeesRequestDTO.getBuiltIn());
+	      companyEmployees.setAddress(companyEmployeesRequestDTO.getAddress());
+	      companyEmployees.setPassword(companyEmployeesRequestDTO.getPassword());
+	      companyEmployees.setCity(companyEmployeesRequestDTO.getCity());
+	      companyEmployees.setCountry(companyEmployeesRequestDTO.getCountry());
+	      companyEmployees.setEmail(companyEmployeesRequestDTO.getEmail());
+	      companyEmployees.setEmployeeDepartment(companyEmployeesRequestDTO.getEmployeeDepartment());
+	      companyEmployees.setFirstName(companyEmployeesRequestDTO.getFirstName());
+	      companyEmployees.setHasWhatsapp(companyEmployeesRequestDTO.getHasWhatsapp());
+	      companyEmployees.setJobTitle(companyEmployeesRequestDTO.getJobTitle());
+	      companyEmployees.setLastName(companyEmployeesRequestDTO.getLastName());
+	      companyEmployees.setNotes(companyEmployeesRequestDTO.getNotes());
+	      companyEmployees.setPhoneNumber(companyEmployeesRequestDTO.getPhoneNumber());
+	      companyEmployees.setSpeaks(companyEmployeesRequestDTO.getSpeaks());
+	      companyEmployees.setState(companyEmployeesRequestDTO.getState());
+//		companyEmployees.setRoles(roles);
+		companyEmployeesRepository.save(companyEmployees);
+	}
+
+	
+	//****CELEBI*********DELETE BY ID EMPLOYEES**********************
+
+
+
 	//********Request ten gelen Role bilgisini bizim istedigimiz ROLE_USER gibi sekle ceviriyor*****
 		public Set<Role> convertRoles(Set<String> pRoles) {
 			Set<Role> roles = new HashSet<>();
@@ -385,6 +459,7 @@ public class CompanyEmployeesService {
 	
 	
 	//****CELEBI*********DELETE BY ID EMPLOYEES**********************
+
 	public void removeEmployeesById(Long id) {
 		CompanyEmployees companyEmployees = getCompanyEmployees(id);
 		
@@ -396,13 +471,8 @@ public class CompanyEmployeesService {
 	     companyEmployeesRepository.deleteById(id);
 	     
 	}
-	
-
-	
 
 
-	
-	
-	
+
 
 }
