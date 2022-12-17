@@ -27,6 +27,10 @@ public class ErrorMessage {
 
 	public final static String COMPANY_NOT_FOUND_MESSAGE = "Company : %s not found";
     public static final String COMPANY_IS_NOT_EXIST_MESSAGE ="Company: %s is not exist" ;
+	public final static String EMPLOYEES_NOT_FOUND_BY_ID_MESSAGE = "Employee id %s not found";
 
 
+    public static final String COMPANY_WITH_STATUS_IS_NOT_EXIST_MESSAGE ="There is no company with that %s status" ;
+	public static final String COMPANY_WITH_INDUSTRY_IS_NOT_EXIST_MESSAGE ="There is no company with that %s industry" ;
+	public static final String COMPANY_WITH_TYPE_IS_NOT_EXIST_MESSAGE = "There is no company with that %s type";
 }

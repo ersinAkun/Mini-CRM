@@ -2,20 +2,7 @@ package com.crm.requestDTO;
 
 
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
-
-
-
-import java.time.LocalDateTime;
-import java.util.Date;
-
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -27,33 +14,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
-
-
-
-
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
 import com.crm.domain.enums.CompanyWhereWasFound;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-
-
-
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-
-
-
-
-import org.hibernate.validator.constraints.UniqueElements;
-
 
 @Getter
 @Setter
@@ -105,31 +75,9 @@ public class CompanyRequestDTO {
 	@Size(max = 50)
 	private String webPage;
 
-	//@Size(max = 150)
 
-
-
-	
-
-
-	
 	@NotNull(message = "Please provide RFQ")
 	private String rfq;
-
-
-	//@Size(max = 5)
-	//private Long whoFind;// path ile gönderebiliriz.
-
-	@Size(max = 50)
-	@NotBlank(message = "Please provide employee name")
-	private String whoContacted;// yereldeki şirket sahibi olabilir.body ile gönderelim
-
-
-
-
-
-	
-
 
 	private Long whoFind;
 
