@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.crm.domain.Company;
 import com.crm.domain.Emails;
 import com.crm.exception.ConflictException;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
+import com.crm.repository.CompanyRepository;
 import com.crm.repository.EmailsRepository;
 import com.crm.requestDTO.EmailsRequestDTO;
 import com.crm.responseDTO.EmailsResponseDTO;
@@ -25,13 +28,21 @@ public class EmailsService {
 	@Autowired
 	private EmailsRepository emailsRepository;
 
+	@Autowired
+	private CompanyService companyService;
+	
+	@Autowired
+	private CompanyRepository companyRepository;
 	
 	//*****CELEBI********CREATE EMAILS**********************
-	public void createEmails(@Valid EmailsRequestDTO emailsRequestDTO) {
+	public void createEmails(Long cId,EmailsRequestDTO emailsRequestDTO) {
 		
+		Company company= companyService.findCompanyById(cId);
+				
 		Emails emails= new Emails();
 		
 		emails.setEmail(emailsRequestDTO.getEmail());
+		emails.setCompany(company);
 	
 		emailsRepository.save(emails);
 	}
@@ -53,10 +64,13 @@ public class EmailsService {
 		
 		Emails emails= emailsRepository.findById(id).orElseThrow(()->
 		   new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+		
+		
 		EmailsResponseDTO emailsResponseDTO= new EmailsResponseDTO();
 		
 		emailsResponseDTO.setEmail(emails.getEmail());
 		emailsResponseDTO.setId(emails.getId());
+		emailsResponseDTO.setCompany_id(emails.getCompany().getId());
 		
 		return emailsResponseDTO;
 	}
@@ -75,6 +89,7 @@ public class EmailsService {
 			EmailsResponseDTO emailsResponseDTO=new EmailsResponseDTO();
 			emailsResponseDTO.setEmail(emailsAll.getEmail());
 			emailsResponseDTO.setId(emailsAll.getId());
+			emailsResponseDTO.setCompany_id(emailsAll.getCompany().getId());
 			
 			emailsResponseDTOs.add(emailsResponseDTO);
 		}
@@ -98,6 +113,7 @@ public class EmailsService {
 				
 				emailsResponseDTO.setEmail(emails.getEmail());
 				emailsResponseDTO.setId(emails.getId());
+				emailsResponseDTO.setCompany_id(emails.getCompany().getId());
 				
 				return emailsResponseDTO;
 			}
@@ -109,8 +125,10 @@ public class EmailsService {
 	}
 
 	//******CELEBI*******GET BY ID UPDATE EMAIL**********************
-	public void updateEmail(Long id, @Valid EmailsRequestDTO emailsRequestDTO) {
+	public void updateEmail(Long id, Long cId, EmailsRequestDTO emailsRequestDTO) {
 		Emails email=getEmail(id);
+		
+		Company company= companyService.findCompanyById(cId);
 		
 		@SuppressWarnings("unlikely-arg-type")
 		boolean emailExist  = emailsRepository.findAll().contains(emailsRequestDTO.getEmail());
@@ -120,6 +138,7 @@ public class EmailsService {
 	      }
 	      
 	      email.setEmail(emailsRequestDTO.getEmail());
+	      email.setCompany(company);
 	      
 		emailsRepository.save(email);
 	}
