@@ -135,44 +135,44 @@ CompanyEmployeesService companyEmployeesService;
 
 
 
-    
-
-    public CompanyResponseDTO getCompanyById(Long id) {
-        Company company =  companyRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
-
-        CompanyResponseDTO companyResponseDTO= new CompanyResponseDTO();
-
-        companyResponseDTO.setName(company.getName().toUpperCase(Locale.ROOT));
-        companyResponseDTO.setOwner(company.getOwner());
-        companyResponseDTO.setAddress(company.getAddress());
-        companyResponseDTO.setCountry(company.getCountry());
-        companyResponseDTO.setCity(company.getCity());
-        companyResponseDTO.setPhoneNumber(company.getPhone());
-        companyResponseDTO.setLeadWhatsapp(company.getLeadWhatsapp());
-        companyResponseDTO.setLastActivity(company.getLastActivity());
-        companyResponseDTO.setLastActivityDate(company.getLastActivityDate());
-        companyResponseDTO.setLinkedPage(company.getLinkedPage());
-        companyResponseDTO.setTimeZone(company.getTimeZone());
-        companyResponseDTO.setWebPage(company.getWebPage());
-        companyResponseDTO.setRfq(company.getRFQ());
-        companyResponseDTO.setWhoFind(company.getWhoFind());
-        companyResponseDTO.setAbout(company.getAbout());
-        companyResponseDTO.setFirstContactDate(company.getFirstContactDate());
-        companyResponseDTO.setIsMailSent(company.getIsMailSent());
-        companyResponseDTO.setIsMsgSent(company.getIsMsgSent());
-        companyResponseDTO.setIsOrder(company.getIsOrder());
-        companyResponseDTO.setNote(company.getNote());
-        //companyResponseDTO.setLead(companyRequestDTO.);
-        //companyResponseDTO.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
-        // companyResponseDTO.setEmails(emailsService.findEmailsByCompanyName(companyRequestDTO.getName()));
-        companyResponseDTO.setCompanyStatus(company.getCompanyStatus());
-        companyResponseDTO.setIndustry(company.getIndustry());
-        companyResponseDTO.setCompanyWhereWasFound(company.getCompanyWhereWasFound());
-        companyResponseDTO.setCompanyType(company.getCompanyType());
-
-        return companyResponseDTO;
-    }
+//    
+//
+//    public CompanyResponseDTO getCompanyById(Long id) {
+//        Company company =  companyRepository.findById(id).orElseThrow(
+//                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+//
+//        CompanyResponseDTO companyResponseDTO= new CompanyResponseDTO();
+//
+//        companyResponseDTO.setName(company.getName().toUpperCase(Locale.ROOT));
+//        companyResponseDTO.setOwner(company.getOwner());
+//        companyResponseDTO.setAddress(company.getAddress());
+//        companyResponseDTO.setCountry(company.getCountry());
+//        companyResponseDTO.setCity(company.getCity());
+//        companyResponseDTO.setPhoneNumber(company.getPhone());
+//        companyResponseDTO.setLeadWhatsapp(company.getLeadWhatsapp());
+//        companyResponseDTO.setLastActivity(company.getLastActivity());
+//        companyResponseDTO.setLastActivityDate(company.getLastActivityDate());
+//        companyResponseDTO.setLinkedPage(company.getLinkedPage());
+//        companyResponseDTO.setTimeZone(company.getTimeZone());
+//        companyResponseDTO.setWebPage(company.getWebPage());
+//        companyResponseDTO.setRfq(company.getRFQ());
+//        companyResponseDTO.setWhoFind(company.getWhoFind());
+//        companyResponseDTO.setAbout(company.getAbout());
+//        companyResponseDTO.setFirstContactDate(company.getFirstContactDate());
+//        companyResponseDTO.setIsMailSent(company.getIsMailSent());
+//        companyResponseDTO.setIsMsgSent(company.getIsMsgSent());
+//        companyResponseDTO.setIsOrder(company.getIsOrder());
+//        companyResponseDTO.setNote(company.getNote());
+//        //companyResponseDTO.setLead(companyRequestDTO.);
+//        //companyResponseDTO.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
+//        // companyResponseDTO.setEmails(emailsService.findEmailsByCompanyName(companyRequestDTO.getName()));
+//        companyResponseDTO.setCompanyStatus(company.getCompanyStatus());
+//        companyResponseDTO.setIndustry(company.getIndustry());
+//        companyResponseDTO.setCompanyWhereWasFound(company.getCompanyWhereWasFound());
+//        companyResponseDTO.setCompanyType(company.getCompanyType());
+//    
+//        return companyResponseDTO;
+//    
 }
 
 
@@ -197,4 +197,4 @@ CompanyEmployeesService companyEmployeesService;
 
 
 
->>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
+
