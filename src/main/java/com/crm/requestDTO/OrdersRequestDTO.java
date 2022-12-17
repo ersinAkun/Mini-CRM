@@ -45,7 +45,7 @@ public class OrdersRequestDTO {
 	
 //	@Size(max = 20)
 @NotNull(message = "Please provide RFQ")
-	private String RFQ;
+	private String rfq;
 
 	//@Size(max = 20)
 	@NotNull(message = "Please provide Order Quantity")

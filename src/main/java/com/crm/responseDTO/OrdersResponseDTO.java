@@ -24,7 +24,7 @@ public class OrdersResponseDTO {
 	
 	private Double orderAmount;
 		
-	private String RFQ;
+	private String rfq;
 	
 	private Integer orderQuantity;
 		
