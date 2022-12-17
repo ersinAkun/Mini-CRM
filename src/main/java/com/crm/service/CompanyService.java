@@ -52,12 +52,12 @@ public class CompanyService {
         Integer amountCompany = companyRepository.countByCompanyWithName(companyRequestDTO.getName().toUpperCase());
 
         if (amountCompany > 0) {
-            throw new ConflictException(ErrorMessage.COMPANY_ALREADY_CREATED_MESSAGE);
+            throw new ConflictException(String.format(ErrorMessage.COMPANY_ALREADY_CREATED_MESSAGE,companyRequestDTO.getName()));
         }
 
         Integer employee = companyEmployeesRepository.countById(eId);
         if (!(employee > 0)) {
-            throw new ConflictException(ErrorMessage.EMPLOYEES_NOT_FOUND_MESSAGE);
+            throw new ConflictException(String.format(ErrorMessage.EMPLOYEES_NOT_FOUND_BY_ID_MESSAGE,eId));
         }
 
         Company company = new Company();
@@ -106,7 +106,7 @@ public class CompanyService {
         Boolean existCompany = companyRepository.existsById(id);
 
         if (!existCompany) {
-            throw new ConflictException(ErrorMessage.COMPANY_IS_NOT_EXIST_MESSAGE);
+            throw new ConflictException(String.format(ErrorMessage.COMPANY_IS_NOT_EXIST_MESSAGE,companyRequestDTO.getName()));
         }
         company.setName(companyRequestDTO.getName().toUpperCase(Locale.ROOT));
         company.setOwner(companyRequestDTO.getOwner());
@@ -288,7 +288,7 @@ public class CompanyService {
         List<Company> company = companyRepository.findCompaniesByCompanyStatus(companyStatus);
 
         if (company.size()==0){
-            throw new ConflictException(ErrorMessage.COMPANY_WITH_STATUS_IS_NOT_EXIST_MESSAGE);
+            throw new ConflictException(String.format(ErrorMessage.COMPANY_WITH_STATUS_IS_NOT_EXIST_MESSAGE,companyStatus));
         }
 
         List<CompanyResponseDTO> companyResponseDTOs = new ArrayList<>();
@@ -334,7 +334,7 @@ public class CompanyService {
         List<Company> company = companyRepository.findCompaniesByIndustry(industry);
 
         if (company.size()==0){
-            throw new ConflictException(ErrorMessage.COMPANY_WITH_INDUSTRY_IS_NOT_EXIST_MESSAGE);
+            throw new ConflictException(String.format(ErrorMessage.COMPANY_WITH_INDUSTRY_IS_NOT_EXIST_MESSAGE,industry));
         }
 
         List<CompanyResponseDTO> companyResponseDTOs = new ArrayList<>();
@@ -384,7 +384,9 @@ public class CompanyService {
 
     public List<CompanyResponseDTO> getCompaniesByCompanyType(CompanyType companyType) {
         List<Company> company = companyRepository.findCompaniesByCompanyType(companyType);
-
+        if (company.size()==0){
+            throw new ConflictException(String.format(ErrorMessage.COMPANY_WITH_TYPE_IS_NOT_EXIST_MESSAGE,companyType));
+        }
         List<CompanyResponseDTO> companyResponseDTOs = new ArrayList<>();
 
         for (Company companies : company) {
