@@ -1,7 +1,12 @@
 package com.crm.requestDTO;
 
-import java.util.Date;
 
+import java.time.LocalDate;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
@@ -27,25 +32,28 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrdersRequestDTO {
 	
-	@Size(max = 20)
-	@NotBlank(message = "Please provide Order Amount")
+
+	//@Size(max = 20)
+	//@NotBlank(message = "Please provide Order Amount")
 	private Double orderAmount;
 	
-	@Size(max = 20)
-	@NotNull(message = "Please provide RFQ")
+//	@Size(max = 20)
+@NotNull(message = "Please provide RFQ")
 	private String RFQ;
 
-	@Size(max = 20)
-	@NotBlank(message = "Please provide Order Quantity")
+	//@Size(max = 20)
+	@NotNull(message = "Please provide Order Quantity")
 	private Integer orderQuantity;
 	
-	@Size(max = 20)
-	@NotBlank(message = "Please provide Total Weight")
+	//@Size(max = 20)
+	//@NotBlank(message = "Please provide Total Weight")
 	private Double totalWeight;
 	
-	@Size(max = 20)
-	@NotBlank(message = "Please provide freight Cost")
+	//@Size(max = 20, min=1)
+	//@NotBlank(message = "Please provide freight Cost")
 	private Double freightCost;//navlun ücreti
+	
+
 	
 	@Size(max = 20)
 	//@NotNull(message = "Please provide Forwarder")
@@ -53,23 +61,31 @@ public class OrdersRequestDTO {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	@NotNull(message = "Please provide Estimated Delivery Date")
-	private Date estimatedDeliveryDate;//planlanan teslim tarihi
+	private LocalDate estimatedDeliveryDate;//planlanan teslim tarihi
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-	//@NotNull(message = "Please provide Delivery Date")
-	private Date deliveryDate;//teslim tarihi(gerçekleşen)
+	@NotNull(message = "Please provide Delivery Date")
+	private LocalDate deliveryDate;//teslim tarihi(gerçekleşen)
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	@NotNull(message = "Please provide Orders Date")
-	private Date orderDate;//siparişi verdiği tarih
+	private LocalDate orderDate;//siparişi verdiği tarih
 	
-	@Size(max = 20)
-	@NotBlank(message = "Please provide profit")
+	//@Size(max = 20)
+	//@NotBlank(message = "Please provide profit")
 	private Double profit;
 	
-	@Size(max = 20)
-	@NotBlank(message = "Please provide Profit Percentage")
+	//@Size(max = 20)
+//	@NotBlank(message = "Please provide Profit Percentage")
 	private Double profitPercentage;
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Size(max = 200)
 	private String notes;

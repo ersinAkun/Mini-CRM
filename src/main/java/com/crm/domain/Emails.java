@@ -27,10 +27,21 @@ public class Emails {
     
     @Column(length = 50, nullable = true,unique = true)
     private String email;
+
     
     @ManyToOne
     @JoinColumn(name="company_id")
     private Company company;
    
+
+
+
+
+//    @ManyToOne
+//    @JoinColumn(name="company_id")
+//    private Long company_id;
+//    
+//   
+
     
 }

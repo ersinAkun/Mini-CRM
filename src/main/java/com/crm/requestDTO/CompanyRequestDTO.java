@@ -1,5 +1,8 @@
 package com.crm.requestDTO;
 
+
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -19,6 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.UniqueElements;
+
 
 @Getter
 @Setter
@@ -71,10 +75,25 @@ public class CompanyRequestDTO {
 	private String webPage;
 
 	//@Size(max = 150)
+
+
+	//@NotNull(message = "Please provide RFQ")
+	private String RFQ;
+
 	@NotNull(message = "Please provide RFQ")
 	private String rfq;
 
+
+	//@Size(max = 5)
+	//private Long whoFind;// path ile gönderebiliriz.
+
+	@Size(max = 50)
+	@NotBlank(message = "Please provide employee name")
+	private String whoContacted;// yereldeki şirket sahibi olabilir.body ile gönderelim
+
+
 	private Long whoFind;
+
 
 	@Size(max = 250)
 	private String about;

@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,20 +21,28 @@ public class SupplierRequestDTO {
 	@Size(max = 50)
 	@NotBlank(message = "Please provide Supplier Company name")
 	private String name;
+
 	
 	@Size(max = 50)
 	@NotNull(message = "Please enter email")
 	@Email
 	private String email;
 
+
 	@Size(max = 50)
 	@NotBlank(message = "Please provide owner first name")
 	private String ownerName;
+
+
+	@Size(max = 50)
+	@NotBlank(message = "Please provide owner last name")
+	private String ownerLastName;
 
 	/*@Size(max = 50)
 	@NotBlank(message = "Please provide owner last name")
 	private String ownerLastName;
 	*/
+
 
 	@Size(max = 100)
 	@NotBlank(message = "Please provide adress")
