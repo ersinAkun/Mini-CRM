@@ -5,7 +5,6 @@ package com.crm.controller;
 import java.util.List;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,6 +46,12 @@ public class LeadController {
 
 		CrmResponse crmResponse = new CrmResponse();
 		crmResponse.setMessage(ResponseMessage.LEAD_CREATE_RESPONSE);
+
+		crmResponse.setSuccess(true);				
+		return ResponseEntity.ok(crmResponse);		
+}
+	
+
 		crmResponse.setSuccess(true);
 		return ResponseEntity.ok(crmResponse);
 
@@ -114,6 +119,7 @@ public class LeadController {
 
 	
 	
+
 
 
 }

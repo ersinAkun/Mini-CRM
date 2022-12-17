@@ -62,6 +62,5 @@ public class Supplier {
 	  
 	  @OneToMany(mappedBy = "supplier")
 	  private List<OrderedProducts> orderedProducts = new ArrayList<>(); 
-	  
-	  
+  
 }
