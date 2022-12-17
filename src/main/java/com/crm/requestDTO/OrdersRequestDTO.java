@@ -6,12 +6,21 @@ import java.time.LocalDate;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
+
+
+
+
+
 import java.util.Date;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+
+
+
 import com.crm.domain.enums.CurrencyType;
 import com.crm.domain.enums.OrderStatus;
 import com.crm.domain.enums.OrderType;
@@ -20,6 +29,11 @@ import com.crm.domain.enums.PaymentMethod;
 import com.crm.domain.enums.Shipment;
 import com.crm.domain.enums.TypeOfDelivery;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+
+
+
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,13 +68,25 @@ public class OrdersRequestDTO {
 	private Double freightCost;//navlun ücreti
 	
 
+
 	
 	@Size(max = 20)
 	//@NotNull(message = "Please provide Forwarder")
+
+	//@Size(max = 20)
+	@NotNull(message = "Please provide Forwarder")
+    @Size(max = 20)
+
+
+
 	private String forwarder;//kargo firması
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
 	@NotNull(message = "Please provide Estimated Delivery Date")
+
+
+
+
 	private LocalDate estimatedDeliveryDate;//planlanan teslim tarihi
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
@@ -79,6 +105,7 @@ public class OrdersRequestDTO {
 //	@NotBlank(message = "Please provide Profit Percentage")
 	private Double profitPercentage;
 	
+
 	
 	
 	
@@ -88,6 +115,11 @@ public class OrdersRequestDTO {
 	
 	
 	@Size(max = 200)
+
+
+	@Size(max = 200)
+
+
 	private String notes;
 
 	

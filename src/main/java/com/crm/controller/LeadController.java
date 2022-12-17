@@ -52,10 +52,6 @@ public class LeadController {
 }
 	
 
-		crmResponse.setSuccess(true);
-		return ResponseEntity.ok(crmResponse);
-
-	}
 
 	// ******* GET LEAD ***********/
 	@GetMapping("/getLead/{id}")
