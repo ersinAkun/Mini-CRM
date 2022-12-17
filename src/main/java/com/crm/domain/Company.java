@@ -1,19 +1,37 @@
 package com.crm.domain;
 
+
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
 import com.crm.domain.enums.CompanyWhereWasFound;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Getter
 @Setter
@@ -65,8 +83,8 @@ public class Company {
     @Column(length = 150, nullable = false)
     private String RFQ;
 
-    @Column
-    private Long whoFind;
+   @Column
+   private Long whoFind;
 
     @Column(length = 250)
     private String about;
@@ -89,28 +107,39 @@ public class Company {
     @OneToOne(fetch = FetchType.LAZY)
     private Lead lead;
 
+    // Size 300 filan olsun
+    //string olarak email tutalım.{asd@dmail.com,ert@df.com}
 
 //  @OneToMany
 //  private List<Orders> orders;
 
-    @Enumerated(EnumType.STRING)
-    private CompanyStatus companyStatus;
+  @OneToMany(mappedBy = "company")
+  private List<Emails>  emails= new ArrayList<>();
+
+  
+//  @OneToMany
+//  private List<Emails>  emails= new ArrayList<>();
+  
+  @Enumerated(EnumType.STRING)
+  private CompanyStatus companyStatus;
+ 
+ 
+  @Enumerated(EnumType.STRING)
+ private CompanyIndustry industry;
+ 
+ 
+  @Enumerated(EnumType.STRING)
+ private CompanyWhereWasFound companyWhereWasFound;
+ 
+ 
+  @Enumerated(EnumType.STRING)
+  private CompanyType companyType;
+  
 
 
-    @Enumerated(EnumType.STRING)
-    private CompanyIndustry industry;
 
 
-    @Enumerated(EnumType.STRING)
-    private CompanyWhereWasFound companyWhereWasFound;
-
-
-    @Enumerated(EnumType.STRING)
-    private CompanyType companyType;
-
-
-    @OneToMany(mappedBy = "company")
-    private List<Emails> emails = new ArrayList<>();
+}
 
 
 }

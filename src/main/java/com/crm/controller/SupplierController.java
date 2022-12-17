@@ -1,10 +1,12 @@
 package com.crm.controller;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,31 +32,40 @@ import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.ResponseMessage;
 import com.crm.service.SupplierService;
 
-import lombok.AllArgsConstructor;
 
 @AutoConfiguration 
 
 @RestController
 @RequestMapping("/supplier")
-@AllArgsConstructor
+
 public class SupplierController {
 	
-	//@Autowired
-	private SupplierService supplierService;
+	@Autowired
+	SupplierService supplierService;
+	
+	
+
 	
 	//***************  create 11.12.2022 ERSIN  ********************
 	//POST-http://localhost:8081/supplier/create
+
 	@PostMapping("/create")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<CrmResponse> createSupplier(@Valid @RequestBody SupplierRequestDTO supplierRequestDTO,
 			@PathVariable Long id){
 			supplierService.saveSupplier(supplierRequestDTO, id);
 
-	CrmResponse response = new CrmResponse(ResponseMessage.SUPPLIER_CREATED_MESSAGE, true);
-	
-	return new ResponseEntity<>(response,HttpStatus.CREATED);
+	CrmResponse response = new CrmResponse();
+	response.setMessage(ResponseMessage.SUPPLIER_CREATED_MESSAGE);
+	response.setSuccess(true);
+	return ResponseEntity.ok(response);
 
 }
+	
+	
+
+
+
 	
 
 	// ********* getAll   17.12.2022 ERSIN *****************
@@ -124,5 +135,6 @@ public class SupplierController {
 	
 	
 	
+
 	//sipariş alınmış ürünleri listele	
 }

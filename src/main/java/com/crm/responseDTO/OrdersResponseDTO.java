@@ -1,6 +1,8 @@
 package com.crm.responseDTO;
 
-import java.util.Date;
+
+import java.time.LocalDate;
+
 import com.crm.domain.enums.CurrencyType;
 import com.crm.domain.enums.OrderStatus;
 import com.crm.domain.enums.OrderType;
@@ -8,6 +10,7 @@ import com.crm.domain.enums.PackingArrangement;
 import com.crm.domain.enums.PaymentMethod;
 import com.crm.domain.enums.Shipment;
 import com.crm.domain.enums.TypeOfDelivery;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,11 +34,15 @@ public class OrdersResponseDTO {
 	
 	private String forwarder;//kargo firması
 
-	private Date estimatedDeliveryDate;//planlanan teslim tarihi
+
+	private LocalDate estimatedDeliveryDate;//planlanan teslim tarihi
 	
-	private Date deliveryDate;//teslim tarihi(gerçekleşen)
+	private LocalDate deliveryDate;//teslim tarihi(gerçekleşen)
 	
-	private Date orderDate;//siparişi verdiği tarih
+	private LocalDate orderDate;//siparişi verdiği tarih
+
+
+
 	
 	private Double profit;
 	
