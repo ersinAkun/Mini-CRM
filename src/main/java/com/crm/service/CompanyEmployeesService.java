@@ -280,14 +280,7 @@ public class CompanyEmployeesService {
 //		    	  companyEmployeesRequestDTO.setPassword(encodedPassword);
 //		      }
 
-		companyEmployeesRepository.update(companyEmployees.getId(), companyEmployeesUpdateRequestDTO.getFirstName(),
-				companyEmployeesUpdateRequestDTO.getLastName(), companyEmployeesUpdateRequestDTO.getPhoneNumber(),
-				companyEmployeesUpdateRequestDTO.getEmail(), companyEmployeesUpdateRequestDTO.getAddress(),
-				companyEmployeesUpdateRequestDTO.getCity(), companyEmployeesUpdateRequestDTO.getCountry(),
-				companyEmployeesUpdateRequestDTO.getEmployeeDepartment(),
-				companyEmployeesUpdateRequestDTO.getHasWhatsapp(), companyEmployeesUpdateRequestDTO.getJobTitle(),
-				companyEmployeesUpdateRequestDTO.getNotes(), companyEmployeesUpdateRequestDTO.getSpeaks(),
-				companyEmployeesUpdateRequestDTO.getState());
+
 
 	}
 
@@ -362,4 +355,9 @@ public class CompanyEmployeesService {
 
 	}
 
+	public String getNameById(Long whoFind) {
+		return	 getCompanyEmployees(whoFind).getFirstName();
+
+
+	}
 }
