@@ -7,15 +7,10 @@ server:
   
 spring:
  datasource:
-<<<<<<< HEAD
+
   url: jdbc:postgresql://localhost:5432/miniCrm
   username: postgres
   password: Fsjd1000
-=======
-  url: jdbc:postgresql://localhost:5432/crm_db
-  username: crm_user
-  password: 12345
->>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
   driver-class-name: org.postgresql.Driver
  jpa:
   hibernate: 
