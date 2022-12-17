@@ -127,6 +127,10 @@ public class CompanyRequestDTO {
 
 
 
+
+	
+
+
 	private Long whoFind;
 
 

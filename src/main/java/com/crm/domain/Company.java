@@ -78,7 +78,7 @@ public class Company {
   private String webPage;
   
   @Column(length = 150, nullable = false)
-  private String RFQ;
+  private String rfq;
   
   //@Column
   //private Long whoFind;//path ile gönderebiliriz.

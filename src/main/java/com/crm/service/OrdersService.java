@@ -36,7 +36,7 @@ public void createOrders( OrdersRequestDTO ordersRequestDTO) {
 	Orders orders=new Orders();
 	
 	orders.setOrderAmount(ordersRequestDTO.getOrderAmount());
-	orders.setRFQ(ordersRequestDTO.getRFQ());
+	orders.setRfq(ordersRequestDTO.getRfq());
 	orders.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
 	orders.setTotalWeight(ordersRequestDTO.getTotalWeight());
 	orders.setFreightCost(ordersRequestDTO.getFreightCost());
@@ -67,7 +67,7 @@ public OrdersResponseDTO getOrderById(Long id) {
 	OrdersResponseDTO ordersResponseDTO= new OrdersResponseDTO();
 	
 	ordersResponseDTO.setOrderAmount(orders.getOrderAmount());
-	ordersResponseDTO.setRFQ(orders.getRFQ());
+	ordersResponseDTO.setRfq(orders.getRfq());
 	ordersResponseDTO.setOrderQuantity(orders.getOrderQuantity());
 	ordersResponseDTO.setTotalWeight(orders.getTotalWeight());
 	ordersResponseDTO.setFreightCost(orders.getFreightCost());
@@ -102,7 +102,7 @@ public List<OrdersResponseDTO> getAllOrders() {
 			
 			OrdersResponseDTO ordersResponseDTO=new OrdersResponseDTO();
 			ordersResponseDTO.setOrderAmount(orders.getOrderAmount());
-			ordersResponseDTO.setRFQ(orders.getRFQ());
+			ordersResponseDTO.setRfq(orders.getRfq());
 			ordersResponseDTO.setOrderQuantity(orders.getOrderQuantity());
 			ordersResponseDTO.setTotalWeight(orders.getTotalWeight());
 			ordersResponseDTO.setFreightCost(orders.getFreightCost());
@@ -134,7 +134,7 @@ public void updateOrder(Long id, OrdersRequestDTO ordersRequestDTO) {
 			
 			
 			order.setOrderAmount(ordersRequestDTO.getOrderAmount());
-			order.setRFQ(ordersRequestDTO.getRFQ());
+			order.setRfq(ordersRequestDTO.getRfq());
 			order.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
 			order.setTotalWeight(ordersRequestDTO.getTotalWeight());
 			order.setFreightCost(ordersRequestDTO.getFreightCost());
@@ -170,7 +170,7 @@ public Page<OrdersResponseDTO> findAllWithPage(Pageable pageable) {
 			OrdersResponseDTO ordersResponseDTO = new OrdersResponseDTO();
 			
 			ordersResponseDTO.setOrderAmount(orders.getOrderAmount());
-			ordersResponseDTO.setRFQ(orders.getRFQ());
+			ordersResponseDTO.setRfq(orders.getRfq());
 			ordersResponseDTO.setOrderQuantity(orders.getOrderQuantity());
 			ordersResponseDTO.setTotalWeight(orders.getTotalWeight());
 			ordersResponseDTO.setFreightCost(orders.getFreightCost());

@@ -47,7 +47,7 @@ public class Orders {
 	private Double orderAmount;
 	
 	 @Column(length = 250, nullable = false)
-	private String RFQ;
+	private String rfq;
 
 	 @Column(nullable = false)
 	private Integer orderQuantity;

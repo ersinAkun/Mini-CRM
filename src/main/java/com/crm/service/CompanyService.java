@@ -85,16 +85,16 @@ CompanyEmployeesService companyEmployeesService;
         company.setWebPage(companyRequestDTO.getWebPage());
 
 
-        company.setRFQ(companyRequestDTO.getRFQ());
+        company.setRfq(companyRequestDTO.getRfq());
         //company.setWhoFind(companyRequestDTO.getWhoFind());
         company.setWhoContacted(companyRequestDTO.getWhoContacted());
 
-        company.setRFQ(companyRequestDTO.getRFQ());
+        company.setRfq(companyRequestDTO.getRfq());
         //company.setWhoFind(companyRequestDTO.getWhoFind());
         //company.setWhoContacted(companyRequestDTO.getWhoContacted());
 
 
-        company.setRFQ(companyRequestDTO.getRFQ());
+        company.setRfq(companyRequestDTO.getRfq());
         //zcompany.setWhoFind(eId);
 
         company.setAbout(companyRequestDTO.getAbout());
