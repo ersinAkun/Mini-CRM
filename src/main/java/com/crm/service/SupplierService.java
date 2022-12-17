@@ -18,14 +18,14 @@ import com.crm.requestDTO.SupplierRequestDTO;
 
 @Service
 public class SupplierService {
-	
+
 	@Autowired
 
 
 	private SupplierRepository supplierRepository;
 
-	
-	
+
+
 	public Supplier findSupplierById(Long id) {
 		Supplier supplier = supplierRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
@@ -47,29 +47,29 @@ public class SupplierService {
 		supplier.setPhone(supplierRequestDTO.getPhone());
 		supplier.setOwnerWhatsapp(supplierRequestDTO.getOwnerWhatsapp());
 		supplier.setWebPage(supplierRequestDTO.getWebPage());
-		
+
 		supplierRepository.save(supplier);
-		
+
 	}
 
 
 
-	
+
 
 	public List<Supplier> getAll() {
-		
+
 		return supplierRepository.findAll();
 	}
 
 	public Supplier getSupplier(Long id) throws ResourceNotFoundException{
 
 		return supplierRepository.findById(id).orElseThrow(() ->
-		new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+				new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 	}
 
 	public void updateSupplier(Long id,  Supplier newSupplier) {
 		Supplier foundSupplier = getSupplier(id);
-		
+
 		foundSupplier.setName(newSupplier.getName());
 		foundSupplier.setEmail(newSupplier.getEmail());
 		foundSupplier.setOwner(newSupplier.getOwner());
@@ -78,23 +78,23 @@ public class SupplierService {
 		foundSupplier.setPhone(newSupplier.getPhone());
 		foundSupplier.setOwnerWhatsapp(newSupplier.getOwnerWhatsapp());
 		foundSupplier.setWebPage(newSupplier.getWebPage());
-		
+
 		supplierRepository.save(foundSupplier);
 	}
 
 
 	public Page<Supplier> getAllWithPage(Pageable pageable){
 		return supplierRepository.findAll(pageable);
-			
-		}
+
+	}
 
 	public void deleteSupplier(Long id) throws ResourceNotFoundException{
 		Supplier supplier = getSupplier(id);
 		//supplierRepository.delete(supplier);
 		supplierRepository.deleteById(supplier.getId());
-		
+
 	}
 
-	
+
 
 }

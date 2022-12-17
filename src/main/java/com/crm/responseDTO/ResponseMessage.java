@@ -40,7 +40,6 @@ public class ResponseMessage {
 	public final static String EMAILS_CREATED_RESPONSE="Emails successfully created";
 	public final static String EMAILS_UPDATE_RESPONSE_MESSAGE= "Email Successfully Updated";
 	public final static String EMAILS_DELETE_RESPONSE_MESSAGE= "Email Successfully Deleted";
-
 	public final static String COMPANY_CREATED_RESPONSE="Company successfully created";
 
 

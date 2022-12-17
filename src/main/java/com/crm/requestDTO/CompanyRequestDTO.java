@@ -1,43 +1,29 @@
 package com.crm.requestDTO;
 
-<<<<<<< HEAD
+
 
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
-=======
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
->>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-<<<<<<< HEAD
 
-=======
->>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
 import com.crm.domain.enums.CompanyWhereWasFound;
 import com.fasterxml.jackson.annotation.JsonFormat;
-<<<<<<< HEAD
 
-=======
->>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-<<<<<<< HEAD
-=======
-import org.hibernate.validator.constraints.UniqueElements;
->>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
 
 @Getter
 @Setter
@@ -89,28 +75,12 @@ public class CompanyRequestDTO {
 	@Size(max = 50)
 	private String webPage;
 
-	//@Size(max = 150)
-<<<<<<< HEAD
 
-	//@NotNull(message = "Please provide RFQ")
-	private String RFQ;
-
-	@NotNull(message = "Please provide RFQ")
-	private String rfq;
-
-
-	//@Size(max = 5)
-	//private Long whoFind;// path ile gönderebiliriz.
-
-	@Size(max = 50)
-	@NotBlank(message = "Please provide employee name")
-	private String whoContacted;// yereldeki şirket sahibi olabilir.body ile gönderelim
-=======
 	@NotNull(message = "Please provide RFQ")
 	private String rfq;
 
 	private Long whoFind;
->>>>>>> 3d5683f27bebbf96b1595e331736c4092b838f76
+
 
 	@Size(max = 250)
 	private String about;
