@@ -91,7 +91,7 @@ public class CompanyEmployeesController {
 	
 
 	// ********CELEBI*****UPDATE LOGIN EMPLOYEES**********************
-	@PutMapping
+	@PutMapping//buraya update şeklinde bi endpoint girebiliriz. yukardan almasın bence. 
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> updateLoginEmployees(
 			@Valid @RequestBody CompanyEmployeesUpdateRequestDTO companyEmployeesUpdateRequestDTO) {
