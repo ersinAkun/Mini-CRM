@@ -38,11 +38,12 @@ public class CompanyController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
 
     }
-//************************* UPDATE **************************************
-@PostMapping("/update/{id}")
-@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-public ResponseEntity<CrmResponse> updateCompany(@PathVariable("id") Long id, @Valid @RequestBody CompanyRequestDTO companyRequestDTO){
-    companyService.updateCompany(id, companyRequestDTO );
+
+    //************************* UPDATE **************************************
+    @PostMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<CrmResponse> updateCompany(@PathVariable("id") Long id, @Valid @RequestBody CompanyRequestDTO companyRequestDTO) {
+        companyService.updateCompany(id, companyRequestDTO);
 
         CrmResponse response = new CrmResponse(ResponseMessage.COMPANY_UPDATE_RESPONSE, true);
 
@@ -130,7 +131,7 @@ public ResponseEntity<CrmResponse> updateCompany(@PathVariable("id") Long id, @V
         return ResponseEntity.ok(companyResponseDTOs);
 
 
-}
+    }
 
 
 }
