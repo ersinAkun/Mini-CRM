@@ -35,85 +35,85 @@ import com.crm.service.OrdersService;
 @RestController
 @RequestMapping("/order")
 public class OrdersController {
-@Autowired
-private OrdersService ordersService;
+    @Autowired
+    private OrdersService ordersService;
 
 
 
 // ***********  CREATE ORDER  *****************/
 
-@PostMapping("/create")
-@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
+    @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
 
-public ResponseEntity<CrmResponse> createOrder(@Valid @RequestBody OrdersRequestDTO ordersRequestDTO) {
-	ordersService.createOrders(ordersRequestDTO);
+    public ResponseEntity<CrmResponse> createOrder(@Valid @RequestBody OrdersRequestDTO ordersRequestDTO) {
+        ordersService.createOrders(ordersRequestDTO);
 
-	CrmResponse crmResponse = new CrmResponse();
-	crmResponse.setMessage(ResponseMessage.ORDER_CREATE_RESPONSE);
-	crmResponse.setSuccess(true);
-	return ResponseEntity.ok(crmResponse);
+        CrmResponse crmResponse = new CrmResponse();
+        crmResponse.setMessage(ResponseMessage.ORDER_CREATE_RESPONSE);
+        crmResponse.setSuccess(true);
+        return ResponseEntity.ok(crmResponse);
 
-}
+    }
 // *********  GET ORDER *****************/
 
-@GetMapping("/getOrder/{id}")
-@PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
-public ResponseEntity<OrdersResponseDTO> getOrderById(@PathVariable Long id){
-	OrdersResponseDTO ordersResponseDTO= ordersService.getOrderById(id);
-	return ResponseEntity.ok(ordersResponseDTO);
-}
+    @GetMapping("/getOrder/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
+    public ResponseEntity<OrdersResponseDTO> getOrderById(@PathVariable Long id){
+        OrdersResponseDTO ordersResponseDTO= ordersService.getOrderById(id);
+        return ResponseEntity.ok(ordersResponseDTO);
+    }
 
 //***********  GET ALL ORDERS  ******************/
 
-@GetMapping("/getAllOrders")
-@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-public ResponseEntity<List<OrdersResponseDTO>> getAllOrders() {
+    @GetMapping("/getAllOrders")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<List<OrdersResponseDTO>> getAllOrders() {
 
-	List<OrdersResponseDTO> allOrders = ordersService.getAllOrders();
+        List<OrdersResponseDTO> allOrders = ordersService.getAllOrders();
 
-	return ResponseEntity.ok(allOrders);
-}
+        return ResponseEntity.ok(allOrders);
+    }
 
 // **************  UPDATE ORDER  ****************/
 
-@PutMapping("/update/{id}")
-@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id,OrdersRequestDTO ordersRequestDTO) {
-	ordersService.updateOrder(id, ordersRequestDTO);
-	CrmResponse crmResponse = new CrmResponse(ResponseMessage.ORDER_UPDATED_MESSAGE, true);
-	return ResponseEntity.ok(crmResponse);
-}
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id,OrdersRequestDTO ordersRequestDTO) {
+        ordersService.updateOrder(id, ordersRequestDTO);
+        CrmResponse crmResponse = new CrmResponse(ResponseMessage.ORDER_UPDATED_MESSAGE, true);
+        return ResponseEntity.ok(crmResponse);
+    }
 
 //*************  PAGEABLE ORDERS  ***********************
 
-@GetMapping("/ordersPages")
-@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-public ResponseEntity<Page<OrdersResponseDTO>> getAllOrdersWithPage(
+    @GetMapping("/ordersPages")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<Page<OrdersResponseDTO>> getAllOrdersWithPage(
 
-		@RequestParam("page") int page, 
-		@RequestParam("size") int size,
-		@RequestParam("sort") String prop, 
-		
-		@RequestParam(value = "direction", 
-		              required = false, 
-				      defaultValue = "DESC") Direction direction) {
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sort") String prop,
 
-	Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
+            @RequestParam(value = "direction",
+                    required = false,
+                    defaultValue = "DESC") Direction direction) {
 
-	Page<OrdersResponseDTO> pageDTO = ordersService.findAllWithPage(pageable);
-	return ResponseEntity.ok(pageDTO);
-}
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
+
+        Page<OrdersResponseDTO> pageDTO = ordersService.findAllWithPage(pageable);
+        return ResponseEntity.ok(pageDTO);
+    }
 
 
 //****************  OREDR DELETE  ***********************//
 
-@DeleteMapping("/delete/{id}")
-@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-public ResponseEntity<CrmResponse> deleteLead(@PathVariable Long id){
-	ordersService.deleteOrderById(id);
-	CrmResponse response = new CrmResponse(ResponseMessage.ORDER_DELETED_MESSAGE,true);
-	return ResponseEntity.ok(response);
-}
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<CrmResponse> deleteLead(@PathVariable Long id){
+        ordersService.deleteOrderById(id);
+        CrmResponse response = new CrmResponse(ResponseMessage.ORDER_DELETED_MESSAGE,true);
+        return ResponseEntity.ok(response);
+    }
 
 
 }

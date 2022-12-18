@@ -25,81 +25,81 @@ import com.crm.responseDTO.OrdersResponseDTO;
 
 @Service
 public class OrdersService {
-@Autowired
-private OrdersRepository ordersRepository;
+	@Autowired
+	private OrdersRepository ordersRepository;
 
-LocalDate today = LocalDate.now();
+	LocalDate today = LocalDate.now();
 
 //*************   CREATE ORDER  *******************/
 
-public void createOrders( OrdersRequestDTO ordersRequestDTO) {
-	Orders orders=new Orders();
-	
-	orders.setOrderAmount(ordersRequestDTO.getOrderAmount());
-	orders.setRfq(ordersRequestDTO.getRfq());
-	orders.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
-	orders.setTotalWeight(ordersRequestDTO.getTotalWeight());
-	orders.setFreightCost(ordersRequestDTO.getFreightCost());
-	orders.setForwarder(ordersRequestDTO.getForwarder());
-	orders.setEstimatedDeliveryDate(ordersRequestDTO.getEstimatedDeliveryDate());
-	orders.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
-	orders.setOrderDate(today);
-	orders.setProfit(ordersRequestDTO.getProfit());
-	orders.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
-	orders.setNotes(ordersRequestDTO.getNotes());
-	orders.setShipping(ordersRequestDTO.getShipping());
-	orders.setOrderStatus(ordersRequestDTO.getOrderStatus());
-    orders.setTypeOfDelivery(ordersRequestDTO.getTypeOfDelivery());
-	orders.setPackingArrangement(ordersRequestDTO.getPackingArrangement());
-	orders.setOrderType(ordersRequestDTO.getOrderType());
-	orders.setCurrencyType(ordersRequestDTO.getCurrencyType());
-	orders.setPaymentMethod(ordersRequestDTO.getPaymentMethod());
-	ordersRepository.save(orders);
+	public void createOrders( OrdersRequestDTO ordersRequestDTO) {
+		Orders orders=new Orders();
 
-}
+		orders.setOrderAmount(ordersRequestDTO.getOrderAmount());
+		orders.setRfq(ordersRequestDTO.getRfq());
+		orders.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
+		orders.setTotalWeight(ordersRequestDTO.getTotalWeight());
+		orders.setFreightCost(ordersRequestDTO.getFreightCost());
+		orders.setForwarder(ordersRequestDTO.getForwarder());
+		orders.setEstimatedDeliveryDate(ordersRequestDTO.getEstimatedDeliveryDate());
+		orders.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
+		orders.setOrderDate(today);
+		orders.setProfit(ordersRequestDTO.getProfit());
+		orders.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
+		orders.setNotes(ordersRequestDTO.getNotes());
+		orders.setShipping(ordersRequestDTO.getShipping());
+		orders.setOrderStatus(ordersRequestDTO.getOrderStatus());
+		orders.setTypeOfDelivery(ordersRequestDTO.getTypeOfDelivery());
+		orders.setPackingArrangement(ordersRequestDTO.getPackingArrangement());
+		orders.setOrderType(ordersRequestDTO.getOrderType());
+		orders.setCurrencyType(ordersRequestDTO.getCurrencyType());
+		orders.setPaymentMethod(ordersRequestDTO.getPaymentMethod());
+		ordersRepository.save(orders);
+
+	}
 
 //*************  GET ORDER  ******************************/
 
-public OrdersResponseDTO getOrderById(Long id) {
-	Orders orders=ordersRepository.findById(id).orElseThrow(()->
-	   new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
-	
-	OrdersResponseDTO ordersResponseDTO= new OrdersResponseDTO();
-	
-	ordersResponseDTO.setOrderAmount(orders.getOrderAmount());
-	ordersResponseDTO.setRfq(orders.getRfq());
-	ordersResponseDTO.setOrderQuantity(orders.getOrderQuantity());
-	ordersResponseDTO.setTotalWeight(orders.getTotalWeight());
-	ordersResponseDTO.setFreightCost(orders.getFreightCost());
-	ordersResponseDTO.setForwarder(orders.getForwarder());
-	ordersResponseDTO.setEstimatedDeliveryDate(orders.getEstimatedDeliveryDate());
-	ordersResponseDTO.setDeliveryDate(orders.getDeliveryDate());
-	ordersResponseDTO.setOrderDate(today);
-	ordersResponseDTO.setProfit(orders.getProfit());
-	ordersResponseDTO.setProfitPercentage(orders.getProfitPercentage());
-	ordersResponseDTO.setNotes(orders.getNotes());
-	ordersResponseDTO.setShipping(orders.getShipping());
-	ordersResponseDTO.setOrderStatus(orders.getOrderStatus());
-	ordersResponseDTO.setTypeOfDelivery(orders.getTypeOfDelivery());
-	ordersResponseDTO.setPackingArrangement(orders.getPackingArrangement());
-	ordersResponseDTO.setOrderType(orders.getOrderType());
-	ordersResponseDTO.setCurrencyType(orders.getCurrencyType());
-	ordersResponseDTO.setPaymentMethod(orders.getPaymentMethod());
-	return ordersResponseDTO;
-	
+	public OrdersResponseDTO getOrderById(Long id) {
+		Orders orders=ordersRepository.findById(id).orElseThrow(()->
+				new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 
-}
+		OrdersResponseDTO ordersResponseDTO= new OrdersResponseDTO();
+
+		ordersResponseDTO.setOrderAmount(orders.getOrderAmount());
+		ordersResponseDTO.setRfq(orders.getRfq());
+		ordersResponseDTO.setOrderQuantity(orders.getOrderQuantity());
+		ordersResponseDTO.setTotalWeight(orders.getTotalWeight());
+		ordersResponseDTO.setFreightCost(orders.getFreightCost());
+		ordersResponseDTO.setForwarder(orders.getForwarder());
+		ordersResponseDTO.setEstimatedDeliveryDate(orders.getEstimatedDeliveryDate());
+		ordersResponseDTO.setDeliveryDate(orders.getDeliveryDate());
+		ordersResponseDTO.setOrderDate(today);
+		ordersResponseDTO.setProfit(orders.getProfit());
+		ordersResponseDTO.setProfitPercentage(orders.getProfitPercentage());
+		ordersResponseDTO.setNotes(orders.getNotes());
+		ordersResponseDTO.setShipping(orders.getShipping());
+		ordersResponseDTO.setOrderStatus(orders.getOrderStatus());
+		ordersResponseDTO.setTypeOfDelivery(orders.getTypeOfDelivery());
+		ordersResponseDTO.setPackingArrangement(orders.getPackingArrangement());
+		ordersResponseDTO.setOrderType(orders.getOrderType());
+		ordersResponseDTO.setCurrencyType(orders.getCurrencyType());
+		ordersResponseDTO.setPaymentMethod(orders.getPaymentMethod());
+		return ordersResponseDTO;
+
+
+	}
 
 //*****************  GET ALL ORDERS  ***************/
 
-public List<OrdersResponseDTO> getAllOrders() {
-	
+	public List<OrdersResponseDTO> getAllOrders() {
+
 		List<Orders> ordersList = ordersRepository.findAll();
 
 		List<OrdersResponseDTO> dtoList = new ArrayList<>();
 
 		for (Orders orders : ordersList) {
-			
+
 			OrdersResponseDTO ordersResponseDTO=new OrdersResponseDTO();
 			ordersResponseDTO.setOrderAmount(orders.getOrderAmount());
 			ordersResponseDTO.setRfq(orders.getRfq());
@@ -122,93 +122,92 @@ public List<OrdersResponseDTO> getAllOrders() {
 			ordersResponseDTO.setPaymentMethod(orders.getPaymentMethod());
 			dtoList.add(ordersResponseDTO);
 		}
-		return dtoList; 
-}
+		return dtoList;
+	}
 
 // ********* ORDERS UPDATE  ************************/ 
 
-public void updateOrder(Long id, OrdersRequestDTO ordersRequestDTO) {
-	Orders order= ordersRepository.findById(id).orElseThrow(
-			() -> new ResourceNotFoundException(String.format(ErrorMessage.ORDER_UPDATE_RESPONSE_MESSAGE, id)));;
-			
-			
-			
-			order.setOrderAmount(ordersRequestDTO.getOrderAmount());
-			order.setRfq(ordersRequestDTO.getRfq());
-			order.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
-			order.setTotalWeight(ordersRequestDTO.getTotalWeight());
-			order.setFreightCost(ordersRequestDTO.getFreightCost());
-			order.setForwarder(ordersRequestDTO.getForwarder());
-			order.setEstimatedDeliveryDate(ordersRequestDTO.getEstimatedDeliveryDate());
-			order.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
-			order.setOrderDate(today);
-			order.setProfit(ordersRequestDTO.getProfit());
-			order.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
-			order.setNotes(ordersRequestDTO.getNotes());
-			order.setShipping(ordersRequestDTO.getShipping());
-			order.setOrderStatus(ordersRequestDTO.getOrderStatus());
-			order.setTypeOfDelivery(ordersRequestDTO.getTypeOfDelivery());
-			order.setPackingArrangement(ordersRequestDTO.getPackingArrangement());
-			order.setOrderType(ordersRequestDTO.getOrderType());
-			order.setCurrencyType(ordersRequestDTO.getCurrencyType());
-			order.setPaymentMethod(ordersRequestDTO.getPaymentMethod());
-			ordersRepository.save(order);
-}
+	public void updateOrder(Long id, OrdersRequestDTO ordersRequestDTO) {
+		Orders order= ordersRepository.findById(id).orElseThrow(
+				() -> new ResourceNotFoundException(String.format(ErrorMessage.ORDER_UPDATE_RESPONSE_MESSAGE, id)));;
+
+
+
+		order.setOrderAmount(ordersRequestDTO.getOrderAmount());
+		order.setRfq(ordersRequestDTO.getRfq());
+		order.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
+		order.setTotalWeight(ordersRequestDTO.getTotalWeight());
+		order.setFreightCost(ordersRequestDTO.getFreightCost());
+		order.setForwarder(ordersRequestDTO.getForwarder());
+		order.setEstimatedDeliveryDate(ordersRequestDTO.getEstimatedDeliveryDate());
+		order.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
+		order.setOrderDate(today);
+		order.setProfit(ordersRequestDTO.getProfit());
+		order.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
+		order.setNotes(ordersRequestDTO.getNotes());
+		order.setShipping(ordersRequestDTO.getShipping());
+		order.setOrderStatus(ordersRequestDTO.getOrderStatus());
+		order.setTypeOfDelivery(ordersRequestDTO.getTypeOfDelivery());
+		order.setPackingArrangement(ordersRequestDTO.getPackingArrangement());
+		order.setOrderType(ordersRequestDTO.getOrderType());
+		order.setCurrencyType(ordersRequestDTO.getCurrencyType());
+		order.setPaymentMethod(ordersRequestDTO.getPaymentMethod());
+		ordersRepository.save(order);
+	}
 
 
 //***********  PAGEABLE ORDERS  ***************************//
 
-public Page<OrdersResponseDTO> findAllWithPage(Pageable pageable) {
-	
-	Page<Orders> ordersPage = ordersRepository.findAll(pageable);
-	Page<OrdersResponseDTO> responsePage = ordersPage.map(new Function<Orders, OrdersResponseDTO>() {
-		
-		
-		@Override
-		public OrdersResponseDTO apply(Orders orders) {
-			
-			OrdersResponseDTO ordersResponseDTO = new OrdersResponseDTO();
-			
-			ordersResponseDTO.setOrderAmount(orders.getOrderAmount());
-			ordersResponseDTO.setRfq(orders.getRfq());
-			ordersResponseDTO.setOrderQuantity(orders.getOrderQuantity());
-			ordersResponseDTO.setTotalWeight(orders.getTotalWeight());
-			ordersResponseDTO.setFreightCost(orders.getFreightCost());
-			ordersResponseDTO.setForwarder(orders.getForwarder());
-			ordersResponseDTO.setEstimatedDeliveryDate(orders.getEstimatedDeliveryDate());
-			ordersResponseDTO.setDeliveryDate(orders.getDeliveryDate());
-			ordersResponseDTO.setOrderDate(today);
-			ordersResponseDTO.setProfit(orders.getProfit());
-			ordersResponseDTO.setProfitPercentage(orders.getProfitPercentage());
-			ordersResponseDTO.setNotes(orders.getNotes());
-			ordersResponseDTO.setShipping(orders.getShipping());
-			ordersResponseDTO.setOrderStatus(orders.getOrderStatus());
-			ordersResponseDTO.setTypeOfDelivery(orders.getTypeOfDelivery());
-			ordersResponseDTO.setPackingArrangement(orders.getPackingArrangement());
-			ordersResponseDTO.setOrderType(orders.getOrderType());
-			ordersResponseDTO.setCurrencyType(orders.getCurrencyType());
-			ordersResponseDTO.setPaymentMethod(orders.getPaymentMethod());
-			return ordersResponseDTO;
-			
-		}
-	});
-	
-	return responsePage;
+	public Page<OrdersResponseDTO> findAllWithPage(Pageable pageable) {
+
+		Page<Orders> ordersPage = ordersRepository.findAll(pageable);
+		Page<OrdersResponseDTO> responsePage = ordersPage.map(new Function<Orders, OrdersResponseDTO>() {
 
 
-}
+			@Override
+			public OrdersResponseDTO apply(Orders orders) {
+
+				OrdersResponseDTO ordersResponseDTO = new OrdersResponseDTO();
+
+				ordersResponseDTO.setOrderAmount(orders.getOrderAmount());
+				ordersResponseDTO.setRfq(orders.getRfq());
+				ordersResponseDTO.setOrderQuantity(orders.getOrderQuantity());
+				ordersResponseDTO.setTotalWeight(orders.getTotalWeight());
+				ordersResponseDTO.setFreightCost(orders.getFreightCost());
+				ordersResponseDTO.setForwarder(orders.getForwarder());
+				ordersResponseDTO.setEstimatedDeliveryDate(orders.getEstimatedDeliveryDate());
+				ordersResponseDTO.setDeliveryDate(orders.getDeliveryDate());
+				ordersResponseDTO.setOrderDate(today);
+				ordersResponseDTO.setProfit(orders.getProfit());
+				ordersResponseDTO.setProfitPercentage(orders.getProfitPercentage());
+				ordersResponseDTO.setNotes(orders.getNotes());
+				ordersResponseDTO.setShipping(orders.getShipping());
+				ordersResponseDTO.setOrderStatus(orders.getOrderStatus());
+				ordersResponseDTO.setTypeOfDelivery(orders.getTypeOfDelivery());
+				ordersResponseDTO.setPackingArrangement(orders.getPackingArrangement());
+				ordersResponseDTO.setOrderType(orders.getOrderType());
+				ordersResponseDTO.setCurrencyType(orders.getCurrencyType());
+				ordersResponseDTO.setPaymentMethod(orders.getPaymentMethod());
+				return ordersResponseDTO;
+
+			}
+		});
+
+		return responsePage;
+
+
+	}
 
 //***********  DELETE ORDER  ***********************/
 
-public void deleteOrderById(Long id) {
-	Orders order= ordersRepository.findById(id).orElseThrow(
-			() -> new ResourceNotFoundException(String.format(ErrorMessage.ORDER_DELETED_MESSAGE, id)));
-	ordersRepository.delete(order);
-}
+	public void deleteOrderById(Long id) {
+		Orders order= ordersRepository.findById(id).orElseThrow(
+				() -> new ResourceNotFoundException(String.format(ErrorMessage.ORDER_DELETED_MESSAGE, id)));
+		ordersRepository.delete(order);
+	}
 
 
 }
-	
 
 
 
@@ -223,4 +222,4 @@ public void deleteOrderById(Long id) {
 
 
 
-	
+
