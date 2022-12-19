@@ -53,6 +53,7 @@ public class LeadController {
 	
 
 
+
 	// ******* GET LEAD ***********/
 	@GetMapping("/getLead/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -72,7 +73,7 @@ public class LeadController {
 	}
 
 	// ******** UPDATE LEAD ************/
-
+// düzenlenecek
 	@PutMapping("/update/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id, LeadRequestDTO leadRequestDTO) {

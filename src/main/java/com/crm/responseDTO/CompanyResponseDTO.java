@@ -46,7 +46,7 @@ public class CompanyResponseDTO {
 
     private String rfq;
 
-    private Long whoFind;
+    private String whoFind;
 
     private String about;
 

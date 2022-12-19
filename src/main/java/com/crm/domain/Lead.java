@@ -10,11 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-
 import com.crm.domain.enums.Department;
 import com.crm.domain.enums.LeadStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,12 +34,7 @@ public class Lead {
 
 	@Column(length = 30, nullable = false)
 	private String lastName;
-
-	@Column(length = 100, nullable = false)
-	@Email
-
-	
-
+	@Column(length = 50, nullable = false, unique = true)
 	private String email;
 
 	//@OneToOne

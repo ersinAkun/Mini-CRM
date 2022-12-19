@@ -42,50 +42,50 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-		
-	 @Column(nullable = false)
-	private Double orderAmount;
-	
-	 @Column(length = 250, nullable = false)
-	private String RFQ;
 
-	 @Column(nullable = false)
+	@Column(nullable = false)
+	private Double orderAmount;
+
+	@Column(length = 250, nullable = false)
+	private String rfq;
+
+	@Column(nullable = false)
 	private Integer orderQuantity;
-	
-	 @Column
+
+	@Column
 	private Double totalWeight;
-	
+
 	@Column
 	private Double freightCost;//navlun ücreti
-	
-	 @Column(length = 50)
+
+	@Column(length = 50)
 	private String forwarder;//kargo firması
-	
-	 @Column
+
+	@Column
 
 	private LocalDate estimatedDeliveryDate;//planlanan teslim tarihi
-	
+
 	@Column
 	private LocalDate deliveryDate;//teslim tarihi(gerçekleşen)
-	
+
 	@Column
 	private LocalDate orderDate;//siparişi verdiği tarih
 
-	
-	
+
+
 	@Column
 	private Double profit; //kar
-	
+
 	@Column
 	private Double profitPercentage;//kar yüzdesi
-	
-	 @Column(length = 250, nullable = false)
+
+	@Column(length = 250, nullable = false)
 	private String notes;
-		
-	 
-	 	@ManyToMany
-		private List<Supplier>supplier;
-	 			
+
+
+	@ManyToMany
+	private List<Supplier>supplier;
+
 	@Enumerated(EnumType.STRING)
 	private Shipment shipping;
 	@Enumerated(EnumType.STRING)
@@ -97,7 +97,7 @@ public class Orders {
 	@Enumerated(EnumType.STRING)
 	private OrderType orderType;
 	@Enumerated(EnumType.STRING)
-	private CurrencyType currencyType;	
+	private CurrencyType currencyType;
 	@Enumerated(EnumType.STRING)
-	private PaymentMethod paymentMethod;	
+	private PaymentMethod paymentMethod;
 }

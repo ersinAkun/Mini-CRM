@@ -2,6 +2,9 @@ package com.crm.requestDTO;
 
 import java.util.Date;
 
+
+
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
@@ -13,6 +16,15 @@ import javax.validation.constraints.Size;
 import com.crm.domain.enums.Department;
 import com.crm.domain.enums.LeadStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.crm.domain.enums.Department;
+import com.crm.domain.enums.LeadStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
+import com.crm.domain.enums.Department;
+import com.crm.domain.enums.LeadStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,12 +48,17 @@ public class LeadRequestDTO {
 
 	@Size(max = 50)
 
+	@Email
+	@NotNull(message = "Please provide email")
+
+
 	
 	@NotNull(message = "Please provide email")
 	@Email
 
 	@Email
 	@NotNull(message = "Please provide email")
+
 
 	private String email;
 

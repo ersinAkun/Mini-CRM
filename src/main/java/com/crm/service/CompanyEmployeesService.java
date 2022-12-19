@@ -5,9 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -15,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.crm.domain.CompanyEmployees;
 import com.crm.domain.Role;
 import com.crm.domain.enums.RoleType;
@@ -50,10 +47,15 @@ public class CompanyEmployeesService {
 		this.companyEmployeesRepository = companyEmployeesRepository;
 		this.roleService = roleService;
 
+
+		
+		
 	}
 
-//********************LoginEmployees********************
+	
 
+
+//********************LoginEmployees********************
 	public CompanyEmployees getCurrentEmployee() {
 
 		String email = SecurityUtils.getCurrentUserLogin()
@@ -63,7 +65,18 @@ public class CompanyEmployeesService {
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	//*****CELEBI********CREATE EMPLOYEES**********************
+
+
 	// *****CELEBI********CREATE EMPLOYEES**********************
+
 
 	public void createCompanyEmployees(CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
 		if (companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail())) {
@@ -180,7 +193,13 @@ public class CompanyEmployeesService {
 		return companyEmployeesResponseDTOs;
 	}
 
+	
+	
+	//****CELEBI*********GET PAGE EMPLOYEES**********************
+
+
 	// ****CELEBI*********GET PAGE EMPLOYEES**********************
+
 
 	public Page<CompanyEmployeesResponseDTO> getEmployeesPage(Pageable pageable) {
 		Page<CompanyEmployees> employeesPage = companyEmployeesRepository.findAll(pageable);
@@ -226,6 +245,9 @@ public class CompanyEmployeesService {
 		return companyEmployees;
 	}
 
+	
+
+
 	// ********Request ten gelen Role bilgisini bizim istedigimiz ROLE_USER gibi
 	// sekle ceviriyor*****
 	public Set<Role> convertRoles(Set<String> pRoles) {
@@ -245,6 +267,7 @@ public class CompanyEmployeesService {
 					roles.add(userRole);
 				}
 			});
+
 		}
 
 		return roles;
@@ -349,7 +372,14 @@ public class CompanyEmployeesService {
 		companyEmployeesRepository.save(companyEmployees);
 	}
 
+
+	
+	
+	
+	//****CELEBI*********DELETE BY ID EMPLOYEES**********************
+
 	// ****CELEBI*********DELETE BY ID EMPLOYEES**********************
+
 	public void removeEmployeesById(Long id) {
 		CompanyEmployees companyEmployees = getCompanyEmployees(id);
 
@@ -361,5 +391,19 @@ public class CompanyEmployeesService {
 		companyEmployeesRepository.deleteById(id);
 
 	}
+
+
+	public String getNameById(Long whoFind) {
+		return	 getCompanyEmployees(whoFind).getFirstName();
+
+
+	}
+
+
+	
+	
+	
+
+
 
 }

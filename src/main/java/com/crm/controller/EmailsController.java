@@ -36,10 +36,10 @@ public class EmailsController {
 	
 	//********CELEBI***********CREATE EMAILS*****************
 	
-	@PostMapping("/add")
+	@PostMapping("/add/{cId}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
- 	public ResponseEntity<CrmResponse> createEmails(@Valid @RequestBody EmailsRequestDTO emailsRequestDTO ){
-		emailsService.createEmails(emailsRequestDTO);
+ 	public ResponseEntity<CrmResponse> createEmails(@PathVariable Long cId, @Valid @RequestBody EmailsRequestDTO emailsRequestDTO ){
+		emailsService.createEmails(cId,emailsRequestDTO);
  		
  		CrmResponse crmResponse = new CrmResponse();
  		crmResponse.setMessage(ResponseMessage.EMAILS_CREATED_RESPONSE);
@@ -90,8 +90,8 @@ public class EmailsController {
 	//******CELEBI*******UPDATE EMAIL**********************	
 	@PutMapping("/update/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<CrmResponse> updateEmail(@PathVariable Long id, @Valid @RequestBody EmailsRequestDTO emailsRequestDTO ){
-		emailsService.updateEmail(id,emailsRequestDTO);
+	public ResponseEntity<CrmResponse> updateEmail( @PathVariable Long id, @RequestParam("cId") Long cId, @Valid @RequestBody EmailsRequestDTO emailsRequestDTO ){
+		emailsService.updateEmail(id,cId,emailsRequestDTO);
 		
 		CrmResponse crmResponse = new CrmResponse();
 	 	crmResponse.setMessage(ResponseMessage.EMAILS_UPDATE_RESPONSE_MESSAGE);

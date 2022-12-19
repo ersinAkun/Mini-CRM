@@ -4,14 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.crm.domain.CompanyEmployees;
 import com.crm.domain.WorkManagement;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
@@ -164,6 +163,33 @@ public class WorkManagementService {
 				() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 		
 		workManagementRepository.delete(workManagement);
+	}
+
+	public List<WorkManagementResponseDTO> getEmployeeTasks(Long id) {
+		//burada aldığım id employee id... ona atanan işleri bulabilmek için
+		CompanyEmployees employee= companyEmployeesService.getCompanyEmployees(id);
+		List<WorkManagement>  workManagementList= workManagementRepository.findTaskWithEmployeeId(id);
+		
+		List<WorkManagementResponseDTO> dtoList = new ArrayList<>();
+		for (WorkManagement task : workManagementList) {
+			
+			WorkManagementResponseDTO workManagementResponseDTO = new WorkManagementResponseDTO();
+			
+			workManagementResponseDTO.setAssigneeName(task.getAssignee().getFirstName());
+			workManagementResponseDTO.setCategory(task.getCategory());
+			workManagementResponseDTO.setComments(task.getComments());
+			workManagementResponseDTO.setDescription(task.getDescription());
+			workManagementResponseDTO.setExpectedEndDate(task.getExpectedEndDate());
+			workManagementResponseDTO.setFinishedDate(task.getFinishedDate());
+			workManagementResponseDTO.setPriority(task.getPriority());
+			workManagementResponseDTO.setStartDate(task.getStartDate());
+			workManagementResponseDTO.setStatus(task.getStatus());
+			workManagementResponseDTO.setTitle(task.getTitle());
+			workManagementResponseDTO.setUpdateDate(task.getUpdateDate());
+			dtoList.add(workManagementResponseDTO);
+		}
+		return dtoList;
+		
 	}
 	
 	
