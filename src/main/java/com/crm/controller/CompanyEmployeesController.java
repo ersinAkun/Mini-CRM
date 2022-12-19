@@ -90,9 +90,10 @@ public class CompanyEmployeesController {
 
 	
 
-	// ********CELEBI*****UPDATE LOGIN EMPLOYEES**********************
-	@PutMapping//buraya update şeklinde bi endpoint girebiliriz. yukardan almasın bence. 
+	// ********CELEBI*****UPDATE LOGIN EMPLOYEES(CURRENT)**********************
+	@PutMapping("/updateCurrentEmployee")//buraya update şeklinde bi endpoint girebiliriz. yukardan almasın bence. 
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	
 	public ResponseEntity<CrmResponse> updateLoginEmployees(
 			@Valid @RequestBody CompanyEmployeesUpdateRequestDTO companyEmployeesUpdateRequestDTO) {
 		companyEmployeesService.updateLoginEmployees(companyEmployeesUpdateRequestDTO);
@@ -119,8 +120,8 @@ public class CompanyEmployeesController {
 		return ResponseEntity.ok(crmResponse);
 	}
 
-	// ********CELEBI*****UPDATE PASSWORD LOGIN EMPLOYEES**********************
-	@PatchMapping("/auth")
+	// ********CELEBI*****UPDATE PASSWORD CURRENT EMPLOYEES**********************
+	@PatchMapping("/updatePassword")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> updatePassword(
 			@Valid @RequestBody CompanyEmployeesUpdatePasswordRequestDTO companyEmployeesUpdatePasswordRequestDTO) {
