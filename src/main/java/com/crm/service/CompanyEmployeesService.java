@@ -152,7 +152,7 @@ public class CompanyEmployeesService {
 		companyEmployeesResponseDTO.setSpeaks(companyEmployees.getSpeaks());
 		companyEmployeesResponseDTO.setBuiltIn(companyEmployees.getBuiltIn());
 		companyEmployeesResponseDTO.setEmployeeDepartment(companyEmployees.getEmployeeDepartment());
-		// companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
+		// companyEmployeesResponseDTO.setFoundedCompanies(companyNames);//sadece isimleri gelebilir.
 		companyEmployeesResponseDTO.setRoles(roles);
 
 		return companyEmployeesResponseDTO;
@@ -349,7 +349,7 @@ public class CompanyEmployeesService {
 		companyEmployeesRepository.save(companyEmployees);
 	}
 
-	// ********CELEBI*****UPDATE PASSWORD LOGIN EMPLOYEES**********************
+	// ********CELEBI*****UPDATE CURRENT USER'S PASSWORD **********************
 	public void updatePassword(
 			@Valid CompanyEmployeesUpdatePasswordRequestDTO companyEmployeesUpdatePasswordRequestDTO) {
 		CompanyEmployees companyEmployees = getCurrentEmployee();

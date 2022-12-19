@@ -51,9 +51,8 @@ public class SupplierController {
 
 	@PostMapping("/create")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<CrmResponse> createSupplier(@Valid @RequestBody SupplierRequestDTO supplierRequestDTO,
-			@PathVariable Long id){
-			supplierService.saveSupplier(supplierRequestDTO, id);
+	public ResponseEntity<CrmResponse> createSupplier(@Valid @RequestBody SupplierRequestDTO supplierRequestDTO){
+			supplierService.saveSupplier(supplierRequestDTO);
 
 	CrmResponse response = new CrmResponse();
 	response.setMessage(ResponseMessage.SUPPLIER_CREATED_MESSAGE);
