@@ -1,10 +1,6 @@
 package com.crm.requestDTO;
 
 import java.util.Date;
-
-
-
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
@@ -12,20 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 import com.crm.domain.enums.Department;
 import com.crm.domain.enums.LeadStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.crm.domain.enums.Department;
-import com.crm.domain.enums.LeadStatus;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-
-import com.crm.domain.enums.Department;
-import com.crm.domain.enums.LeadStatus;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,19 +32,8 @@ public class LeadRequestDTO {
 	private String lastName;
 
 	@Size(max = 50)
-
 	@Email
 	@NotNull(message = "Please provide email")
-
-
-	
-	@NotNull(message = "Please provide email")
-	@Email
-
-	@Email
-	@NotNull(message = "Please provide email")
-
-
 	private String email;
 
 
@@ -94,7 +68,6 @@ public class LeadRequestDTO {
 
 	@Size(max = 50)
 	@NotNull(message = "Please provide country")
-	@NotBlank
 	private String country;
 
 	private Boolean hasWhatsapp;
