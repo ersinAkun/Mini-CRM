@@ -33,7 +33,10 @@ public class SupplierService {
 	}
 
 	//***************  create 11.12.2022 ERSIN  ********************
-	public void saveSupplier(@Valid SupplierRequestDTO supplierRequestDTO, Long id) {
+	public void createSupplier(@Valid SupplierRequestDTO supplierRequestDTO) {
+		
+		
+		
 		Supplier supplier = new Supplier();
 		supplier.setName(supplierRequestDTO.getName());
 
@@ -94,6 +97,7 @@ public class SupplierService {
 		supplierRepository.deleteById(supplier.getId());
 		
 	}
+
 
 	
 
