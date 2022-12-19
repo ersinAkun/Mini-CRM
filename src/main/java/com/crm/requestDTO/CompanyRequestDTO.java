@@ -72,14 +72,14 @@ public class CompanyRequestDTO {
 	@NotBlank(message = "Please provide time zone")
 	private String timeZone;
 
-	@Size(max = 50)
+	@Size(max = 60)
 	private String webPage;
 
 
 	@NotNull(message = "Please provide RFQ")
 	private String rfq;
 
-	private Long whoFind;
+	private Long whoFind;//employee id'si
 
 
 	@Size(max = 250)

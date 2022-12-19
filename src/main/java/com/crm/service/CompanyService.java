@@ -1,27 +1,20 @@
 package com.crm.service;
 
-import com.crm.domain.CompanyEmployees;
-import com.crm.domain.Orders;
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
 import com.crm.exception.ConflictException;
 import com.crm.repository.CompanyEmployeesRepository;
 import com.crm.requestDTO.CompanyRequestDTO;
-import com.crm.responseDTO.CompanyEmployeesResponseDTO;
 import com.crm.responseDTO.CompanyResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
-
 import com.crm.domain.Company;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyRepository;
-
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
@@ -37,6 +30,7 @@ public class CompanyService {
     private CompanyEmployeesRepository companyEmployeesRepository;
 
 
+    //COMPANYEMPLOYEES İÇİN KULLANILIYOR**EMRULLAH
 	public Company findCompanyById(Long id) {
 
 		Company company= companyRepository.findById(id).orElseThrow(
