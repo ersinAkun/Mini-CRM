@@ -23,16 +23,16 @@ public class Emails {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-    
+    private Long id;
+
     @Column(length = 50, nullable = true,unique = true)
     private String email;
 
-    
+
     @ManyToOne
     @JoinColumn(name="company_id")
     private Company company;
-   
+
 
 
 
@@ -40,8 +40,8 @@ public class Emails {
 //    @ManyToOne
 //    @JoinColumn(name="company_id")
 //    private Long company_id;
-//    
-//   
+//
+//
 
-    
+
 }

@@ -103,7 +103,7 @@ public class CompanyRequestDTO {
 	@Size(max = 255)
 	private String note;
 
-	
+
 
 	@Enumerated(EnumType.STRING)
 	private CompanyStatus companyStatus;

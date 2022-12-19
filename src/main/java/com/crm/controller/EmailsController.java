@@ -36,17 +36,17 @@ public class EmailsController {
 	
 	//********CELEBI***********CREATE EMAILS*****************
 	
-	@PostMapping("/add/{cId}")
-	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
- 	public ResponseEntity<CrmResponse> createEmails(@PathVariable Long cId, @Valid @RequestBody EmailsRequestDTO emailsRequestDTO ){
-		emailsService.createEmails(cId,emailsRequestDTO);
- 		
- 		CrmResponse crmResponse = new CrmResponse();
- 		crmResponse.setMessage(ResponseMessage.EMAILS_CREATED_RESPONSE);
- 		crmResponse.setSuccess(true);				
- 		return ResponseEntity.ok(crmResponse);
- 		
- 	}
+	//@PostMapping("/add/{cId}")
+	//@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+ 	//public ResponseEntity<CrmResponse> createEmails(@PathVariable Long cId, @Valid @RequestBody EmailsRequestDTO emailsRequestDTO ){
+	//	emailsService.createEmails(cId,emailsRequestDTO);
+ 	//
+ 	//	CrmResponse crmResponse = new CrmResponse();
+ 	//	crmResponse.setMessage(ResponseMessage.EMAILS_CREATED_RESPONSE);
+ 	//	crmResponse.setSuccess(true);
+ 	//	return ResponseEntity.ok(crmResponse);
+ 	//
+ 	//}
 	
 	//******CELEBI*******GET BY EMAIL**********************
 		@GetMapping("/get/{id}")
@@ -88,30 +88,30 @@ public class EmailsController {
 	}
 	
 	//******CELEBI*******UPDATE EMAIL**********************	
-	@PutMapping("/update/{id}")
-	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<CrmResponse> updateEmail( @PathVariable Long id, @RequestParam("cId") Long cId, @Valid @RequestBody EmailsRequestDTO emailsRequestDTO ){
-		emailsService.updateEmail(id,cId,emailsRequestDTO);
+	//@PutMapping("/update/{id}")
+	//@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	//public ResponseEntity<CrmResponse> updateEmail( @PathVariable Long id, @RequestParam("cId") Long cId, @Valid @RequestBody EmailsRequestDTO emailsRequestDTO ){
+	//	emailsService.updateEmail(id,cId,emailsRequestDTO);
+	//
+	//	CrmResponse crmResponse = new CrmResponse();
+	// 	crmResponse.setMessage(ResponseMessage.EMAILS_UPDATE_RESPONSE_MESSAGE);
+	// 	crmResponse.setSuccess(true);
+	// 	return ResponseEntity.ok(crmResponse);
+	//}
 		
-		CrmResponse crmResponse = new CrmResponse();
-	 	crmResponse.setMessage(ResponseMessage.EMAILS_UPDATE_RESPONSE_MESSAGE);
-	 	crmResponse.setSuccess(true);				
-	 	return ResponseEntity.ok(crmResponse);
-	}
-		
-	//******CELEBI*******GET DELETE EMAIL**********************
-		@DeleteMapping("/delete/{id}")
-		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-		public ResponseEntity<CrmResponse> deleteEmail(@PathVariable Long id){
-			
-			emailsService.removeEmailById(id);
-			
-			CrmResponse crmResponse = new CrmResponse();
-		 	crmResponse.setMessage(ResponseMessage.EMAILS_DELETE_RESPONSE_MESSAGE);
-		 	crmResponse.setSuccess(true);				
-		 	return ResponseEntity.ok(crmResponse);
-				
-		}
+	////******CELEBI*******GET DELETE EMAIL**********************
+	//	@DeleteMapping("/delete/{id}")
+	//	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	//	public ResponseEntity<CrmResponse> deleteEmail(@PathVariable Long id){
+	//
+	//		emailsService.removeEmailById(id);
+	//
+	//		CrmResponse crmResponse = new CrmResponse();
+	//	 	crmResponse.setMessage(ResponseMessage.EMAILS_DELETE_RESPONSE_MESSAGE);
+	//	 	crmResponse.setSuccess(true);
+	//	 	return ResponseEntity.ok(crmResponse);
+	//
+	//	}
 	
 	
 	

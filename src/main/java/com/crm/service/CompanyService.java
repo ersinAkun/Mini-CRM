@@ -31,12 +31,12 @@ public class CompanyService {
 
 
     //COMPANYEMPLOYEES İÇİN KULLANILIYOR**EMRULLAH
-	public Company findCompanyById(Long id) {
+    public Company findCompanyById(Long id) {
 
-		Company company= companyRepository.findById(id).orElseThrow(
+        Company company= companyRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));;
-	return company;
-	}
+        return company;
+    }
 
 
     //************************* CREATE **************************************
@@ -417,33 +417,9 @@ public class CompanyService {
 
             companyResponseDTOs.add(companyResponseDTO);
 
-    }
+        }
         return companyResponseDTOs;
 
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
