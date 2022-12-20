@@ -30,10 +30,11 @@ import com.crm.domain.Supplier;
 import com.crm.requestDTO.SupplierRequestDTO;
 import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.ResponseMessage;
+import com.crm.responseDTO.SupplierResponseDTO;
 import com.crm.service.SupplierService;
 
 
-@AutoConfiguration 
+
 
 @RestController
 @RequestMapping("/supplier")
@@ -41,7 +42,7 @@ import com.crm.service.SupplierService;
 public class SupplierController {
 	
 	@Autowired
-	SupplierService supplierService;
+	private SupplierService supplierService;
 	
 	
 
@@ -50,9 +51,10 @@ public class SupplierController {
 	//POST-http://localhost:8081/supplier/create
 
 	@PostMapping("/create")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> createSupplier(@Valid @RequestBody SupplierRequestDTO supplierRequestDTO){
-			supplierService.saveSupplier(supplierRequestDTO);
+
+			supplierService.createSupplier(supplierRequestDTO);
 
 	CrmResponse response = new CrmResponse();
 	response.setMessage(ResponseMessage.SUPPLIER_CREATED_MESSAGE);
@@ -63,68 +65,69 @@ public class SupplierController {
 	
 	
 
-
-
-	
-
 	// ********* getAll   17.12.2022 ERSIN *****************
 
-	//GET-http://localhost:8081/supplier
-		@GetMapping
-		public ResponseEntity<List<Supplier>> getAllSupplier(){
+	//GET-http://localhost:8081/supplier/getAll
+		@GetMapping("/getAll")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+		public ResponseEntity<List<SupplierResponseDTO>> getAllSupplier(){
 			
-			List<Supplier> list = supplierService.getAll();
-			return ResponseEntity.ok(list);
+			List<SupplierResponseDTO> allSupplier = supplierService.getAllSupplier();
+			return ResponseEntity.ok(allSupplier);
 		}
 	
 	
 	// ********  getById   17.12.2022  ERSIN  **************
 
-	//GET - http://localhost:8081/supplier/1
-	@GetMapping("/{id}")
-	public ResponseEntity<Supplier> getSupplier(@PathVariable("id") Long id){
-		Supplier supplier = supplierService.getSupplier(id);
-		return ResponseEntity.ok(supplier);
+	//GET - http://localhost:8081/supplier/get/1
+	@GetMapping("/get/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	public ResponseEntity<SupplierResponseDTO> getSupplierById(@PathVariable("id") Long id){
+		SupplierResponseDTO supplierResponseDTO = supplierService.getSupplierById(id);
+		return ResponseEntity.ok(supplierResponseDTO);
 	}
 	
 	// ******  update  17.12.2022 ERSIN  ******		
-	//PUT-http://localhost:8081/supplier/3
-		@PutMapping("/{id}")
-		public ResponseEntity<Map<String, String>> updateSuppplier(@PathVariable Long id, @Valid @RequestBody Supplier supplier){
-			supplierService.updateSupplier(id, supplier);
-			Map<String, String> map=new HashMap<>();
-			map.put("message", "Supplier Successfully created");
-			map.put("status", "true");
-			return new ResponseEntity<>(map,HttpStatus.OK);
+	//PUT-http://localhost:8081/supplier/update/3
+		@PutMapping("/update/{id}")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+		public ResponseEntity<CrmResponse> updateSupplier(@PathVariable Long id, @Valid @RequestBody SupplierRequestDTO supplierRequestDTO){
+			supplierService.updateSupplier(id, supplierRequestDTO);
+			CrmResponse crmResponse = new CrmResponse(ResponseMessage.SUPPLIER_UPDATED_MESSAGE, true);
+			return ResponseEntity.ok(crmResponse);
 			
 		}
 		
 		// ******  pageable  17.12.2022 ERSIN  ******	
 		
-	//GET - http://localhost:8081/contactmessage/pages?page=1&size=3&sort=id&direction=ASC
-	@GetMapping("/pages")
-	public ResponseEntity<Page<Supplier>> getAllWithPage(
-			@RequestParam("page") int page,@RequestParam("size") int size, 
-	        @RequestParam("sort") String prop, @RequestParam("direction") Direction direction  ){
+	
+		 @GetMapping("/getPages")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	public ResponseEntity<Page<SupplierResponseDTO>> getAllWithPage(
+			@RequestParam("page") int page,
+			@RequestParam("size") int size, 
+	        @RequestParam("sort") String prop, 
+	        @RequestParam("direction") Direction direction  ){
 			
 			
-		Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));  
-		Page<Supplier> supplierPage = supplierService.getAllWithPage(pageable);
+		Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop)); 
+		
+		Page<SupplierResponseDTO> supplierPageDTO = supplierService.getAllWithPage(pageable);
 			
-		return ResponseEntity.ok(supplierPage);
+		return ResponseEntity.ok(supplierPageDTO);
 	
 		}	
 	
 	
 	// ******  delete  17.12.2022 ERSIN  ******	
 	//DELETE-http://localhost:8081/supplier/4 
-		@DeleteMapping("/{id}")
-		public ResponseEntity<Map<String, String>> deleteSupplier(@PathVariable Long id){
+		@DeleteMapping("/delete/{id}")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+		public ResponseEntity<CrmResponse> deleteSupplier(@PathVariable Long id){
 			supplierService.deleteSupplier(id);
-			Map<String, String> map=new HashMap<>();
-			map.put("message", "Supplier Successfully Deleted");
-			map.put("status", "true");
-			return new ResponseEntity<>(map, HttpStatus.OK);
+			CrmResponse crmResponse = new CrmResponse(ResponseMessage.SUPPLIER_DELETED_MESSAGE, true);
+			return ResponseEntity.ok(crmResponse);
+			
 		}
 	
 	

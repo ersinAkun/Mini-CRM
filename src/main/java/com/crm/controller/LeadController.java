@@ -76,7 +76,7 @@ public class LeadController {
 // düzenlenecek
 	@PutMapping("/update/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id, LeadRequestDTO leadRequestDTO) {
+	public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable Long id, @RequestBody LeadRequestDTO leadRequestDTO) {//RequestBody yazılmamış
 		leadService.updateLead(id, leadRequestDTO);
 		CrmResponse crmResponse = new CrmResponse(ResponseMessage.LEAD_UPDATED_MESSAGE, true);
 		return ResponseEntity.ok(crmResponse);

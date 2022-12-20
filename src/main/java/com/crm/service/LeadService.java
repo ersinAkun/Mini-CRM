@@ -5,12 +5,10 @@ package com.crm.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.crm.domain.Lead;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
@@ -134,7 +132,8 @@ public LeadResponseDTO getLeadById(Long id) {
 	public void updateLead( Long id, LeadRequestDTO leadRequestDTO) {
 		
 		Lead lead= leadRepository.findById(id).orElseThrow(
-				() -> new ResourceNotFoundException(String.format(ErrorMessage.LEAD_UPDATE_RESPONSE_MESSAGE, id)));;
+				() -> new ResourceNotFoundException(String.format(ErrorMessage.LEAD_UPDATE_RESPONSE_MESSAGE, id)));
+				
 		lead.setFirstName(leadRequestDTO.getFirstName());
 		lead.setLastName(leadRequestDTO.getLastName());
 		lead.setEmail(leadRequestDTO.getEmail());
