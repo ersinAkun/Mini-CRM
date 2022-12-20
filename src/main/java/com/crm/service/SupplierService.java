@@ -50,6 +50,7 @@ public class SupplierService {
 		supplier.setPhone(supplierRequestDTO.getPhone());
 		supplier.setOwnerWhatsapp(supplierRequestDTO.getOwnerWhatsapp());
 		supplier.setWebPage(supplierRequestDTO.getWebPage());
+		supplier.setLinkedPage(supplierRequestDTO.getLinkedPage());
 
 		supplierRepository.save(supplier);
 

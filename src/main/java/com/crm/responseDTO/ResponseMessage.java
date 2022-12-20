@@ -53,6 +53,8 @@ public class ResponseMessage {
 	public static final String ORDER_CREATE_RESPONSE = "Order successfully created";
 	public static final String ORDER_UPDATED_MESSAGE = "Order successfully updated";
 	public static final String ORDER_DELETED_MESSAGE = "Order successfully deleted";
+	public static final String SUPPLIER_UPDATED_MESSAGE= "Supplier Succesfuly updated";
+	public static final String SUPPLIER_DELETED_MESSAGE = "Supplier Deleted Succesfuly";
 
 
 }
