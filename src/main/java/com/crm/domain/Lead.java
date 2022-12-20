@@ -27,14 +27,15 @@ import lombok.Setter;
 public class Lead {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
-	@Column(length = 30, nullable = false)
+	@Column(length = 30)
 	private String firstName;
 
-	@Column(length = 30, nullable = false)
+	@Column(length = 30)
 	private String lastName;
-	@Column(length = 50, nullable = false, unique = true)
+	
+	@Column(length = 50,unique = true)// nullable = false, 
 	private String email;
 
 	//@OneToOne
@@ -48,6 +49,7 @@ public class Lead {
 
 	@Column(length = 14)
 	private String businessNumber;
+	
 	@Column(length = 14)
 	private String personelNumber;
 
@@ -63,7 +65,7 @@ public class Lead {
 	@Column(length = 30)
 	private String state;
 	
-	@Column(length = 60, nullable = false)
+	@Column(length = 60)
 	private String country;
 	
 	@Column(length = 14)
