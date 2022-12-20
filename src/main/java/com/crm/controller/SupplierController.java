@@ -34,7 +34,7 @@ import com.crm.responseDTO.SupplierResponseDTO;
 import com.crm.service.SupplierService;
 
 
-@AutoConfiguration 
+
 
 @RestController
 @RequestMapping("/supplier")
@@ -51,7 +51,7 @@ public class SupplierController {
 	//POST-http://localhost:8081/supplier/create
 
 	@PostMapping("/create")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> createSupplier(@Valid @RequestBody SupplierRequestDTO supplierRequestDTO){
 
 			supplierService.createSupplier(supplierRequestDTO);
@@ -67,8 +67,9 @@ public class SupplierController {
 
 	// ********* getAll   17.12.2022 ERSIN *****************
 
-	//GET-http://localhost:8081/supplier
-		@GetMapping
+	//GET-http://localhost:8081/supplier/getAll
+		@GetMapping("/getAll")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 		public ResponseEntity<List<SupplierResponseDTO>> getAllSupplier(){
 			
 			List<SupplierResponseDTO> allSupplier = supplierService.getAllSupplier();
@@ -78,29 +79,30 @@ public class SupplierController {
 	
 	// ********  getById   17.12.2022  ERSIN  **************
 
-	//GET - http://localhost:8081/supplier/1
-	@GetMapping("/{id}")
+	//GET - http://localhost:8081/supplier/get/1
+	@GetMapping("/get/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<SupplierResponseDTO> getSupplierById(@PathVariable("id") Long id){
 		SupplierResponseDTO supplierResponseDTO = supplierService.getSupplierById(id);
 		return ResponseEntity.ok(supplierResponseDTO);
 	}
 	
 	// ******  update  17.12.2022 ERSIN  ******		
-	//PUT-http://localhost:8081/supplier/3
-		@PutMapping("/{id}")
-		public ResponseEntity<Map<String, String>> updateSupplier(@PathVariable Long id, @Valid @RequestBody SupplierRequestDTO supplierRequestDTO){
+	//PUT-http://localhost:8081/supplier/update/3
+		@PutMapping("/update/{id}")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+		public ResponseEntity<CrmResponse> updateSupplier(@PathVariable Long id, @Valid @RequestBody SupplierRequestDTO supplierRequestDTO){
 			supplierService.updateSupplier(id, supplierRequestDTO);
-			Map<String, String> map=new HashMap<>();
-			map.put("message", "Supplier Successfully created");
-			map.put("status", "true");
-			return new ResponseEntity<>(map,HttpStatus.OK);
+			CrmResponse crmResponse = new CrmResponse(ResponseMessage.SUPPLIER_UPDATED_MESSAGE, true);
+			return ResponseEntity.ok(crmResponse);
 			
 		}
 		
 		// ******  pageable  17.12.2022 ERSIN  ******	
 		
-	//GET - http://localhost:8081/contactmessage/pages?page=1&size=3&sort=id&direction=ASC
-	@GetMapping("/pages")
+	
+		 @GetMapping("/getPages")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Page<SupplierResponseDTO>> getAllWithPage(
 			@RequestParam("page") int page,
 			@RequestParam("size") int size, 
@@ -119,13 +121,13 @@ public class SupplierController {
 	
 	// ******  delete  17.12.2022 ERSIN  ******	
 	//DELETE-http://localhost:8081/supplier/4 
-		@DeleteMapping("/{id}")
-		public ResponseEntity<Map<String, String>> deleteSupplier(@PathVariable Long id){
+		@DeleteMapping("/delete/{id}")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+		public ResponseEntity<CrmResponse> deleteSupplier(@PathVariable Long id){
 			supplierService.deleteSupplier(id);
-			Map<String, String> map=new HashMap<>();
-			map.put("message", "Supplier Successfully Deleted");
-			map.put("status", "true");
-			return new ResponseEntity<>(map, HttpStatus.OK);
+			CrmResponse crmResponse = new CrmResponse(ResponseMessage.SUPPLIER_DELETED_MESSAGE, true);
+			return ResponseEntity.ok(crmResponse);
+			
 		}
 	
 	
