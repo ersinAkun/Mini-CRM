@@ -17,57 +17,57 @@ import lombok.Setter;
 public class LeadResponseDTO {
 
 
-	
+
 	private String firstName;
 
-	
+
 	private String lastName;
 
 	private String email;
 
-	
+
 	private Company company;
-	
+
 	private String industry;
 
-	
+
 	private String businessNumber;
-	
+
 	private String personelNumber;
 
-	
+
 	private Date contactedDate;
 
-	
+
 	private String address;
 
-	
+
 	private String city;
-	
-	
+
+
 	private String state;
-	
-	
+
+
 	private String country;
-	
-	
+
+
 	private Boolean hasWhatsapp;
-	
-	
+
+
 	private String Linked;
-	
-	
+
+
 	private String skype;
-	
-	
+
+
 	private String notes;
-	
-	
+
+
 	private String speaks;
 
 	@Enumerated(EnumType.STRING)
 	private LeadStatus status;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Department employeeDepartment;
 

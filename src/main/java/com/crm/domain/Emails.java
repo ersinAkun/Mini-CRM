@@ -1,13 +1,7 @@
 package com.crm.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,16 +17,17 @@ public class Emails {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-    
-    @Column(length = 50, nullable = true,unique = true)
+    private Long id;
+
+   //@Column(length = 500, nullable = false,unique = true)
+   //@Email
     private String email;
 
-    
-    @ManyToOne
-    @JoinColumn(name="company_id")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
     private Company company;
-   
+
 
 
 
@@ -40,8 +35,8 @@ public class Emails {
 //    @ManyToOne
 //    @JoinColumn(name="company_id")
 //    private Long company_id;
-//    
-//   
+//
+//
 
-    
+
 }

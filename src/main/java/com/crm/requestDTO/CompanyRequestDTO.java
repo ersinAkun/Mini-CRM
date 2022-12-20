@@ -5,15 +5,14 @@ package com.crm.requestDTO;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
+import com.crm.domain.Emails;
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
@@ -103,7 +102,9 @@ public class CompanyRequestDTO {
 	@Size(max = 255)
 	private String note;
 
-	
+     //kontrol repoya kaydedilirken yapılıyor
+	private List<String> emails;
+
 
 	@Enumerated(EnumType.STRING)
 	private CompanyStatus companyStatus;
