@@ -63,7 +63,7 @@ public class Lead {
 	@Column(length = 30)
 	private String state;
 	
-	@Column(length = 30, nullable = false)
+	@Column(length = 60, nullable = false)
 	private String country;
 	
 	@Column(length = 14)

@@ -1,6 +1,5 @@
 package com.crm.controller;
 
-import com.crm.domain.Company;
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
@@ -16,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -27,8 +25,8 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    //************************* CREATE **************************************
-    @PostMapping("/create/{eId}")
+    //*****************SELİM******** CREATE **************************************EMAIL KAYIT ETMİYORUZ ŞUAN!!!
+    @PostMapping("/create/{eId}")//employee id'sini aldık
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<CrmResponse> createCompany(@Valid @RequestBody CompanyRequestDTO companyRequestDTO, @PathVariable Long eId) {
         companyService.saveCompany(companyRequestDTO, eId);
@@ -40,7 +38,7 @@ public class CompanyController {
     }
 
     //************************* UPDATE **************************************
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<CrmResponse> updateCompany(@PathVariable("id") Long id, @Valid @RequestBody CompanyRequestDTO companyRequestDTO) {
         companyService.updateCompany(id, companyRequestDTO);
@@ -120,7 +118,7 @@ public class CompanyController {
         return ResponseEntity.ok(companyResponseDTOs);
 
     }
-//************************* getCompanyWithType **************************
+//*************************getCompanyWithType **************************
 
     @GetMapping("/getWithType/{companyType}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")

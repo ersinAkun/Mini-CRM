@@ -33,12 +33,15 @@ public class SupplierService {
 	}
 
 	//***************  create 11.12.2022 ERSIN  ********************
+
 	public void createSupplier(@Valid SupplierRequestDTO supplierRequestDTO) {
 		
 		
 		
+
 		Supplier supplier = new Supplier();
-		supplier.setName(supplierRequestDTO.getName());
+		
+		supplier.setName(supplierRequestDTO.getName());//unique 
 
 		supplier.setOwner(supplierRequestDTO.getOwnerLastName());//owner a karsilik name ve last name var ben lastname i sectim
 
