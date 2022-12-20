@@ -121,8 +121,8 @@ public class Company {
     private CompanyType companyType;
 
 
-    @OneToMany(mappedBy = "company")
-    private List<Emails> emails = new ArrayList<>();
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Emails> emails;
 
 
 }

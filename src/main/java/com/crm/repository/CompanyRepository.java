@@ -27,22 +27,28 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 //	List<Company> foundedCompaniesByCompanyEmployeesId(Long id);
 //
 
-    @Query ("SELECT count (c) FROM Company c where c.name=:name")
+    @Query("SELECT count (c) FROM Company c where c.name=:name")
     Integer countByCompanyWithName(@Param("name") String name);
 
 //
 
 
+    // @Query("SELECT c FROM Company c where c.companyStatus=:companyStatus ")
+    // List<Company> findCompaniesByCompanyStatus(@Param("companyStatus")CompanyStatus companyStatus);
 
+    // @Query("SELECT c FROM Company c where c.industry=:industry ")
 
-    @Query("SELECT c FROM Company c where c.companyStatus=:companyStatus ")
-    List<Company> findCompaniesByCompanyStatus(@Param("companyStatus")CompanyStatus companyStatus);
+    // List<Company> findCompaniesByIndustry(@Param("industry")CompanyIndustry industry);
 
-    @Query("SELECT c FROM Company c where c.industry=:industry ")
+    // @Query("SELECT c FROM Company c where c.companyType=:companyType ")
 
-    List<Company> findCompaniesByIndustry(@Param("industry")CompanyIndustry industry);
+    // List<Company> findCompaniesByCompanyType(@Param("companyType")CompanyType companyType);
+    @Query("SELECT c.id FROM Company c where c.companyStatus=:companyStatus ")
+    List<Long> findCompaniesIdByCompanyStatus(CompanyStatus companyStatus);
 
-    @Query("SELECT c FROM Company c where c.companyType=:companyType ")
+    @Query("SELECT c.id FROM Company c where c.industry=:industry ")
+    List<Long> findCompaniesIdByIndustry(@Param("industry") CompanyIndustry industry);
 
-    List<Company> findCompaniesByCompanyType(@Param("companyType")CompanyType companyType);
+    @Query("SELECT c.id FROM Company c where c.companyType=:companyType ")
+    List<Long> findCompaniesIdByCompanyType(@Param("companyType") CompanyType companyType);
 }

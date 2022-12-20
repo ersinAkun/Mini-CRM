@@ -99,7 +99,7 @@ public class CompanyController {
 
     }
 
-    //**SELİM*********************** getCompanyWithStatus ************************
+    //**SELİM*********************** getCompanyWithStatus **********************SELİM**
     @GetMapping("/getWithStatus/{companyStatus}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<List<CompanyResponseDTO>> getCompaniesByCompanyStatus(@PathVariable CompanyStatus companyStatus) {
@@ -109,7 +109,7 @@ public class CompanyController {
         return ResponseEntity.ok(companyResponseDTOs);
     }
 
-    //**SELİM*********************** getCompanyWithIndustry **********************
+    //**SELİM*********************** getCompanyWithIndustry ********************SELİM**
     @GetMapping("/getWithIndustry/{industry}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<List<CompanyResponseDTO>> getCompaniesByIndustry(@PathVariable CompanyIndustry industry) {
@@ -119,7 +119,7 @@ public class CompanyController {
         return ResponseEntity.ok(companyResponseDTOs);
 
     }
-    //**SELİM***********************getCompanyWithType **************************
+    //**SELİM***********************getCompanyWithType ************************SELİM**
 
     @GetMapping("/getWithType/{companyType}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
