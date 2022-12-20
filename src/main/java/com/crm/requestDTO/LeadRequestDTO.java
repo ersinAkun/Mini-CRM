@@ -4,7 +4,6 @@ import java.util.Date;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -23,15 +22,13 @@ import lombok.Setter;
 public class LeadRequestDTO {
 
 	@Size(max = 50)
-	@NotNull
-	@NotBlank(message = "Please provide First name")
+	@NotNull(message = "Please provide First name")
 	private String firstName;
 
 	@Size(max = 50)
-	@NotBlank(message = "Please provide Last name")
+	@NotNull(message = "Please provide Last name")
 	private String lastName;
 
-	@Size(max = 50)
 	@Email
 	@NotNull(message = "Please provide email")
 	private String email;
@@ -44,7 +41,6 @@ public class LeadRequestDTO {
 
 	@Pattern(regexp = "^((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$", message = "Please enter valid phone number")
 	@Size(min = 14, max = 14, message = "Phone number should be exact 10 characters")
-	//@NotNull(message = "Please enter phone number")
 	private String personelNumber;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
@@ -53,20 +49,17 @@ public class LeadRequestDTO {
 
 	@Size(max = 255)
 	@NotNull(message = "Please provide address")
-	@NotBlank
 	private String address;
 
 	@Size(max = 20)
 	@NotNull(message = "Please provide city")
-	@NotBlank
 	private String city;
 
 	@Size(max = 20)
 	@NotNull(message = "Please provide state")
-	@NotBlank
 	private String state;
 
-	@Size(max = 50)
+	@Size(max = 60)
 	@NotNull(message = "Please provide country")
 	private String country;
 
@@ -82,7 +75,6 @@ public class LeadRequestDTO {
 	private String notes;
 
 	@Size(max = 50)
-	@NotBlank
 	private String speaks;
 	
 	private String industry;
