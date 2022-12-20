@@ -30,6 +30,7 @@ import com.crm.domain.Supplier;
 import com.crm.requestDTO.SupplierRequestDTO;
 import com.crm.responseDTO.CrmResponse;
 import com.crm.responseDTO.ResponseMessage;
+import com.crm.responseDTO.SupplierResponseDTO;
 import com.crm.service.SupplierService;
 
 
@@ -41,7 +42,7 @@ import com.crm.service.SupplierService;
 public class SupplierController {
 	
 	@Autowired
-	SupplierService supplierService;
+	private SupplierService supplierService;
 	
 	
 
@@ -54,9 +55,6 @@ public class SupplierController {
 	public ResponseEntity<CrmResponse> createSupplier(@Valid @RequestBody SupplierRequestDTO supplierRequestDTO){
 
 			supplierService.createSupplier(supplierRequestDTO);
-
-			
-
 
 	CrmResponse response = new CrmResponse();
 	response.setMessage(ResponseMessage.SUPPLIER_CREATED_MESSAGE);
@@ -71,10 +69,10 @@ public class SupplierController {
 
 	//GET-http://localhost:8081/supplier
 		@GetMapping
-		public ResponseEntity<List<Supplier>> getAllSupplier(){
+		public ResponseEntity<List<SupplierResponseDTO>> getAllSupplier(){
 			
-			List<Supplier> list = supplierService.getAll();
-			return ResponseEntity.ok(list);
+			List<SupplierResponseDTO> allSupplier = supplierService.getAllSupplier();
+			return ResponseEntity.ok(allSupplier);
 		}
 	
 	
@@ -82,16 +80,16 @@ public class SupplierController {
 
 	//GET - http://localhost:8081/supplier/1
 	@GetMapping("/{id}")
-	public ResponseEntity<Supplier> getSupplier(@PathVariable("id") Long id){
-		Supplier supplier = supplierService.getSupplier(id);
-		return ResponseEntity.ok(supplier);
+	public ResponseEntity<SupplierResponseDTO> getSupplierById(@PathVariable("id") Long id){
+		SupplierResponseDTO supplierResponseDTO = supplierService.getSupplierById(id);
+		return ResponseEntity.ok(supplierResponseDTO);
 	}
 	
 	// ******  update  17.12.2022 ERSIN  ******		
 	//PUT-http://localhost:8081/supplier/3
 		@PutMapping("/{id}")
-		public ResponseEntity<Map<String, String>> updateSuppplier(@PathVariable Long id, @Valid @RequestBody Supplier supplier){
-			supplierService.updateSupplier(id, supplier);
+		public ResponseEntity<Map<String, String>> updateSupplier(@PathVariable Long id, @Valid @RequestBody SupplierRequestDTO supplierRequestDTO){
+			supplierService.updateSupplier(id, supplierRequestDTO);
 			Map<String, String> map=new HashMap<>();
 			map.put("message", "Supplier Successfully created");
 			map.put("status", "true");
@@ -103,15 +101,18 @@ public class SupplierController {
 		
 	//GET - http://localhost:8081/contactmessage/pages?page=1&size=3&sort=id&direction=ASC
 	@GetMapping("/pages")
-	public ResponseEntity<Page<Supplier>> getAllWithPage(
-			@RequestParam("page") int page,@RequestParam("size") int size, 
-	        @RequestParam("sort") String prop, @RequestParam("direction") Direction direction  ){
+	public ResponseEntity<Page<SupplierResponseDTO>> getAllWithPage(
+			@RequestParam("page") int page,
+			@RequestParam("size") int size, 
+	        @RequestParam("sort") String prop, 
+	        @RequestParam("direction") Direction direction  ){
 			
 			
-		Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));  
-		Page<Supplier> supplierPage = supplierService.getAllWithPage(pageable);
+		Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop)); 
+		
+		Page<SupplierResponseDTO> supplierPageDTO = supplierService.getAllWithPage(pageable);
 			
-		return ResponseEntity.ok(supplierPage);
+		return ResponseEntity.ok(supplierPageDTO);
 	
 		}	
 	
