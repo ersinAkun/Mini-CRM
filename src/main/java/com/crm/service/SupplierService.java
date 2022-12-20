@@ -1,6 +1,8 @@
 package com.crm.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.validation.Valid;
 
@@ -14,6 +16,7 @@ import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.SupplierRepository;
 import com.crm.requestDTO.SupplierRequestDTO;
+import com.crm.responseDTO.SupplierResponseDTO;
 
 
 @Service
@@ -33,16 +36,15 @@ public class SupplierService {
 	}
 
 	//***************  create 11.12.2022 ERSIN  ********************
-	public void saveSupplier( SupplierRequestDTO supplierRequestDTO) {
+
+	public void createSupplier( SupplierRequestDTO supplierRequestDTO) {
+	
 		Supplier supplier = new Supplier();
 		
 		supplier.setName(supplierRequestDTO.getName());//unique 
-
-		supplier.setOwner(supplierRequestDTO.getOwnerLastName());//owner a karsilik name ve last name var ben lastname i sectim
-
+		supplier.setOwnerFirstName(supplierRequestDTO.getOwnerFirstName());
 		supplier.setEmail(supplierRequestDTO.getEmail());
-		supplier.setOwner(supplierRequestDTO.getOwnerName());//owner a karsilik name ve last name var ben lastname i sectim
-
+		supplier.setOwnerLastName(supplierRequestDTO.getOwnerLastName());
 		supplier.setAddress(supplierRequestDTO.getAddress());
 		supplier.setCity(supplierRequestDTO.getCity());
 		supplier.setPhone(supplierRequestDTO.getPhone());
@@ -55,47 +57,116 @@ public class SupplierService {
 
 
 
-
-
-	public List<Supplier> getAll() {
-
-		return supplierRepository.findAll();
+	public List<SupplierResponseDTO> getAllSupplier() {
+		List<Supplier> suppliers = supplierRepository.findAll();
+		
+		List<SupplierResponseDTO> supplierResponseDTOs = new ArrayList<>();
+		
+		for(Supplier w : suppliers) {
+			
+			SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
+			
+			supplierResponseDTO.setName(w.getName());
+			supplierResponseDTO.setEmail(w.getEmail());
+			supplierResponseDTO.setOwnerFirstName(w.getOwnerFirstName());
+			supplierResponseDTO.setOwnerLastName(w.getOwnerLastName());
+			supplierResponseDTO.setAddress(w.getAddress());
+			supplierResponseDTO.setCity(w.getCity());
+			supplierResponseDTO.setPhone(w.getPhone());
+			supplierResponseDTO.setOwnerWhatsapp(w.getOwnerWhatsapp());
+			supplierResponseDTO.setWebPage(w.getWebPage());
+			
+			supplierResponseDTOs.add(supplierResponseDTO);
+		}
+		return supplierResponseDTOs;
+		
 	}
+	
+	
 
-	public Supplier getSupplier(Long id) throws ResourceNotFoundException{
+	public SupplierResponseDTO getSupplierById(Long id)  {
+	
+	Supplier supplier = supplierRepository.findById(id).orElseThrow(()->
+	new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 
-		return supplierRepository.findById(id).orElseThrow(() ->
-				new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+	SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
+	
+	supplierResponseDTO.setName(supplier.getName());
+	supplierResponseDTO.setEmail(supplier.getEmail());
+	supplierResponseDTO.setOwnerFirstName(supplier.getOwnerFirstName());
+	supplierResponseDTO.setOwnerLastName(supplier.getOwnerLastName());
+	supplierResponseDTO.setAddress(supplier.getAddress());
+	supplierResponseDTO.setCity(supplier.getCity());
+	supplierResponseDTO.setPhone(supplier.getPhone());
+	supplierResponseDTO.setOwnerWhatsapp(supplier.getOwnerWhatsapp());
+	supplierResponseDTO.setWebPage(supplier.getWebPage());
+	
+		return supplierResponseDTO;
 	}
+	
+	
+	
+	
+	
+	
 
-	public void updateSupplier(Long id,  Supplier newSupplier) {
-		Supplier foundSupplier = getSupplier(id);
+	public void updateSupplier(Long id,  SupplierRequestDTO supplierRequestDTO) {
+		Supplier foundSupplier = supplierRepository.findById(id).orElseThrow(()->
+		new ResourceNotFoundException(String.format(ErrorMessage.SUPPLIER_UPDATE_RESPONSE_MESSAGE, id)));
 
-		foundSupplier.setName(newSupplier.getName());
-		foundSupplier.setEmail(newSupplier.getEmail());
-		foundSupplier.setOwner(newSupplier.getOwner());
-		foundSupplier.setAddress(newSupplier.getAddress());
-		foundSupplier.setCity(newSupplier.getCity());
-		foundSupplier.setPhone(newSupplier.getPhone());
-		foundSupplier.setOwnerWhatsapp(newSupplier.getOwnerWhatsapp());
-		foundSupplier.setWebPage(newSupplier.getWebPage());
+		foundSupplier.setName(supplierRequestDTO.getName());
+		foundSupplier.setEmail(supplierRequestDTO.getEmail());
+		foundSupplier.setOwnerFirstName(supplierRequestDTO.getOwnerFirstName());
+		foundSupplier.setOwnerLastName(supplierRequestDTO.getOwnerLastName());
+		foundSupplier.setAddress(supplierRequestDTO.getAddress());
+		foundSupplier.setCity(supplierRequestDTO.getCity());
+		foundSupplier.setPhone(supplierRequestDTO.getPhone());
+		foundSupplier.setOwnerWhatsapp(supplierRequestDTO.getOwnerWhatsapp());
+		foundSupplier.setWebPage(supplierRequestDTO.getWebPage());
 
 		supplierRepository.save(foundSupplier);
 	}
 
+	
+	
 
-	public Page<Supplier> getAllWithPage(Pageable pageable){
-		return supplierRepository.findAll(pageable);
+	public Page<SupplierResponseDTO> getAllWithPage(Pageable pageable){
+		
+		Page<Supplier> supplierPage = supplierRepository.findAll(pageable);
+		Page<SupplierResponseDTO> responsePage = supplierPage.map(new Function<Supplier, SupplierResponseDTO>(){
+
+			public SupplierResponseDTO apply(Supplier supplier) {
+				
+				SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
+					
+				supplierResponseDTO.setName(supplier.getName());
+				supplierResponseDTO.setEmail(supplier.getEmail());
+				supplierResponseDTO.setOwnerFirstName(supplier.getOwnerFirstName());
+				supplierResponseDTO.setOwnerLastName(supplier.getOwnerLastName());
+				supplierResponseDTO.setAddress(supplier.getAddress());
+				supplierResponseDTO.setCity(supplier.getCity());
+				supplierResponseDTO.setPhone(supplier.getPhone());
+				supplierResponseDTO.setOwnerWhatsapp(supplier.getOwnerWhatsapp());
+				supplierResponseDTO.setWebPage(supplier.getWebPage());
+					
+				return supplierResponseDTO;
+			}
+			
+		});
+		return responsePage;
+		
 
 	}
 
 	public void deleteSupplier(Long id) throws ResourceNotFoundException{
-		Supplier supplier = getSupplier(id);
+		Supplier supplier = supplierRepository.findById(id).orElseThrow(
+				()-> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 		//supplierRepository.delete(supplier);
 		supplierRepository.deleteById(supplier.getId());
 
 	}
 
+	
 
 
 }

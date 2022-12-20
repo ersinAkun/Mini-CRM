@@ -32,23 +32,12 @@ public class SupplierRequestDTO {
 
 	@Size(max = 50)
 	@NotBlank(message = "Please provide owner first name")
-	private String ownerName;
-
-
-
+	private String ownerFirstName;
 
 
 	@Size(max = 50)
 	@NotBlank(message = "Please provide owner last name")
 	private String ownerLastName;
-
-	/*@Size(max = 50)
-	@NotBlank(message = "Please provide owner last name")
-	private String ownerLastName;
-	*/
-
-
-
 
 
 	@Size(max = 100)
@@ -66,7 +55,7 @@ public class SupplierRequestDTO {
 
 	@Pattern(regexp = "^((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$", message = "Please enter valid phone number")
 	@Size(min = 14, max = 14, message = "Phone number should be exact 10 characters")
-	private String OwnerWhatsapp;
+	private String ownerWhatsapp;
 
 	@Size(max = 50)
 	private String linkedPage;

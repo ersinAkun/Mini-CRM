@@ -33,4 +33,8 @@ public class ErrorMessage {
     public static final String COMPANY_WITH_STATUS_IS_NOT_EXIST_MESSAGE ="There is no company with that %s status" ;
 	public static final String COMPANY_WITH_INDUSTRY_IS_NOT_EXIST_MESSAGE ="There is no company with that %s industry" ;
 	public static final String COMPANY_WITH_TYPE_IS_NOT_EXIST_MESSAGE = "There is no company with that %s type";
+
+
+    public final static String SUPPLIER_UPDATE_RESPONSE_MESSAGE = "Supplier does not updated";
+
 }
