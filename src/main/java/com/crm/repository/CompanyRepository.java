@@ -21,11 +21,11 @@ import java.util.Optional;
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 
 
-    //
-//	//*****Secilen Id`li Employees`in buldugu Company lerin isimleri gelecek~~~Celebi~~~ (Insallah!!!)
-//	@Query("Select c.name from Company c join c.foundedCompanies e where e.id=:id")
-//	List<Company> foundedCompaniesByCompanyEmployeesId(Long id);
-//
+    
+	//*****Secilen Id`li Employees`in buldugu Company lerin isimleri gelecek~~~Celebi~~~
+	@Query("SELECT c.name FROM Company c WHERE c.whoFind=:id")
+	List<String> foundedCompaniesByCompanyEmployeesId(@Param("id") Long id);
+
 
     @Query("SELECT count (c) FROM Company c where c.name=:name")
     Integer countByCompanyWithName(@Param("name") String name);

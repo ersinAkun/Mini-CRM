@@ -22,6 +22,8 @@ public class EmailsResponseDTO {
     
     private Long company_id;
     
+    private String company_name;
+    
     
     
 }
