@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.crm.domain.Company;
 import com.crm.domain.CompanyEmployees;
 import com.crm.domain.Role;
 import com.crm.domain.enums.RoleType;
@@ -21,6 +23,7 @@ import com.crm.exception.ConflictException;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyEmployeesRepository;
+import com.crm.repository.CompanyRepository;
 import com.crm.requestDTO.CompanyEmployeesRequestDTO;
 import com.crm.requestDTO.CompanyEmployeesUpdateAdminRequestDTO;
 import com.crm.requestDTO.CompanyEmployeesUpdatePasswordRequestDTO;
@@ -35,17 +38,18 @@ public class CompanyEmployeesService {
 
 	private CompanyEmployeesRepository companyEmployeesRepository;
 
-	// private CompanyRepository companyRepository;
+	private CompanyRepository companyRepository;
 
 	private RoleService roleService;
 
 	@Autowired
 	public CompanyEmployeesService(@Lazy PasswordEncoder passwordEncoder,
-			CompanyEmployeesRepository companyEmployeesRepository, RoleService roleService) {
+			CompanyEmployeesRepository companyEmployeesRepository, RoleService roleService, CompanyRepository companyRepository) {
 		super();
 		this.passwordEncoder = passwordEncoder;
 		this.companyEmployeesRepository = companyEmployeesRepository;
 		this.roleService = roleService;
+		this.companyRepository=companyRepository;
 
 
 		
@@ -66,18 +70,8 @@ public class CompanyEmployeesService {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	//*****CELEBI********CREATE EMPLOYEES**********************
-
 
 	// *****CELEBI********CREATE EMPLOYEES**********************
-
-
 	public void createCompanyEmployees(CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
 		if (companyEmployeesRepository.existsByEmail(companyEmployeesRequestDTO.getEmail())) {
 			throw new ConflictException(
@@ -122,6 +116,10 @@ public class CompanyEmployeesService {
 
 		return companyEmployees;
 	}
+	
+	
+	
+	
 
 	// *****CELEBI********GET BY ID EMPLOYEES**********************
 	public CompanyEmployeesResponseDTO getEmployeesById(Long id) {
@@ -132,11 +130,11 @@ public class CompanyEmployeesService {
 		Set<Role> roles = new HashSet<>();
 		roles.add(role);
 
-		// List<Company> companyNames=
-		// companyRepository.foundedCompaniesByCompanyEmployeesId(id);
-
+		
+		List<String> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(id);
+					
 		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
-
+			
 		companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
 		companyEmployeesResponseDTO.setId(companyEmployees.getId());
 		companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
@@ -152,7 +150,7 @@ public class CompanyEmployeesService {
 		companyEmployeesResponseDTO.setSpeaks(companyEmployees.getSpeaks());
 		companyEmployeesResponseDTO.setBuiltIn(companyEmployees.getBuiltIn());
 		companyEmployeesResponseDTO.setEmployeeDepartment(companyEmployees.getEmployeeDepartment());
-		// companyEmployeesResponseDTO.setFoundedCompanies(companyNames);//sadece isimleri gelebilir.
+		companyEmployeesResponseDTO.setFoundedCompanies(companyNames);//sadece isimleri gelebilir.
 		companyEmployeesResponseDTO.setRoles(roles);
 
 		return companyEmployeesResponseDTO;
@@ -161,13 +159,14 @@ public class CompanyEmployeesService {
 	// ******CELEBI*******GET ALL EMPLOYEES**********************
 	public List<CompanyEmployeesResponseDTO> getAllEmployees() {
 		List<CompanyEmployees> companyEmployees = companyEmployeesRepository.findAll();
-
-		// CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new
-		// CompanyEmployeesResponseDTO();
+		
+		
 		List<CompanyEmployeesResponseDTO> companyEmployeesResponseDTOs = new ArrayList<>();
 
 		for (CompanyEmployees employees : companyEmployees) {
-
+			
+			List<String> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(employees.getId());//[DEFGHNEME1, DEFGHNEME2]
+			
 			CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
 			companyEmployeesResponseDTO.setId(employees.getId());
 			companyEmployeesResponseDTO.setFirstName(employees.getFirstName());
@@ -184,7 +183,7 @@ public class CompanyEmployeesService {
 			companyEmployeesResponseDTO.setSpeaks(employees.getSpeaks());
 			companyEmployeesResponseDTO.setBuiltIn(employees.getBuiltIn());
 			companyEmployeesResponseDTO.setEmployeeDepartment(employees.getEmployeeDepartment());
-			// companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
+			companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
 			companyEmployeesResponseDTO.setRoles(employees.getRoles());
 
 			companyEmployeesResponseDTOs.add(companyEmployeesResponseDTO);// list e ekliyoruz
@@ -195,12 +194,9 @@ public class CompanyEmployeesService {
 
 	
 	
-	//****CELEBI*********GET PAGE EMPLOYEES**********************
 
 
-	// ****CELEBI*********GET PAGE EMPLOYEES**********************
-
-
+	// ****CELEBI*********GET PAGE EMPLOYEES*********************
 	public Page<CompanyEmployeesResponseDTO> getEmployeesPage(Pageable pageable) {
 		Page<CompanyEmployees> employeesPage = companyEmployeesRepository.findAll(pageable);
 
@@ -211,6 +207,8 @@ public class CompanyEmployeesService {
 					public CompanyEmployeesResponseDTO apply(CompanyEmployees companyEmployees) {
 						CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
 
+						List<String> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(companyEmployees.getId());
+						
 						companyEmployeesResponseDTO.setId(companyEmployees.getId());
 						companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
 						companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
@@ -226,7 +224,7 @@ public class CompanyEmployeesService {
 						companyEmployeesResponseDTO.setSpeaks(companyEmployees.getSpeaks());
 						companyEmployeesResponseDTO.setBuiltIn(companyEmployees.getBuiltIn());
 						companyEmployeesResponseDTO.setEmployeeDepartment(companyEmployees.getEmployeeDepartment());
-						// companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
+						companyEmployeesResponseDTO.setFoundedCompanies(companyNames);
 						companyEmployeesResponseDTO.setRoles(companyEmployees.getRoles());
 
 						return companyEmployeesResponseDTO;
@@ -274,13 +272,7 @@ public class CompanyEmployeesService {
 	}
 
 	// ********CELEBI*****UPDATE LOGIN EMPLOYEES**********************
-	
-	
 	@Transactional
-	// // VeritabanÄ± Ã¼zerinde gerÃ§ekleÅŸtirilen bir grup SQL iÅŸleminin tek bir
-	// bÃ¼tÃ¼n
-	// olarak ele alÄ±nmasÄ±nÄ± saÄŸlar, bir veya daha fazla SQL iÅŸluseremi tek bir
-	// iÅŸlem gibi ele alÄ±nÄ±r.
 	public void updateLoginEmployees(@Valid CompanyEmployeesUpdateRequestDTO companyEmployeesUpdateRequestDTO) {
 		CompanyEmployees companyEmployees = getCurrentEmployee();
 
@@ -295,13 +287,6 @@ public class CompanyEmployeesService {
 			throw new ConflictException(String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE,
 					companyEmployeesUpdateRequestDTO.getEmail()));
 		}
-		// password boÅŸ ise
-//		      if(companyEmployeesRequestDTO.getPassword()==null) {
-//		    	  companyEmployeesRequestDTO.setPassword(companyEmployees.getPassword());
-//		      } else  {
-//		    	  String encodedPassword =  passwordEncoder.encode(companyEmployeesRequestDTO.getPassword());
-//		    	  companyEmployeesRequestDTO.setPassword(encodedPassword);
-//		      }
 
 		companyEmployeesRepository.update(companyEmployees.getId(), companyEmployeesUpdateRequestDTO.getFirstName(),
 				companyEmployeesUpdateRequestDTO.getLastName(), companyEmployeesUpdateRequestDTO.getPhoneNumber(),
@@ -326,7 +311,7 @@ public class CompanyEmployeesService {
 					companyEmployeesUpdateAdminRequestDTO.getEmail()));
 		}
 
-		// TODO bakilacak
+		
 		Set<String> employeesStrRoles = companyEmployeesUpdateAdminRequestDTO.getRoles();
 
 		Set<Role> roles = convertRoles(employeesStrRoles);
@@ -376,8 +361,6 @@ public class CompanyEmployeesService {
 	
 	
 	
-	//****CELEBI*********DELETE BY ID EMPLOYEES**********************
-
 	// ****CELEBI*********DELETE BY ID EMPLOYEES**********************
 
 	public void removeEmployeesById(Long id) {

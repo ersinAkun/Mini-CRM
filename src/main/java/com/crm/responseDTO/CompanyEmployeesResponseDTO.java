@@ -65,7 +65,7 @@ public class CompanyEmployeesResponseDTO {
 	private Department employeeDepartment;
 
 	
-	List<Company> foundedCompanies = new ArrayList<>();
+	private List<String> foundedCompanies = new ArrayList<>();
 
 	private  Set<String> roles;
 	

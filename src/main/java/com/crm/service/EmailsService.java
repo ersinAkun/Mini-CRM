@@ -71,6 +71,7 @@ public class EmailsService {
 		emailsResponseDTO.setEmail(emails.getEmail());
 		emailsResponseDTO.setId(emails.getId());
 		emailsResponseDTO.setCompany_id(emails.getCompany().getId());
+		emailsResponseDTO.setCompany_name(emails.getCompany().getName());
 		
 		return emailsResponseDTO;
 	}
@@ -90,6 +91,7 @@ public class EmailsService {
 			emailsResponseDTO.setEmail(emailsAll.getEmail());
 			emailsResponseDTO.setId(emailsAll.getId());
 			emailsResponseDTO.setCompany_id(emailsAll.getCompany().getId());
+			emailsResponseDTO.setCompany_name(emailsAll.getCompany().getName());
 			
 			emailsResponseDTOs.add(emailsResponseDTO);
 		}
@@ -114,7 +116,7 @@ public class EmailsService {
 				emailsResponseDTO.setEmail(emails.getEmail());
 				emailsResponseDTO.setId(emails.getId());
 				emailsResponseDTO.setCompany_id(emails.getCompany().getId());
-				
+				emailsResponseDTO.setCompany_name(emails.getCompany().getName());
 				return emailsResponseDTO;
 			}
 			
