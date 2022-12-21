@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    //*****************SELİM******** CREATE **************************************EMAIL KAYIT ETMİYORUZ ŞUAN!!!
+    //**SELİM*********************** CREATE **************************************EMAIL KAYIT ETMİYORUZ ŞUAN!!!
     @PostMapping("/create/{eId}")//employee id'sini aldık
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<CrmResponse> createCompany(@Valid @RequestBody CompanyRequestDTO companyRequestDTO, @PathVariable Long eId) {
@@ -37,7 +38,7 @@ public class CompanyController {
 
     }
 
-    //************************* UPDATE **************************************
+    //**SELİM*********************** UPDATE **************************************
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<CrmResponse> updateCompany(@PathVariable("id") Long id, @Valid @RequestBody CompanyRequestDTO companyRequestDTO) {
@@ -49,7 +50,7 @@ public class CompanyController {
 
     }
 
-    //************************* DELETE **************************************
+    //**SELİM*********************** DELETE **************************************
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<CrmResponse> deleteCompany(@PathVariable Long id) {
@@ -61,7 +62,7 @@ public class CompanyController {
         return ResponseEntity.ok(crmResponse);
     }
 
-    //************************* GET *****************************************
+    //**SELİM*********************** GET *****************************************
     @GetMapping("/get/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<CompanyResponseDTO> getCompanyById(@PathVariable Long id) {
@@ -69,7 +70,7 @@ public class CompanyController {
         return ResponseEntity.ok(companyResponseDTO);
     }
 
-    //************************* GET ALL *************************************
+    //**SELİM*********************** GET ALL *************************************
     @GetMapping("/getAll")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<List<CompanyResponseDTO>> getAllCompanies() {
@@ -79,7 +80,7 @@ public class CompanyController {
     }
 
 
-//************************* GET PAGEABLE ********************************
+    //**SELİM*********************** GET PAGEABLE ********************************
 
     @GetMapping("/getPages")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -98,7 +99,7 @@ public class CompanyController {
 
     }
 
-    //************************* getCompanyWithStatus ************************
+    //**SELİM*********************** getCompanyWithStatus **********************SELİM**
     @GetMapping("/getWithStatus/{companyStatus}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<List<CompanyResponseDTO>> getCompaniesByCompanyStatus(@PathVariable CompanyStatus companyStatus) {
@@ -108,7 +109,7 @@ public class CompanyController {
         return ResponseEntity.ok(companyResponseDTOs);
     }
 
-    //************************* getCompanyWithIndustry **********************
+    //**SELİM*********************** getCompanyWithIndustry ********************SELİM**
     @GetMapping("/getWithIndustry/{industry}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<List<CompanyResponseDTO>> getCompaniesByIndustry(@PathVariable CompanyIndustry industry) {
@@ -118,7 +119,7 @@ public class CompanyController {
         return ResponseEntity.ok(companyResponseDTOs);
 
     }
-//*************************getCompanyWithType **************************
+    //**SELİM***********************getCompanyWithType ************************SELİM**
 
     @GetMapping("/getWithType/{companyType}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")

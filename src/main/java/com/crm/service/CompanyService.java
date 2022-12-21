@@ -1,10 +1,12 @@
 package com.crm.service;
 
+import com.crm.domain.Emails;
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
 import com.crm.exception.ConflictException;
 import com.crm.repository.CompanyEmployeesRepository;
+import com.crm.repository.EmailsRepository;
 import com.crm.requestDTO.CompanyRequestDTO;
 import com.crm.responseDTO.CompanyResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.crm.domain.Company;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.CompanyRepository;
+
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
@@ -28,35 +31,41 @@ public class CompanyService {
     CompanyEmployeesService companyEmployeesService;
     @Autowired
     private CompanyEmployeesRepository companyEmployeesRepository;
+    @Autowired
+    private EmailsRepository emailsRepository;
+    @Autowired
+    private EmailsService emailsService;
 
 
     //COMPANYEMPLOYEES İÇİN KULLANILIYOR**EMRULLAH
-	public Company findCompanyById(Long id) {
+    public Company findCompanyById(Long id) {
 
-		Company company= companyRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));;
-	return company;
-	}
+        Company company = companyRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+        ;
+        return company;
+    }
 
 
-    //************************* CREATE **************************************
+    //**SELİM*********************** CREATE ************************************SELİM**
     public void saveCompany(CompanyRequestDTO companyRequestDTO, Long eId) {
 
         //girilen isimdeki company sayısına bakıyoruz
         Integer amountCompany = companyRepository.countByCompanyWithName(companyRequestDTO.getName().toUpperCase());
 
         if (amountCompany > 0) {
-            throw new ConflictException(String.format(ErrorMessage.COMPANY_ALREADY_CREATED_MESSAGE,companyRequestDTO.getName()));
+            throw new ConflictException(String.format(ErrorMessage.COMPANY_ALREADY_CREATED_MESSAGE, companyRequestDTO.getName()));
         }
 
         Integer employee = companyEmployeesRepository.countById(eId);
         if (!(employee > 0)) {
-            throw new ConflictException(String.format(ErrorMessage.EMPLOYEES_NOT_FOUND_BY_ID_MESSAGE,eId));
+            throw new ConflictException(String.format(ErrorMessage.EMPLOYEES_NOT_FOUND_BY_ID_MESSAGE, eId));
         }
 
         Company company = new Company();
 
         LocalDateTime now = LocalDateTime.now();
+
 
         company.setName(companyRequestDTO.getName().toUpperCase(Locale.ROOT));
         company.setOwner(companyRequestDTO.getOwner());
@@ -80,7 +89,6 @@ public class CompanyService {
         company.setNote(companyRequestDTO.getNote());
         //company.setLead(companyRequestDTO.);
         //company.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
-        // company.setEmails(emailsService.findEmailsByCompanyName(companyRequestDTO.getName()));
         company.setCompanyStatus(companyRequestDTO.getCompanyStatus());
         company.setIndustry(companyRequestDTO.getIndustry());
         company.setCompanyWhereWasFound(companyRequestDTO.getCompanyWhereWasFound());
@@ -88,20 +96,26 @@ public class CompanyService {
 
         companyRepository.save(company);
 
+        if (companyRequestDTO.getEmails() != null) {
+            for (String email : companyRequestDTO.getEmails()) {
+                Emails emails = new Emails();
+                emails.setCompany(company);
+                emails.setEmail(email);
+                emailsRepository.save(emails);
+            }
+        }
 
     }
 
-//************************* UPDATE **************************************
+//**SELİM*********************** UPDATE ************************************SELİM**
 
     public void updateCompany(Long id, CompanyRequestDTO companyRequestDTO) {
 
-        Company company = companyRepository.getReferenceById(id);
 
-        Boolean existCompany = companyRepository.existsById(id);
+        findCompanyById(id);
 
-        if (!existCompany) {
-            throw new ConflictException(String.format(ErrorMessage.COMPANY_IS_NOT_EXIST_MESSAGE,companyRequestDTO.getName()));
-        }
+        Company company = new Company();
+
         company.setName(companyRequestDTO.getName().toUpperCase(Locale.ROOT));
         company.setOwner(companyRequestDTO.getOwner());
         company.setAddress(companyRequestDTO.getAddress());
@@ -135,13 +149,14 @@ public class CompanyService {
     }
 
 
-    //************************* GET *****************************************
+    //**SELİM*********************** GET ***************************************SELİM**
     public CompanyResponseDTO getCompanyById(Long id) {
-        Company company = companyRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+
+        Company company = findCompanyById(id);
 
         CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
 
+        companyResponseDTO.setId(company.getId());
         companyResponseDTO.setName(company.getName().toUpperCase(Locale.ROOT));
         companyResponseDTO.setOwner(company.getOwner());
         companyResponseDTO.setAddress(company.getAddress());
@@ -155,6 +170,7 @@ public class CompanyService {
         companyResponseDTO.setTimeZone(company.getTimeZone());
         companyResponseDTO.setWebPage(company.getWebPage());
         companyResponseDTO.setRfq(company.getRFQ());
+        // employee nin kayıtlı id si ile adını getirir
         companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(company.getWhoFind()));
         companyResponseDTO.setAbout(company.getAbout());
         companyResponseDTO.setFirstContactDate(company.getFirstContactDate());
@@ -164,26 +180,27 @@ public class CompanyService {
         companyResponseDTO.setNote(company.getNote());
         //companyResponseDTO.setLead(companyRequestDTO.);
         //companyResponseDTO.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
-        // companyResponseDTO.setEmails(emailsService.findEmailsByCompanyName(companyRequestDTO.getName()));
         companyResponseDTO.setCompanyStatus(company.getCompanyStatus());
         companyResponseDTO.setIndustry(company.getIndustry());
         companyResponseDTO.setCompanyWhereWasFound(company.getCompanyWhereWasFound());
         companyResponseDTO.setCompanyType(company.getCompanyType());
+        //list halindeki emailleri responsa tek bir string değerinde kaydeder
+        companyResponseDTO.setEmails(emailsService.getEmailsTypeString(id));
 
         return companyResponseDTO;
     }
 
 
-    //************************* DELETE **************************************
+    //**SELİM*********************** DELETE ************************************SELİM**
     public void deleteCompanyById(Long id) {
-        Company company = companyRepository.findById(id).orElseThrow(
+        companyRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 
         companyRepository.deleteById(id);
     }
 
 
-    //************************* GET ALL *************************************
+    //**SELİM*********************** GET ALL ***********************************SELİM**
     public List<CompanyResponseDTO> getAllCompanies() {
         List<Company> company = companyRepository.findAll();
 
@@ -191,43 +208,13 @@ public class CompanyService {
 
         for (Company companies : company) {
 
-            CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
-
-            companyResponseDTO.setName(companies.getName().toUpperCase(Locale.ROOT));
-            companyResponseDTO.setOwner(companies.getOwner());
-            companyResponseDTO.setAddress(companies.getAddress());
-            companyResponseDTO.setCountry(companies.getCountry());
-            companyResponseDTO.setCity(companies.getCity());
-            companyResponseDTO.setPhoneNumber(companies.getPhone());
-            companyResponseDTO.setLeadWhatsapp(companies.getLeadWhatsapp());
-            companyResponseDTO.setLastActivity(companies.getLastActivity());
-            companyResponseDTO.setLastActivityDate(companies.getLastActivityDate());
-            companyResponseDTO.setLinkedPage(companies.getLinkedPage());
-            companyResponseDTO.setTimeZone(companies.getTimeZone());
-            companyResponseDTO.setWebPage(companies.getWebPage());
-            companyResponseDTO.setRfq(companies.getRFQ());
-            companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(companies.getWhoFind()));
-            companyResponseDTO.setAbout(companies.getAbout());
-            companyResponseDTO.setFirstContactDate(companies.getFirstContactDate());
-            companyResponseDTO.setIsMailSent(companies.getIsMailSent());
-            companyResponseDTO.setIsMsgSent(companies.getIsMsgSent());
-            companyResponseDTO.setIsOrder(companies.getIsOrder());
-            companyResponseDTO.setNote(companies.getNote());
-            //companyResponseDTO.setLead(companyRequestDTO.);
-            //companyResponseDTO.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
-            // companyResponseDTO.setEmails(emailsService.findEmailsByCompanyName(companyRequestDTO.getName()));
-            companyResponseDTO.setCompanyStatus(companies.getCompanyStatus());
-            companyResponseDTO.setIndustry(companies.getIndustry());
-            companyResponseDTO.setCompanyWhereWasFound(companies.getCompanyWhereWasFound());
-            companyResponseDTO.setCompanyType(companies.getCompanyType());
-
-            companyResponseDTOs.add(companyResponseDTO);
+            companyResponseDTOs.add(getCompanyById(companies.getId()));
         }
         return companyResponseDTOs;
     }
 
 
-    //************************* GET PAGEABLE ********************************
+    //**SELİM*********************** GET PAGEABLE ******************************SELİM**
     public Page<CompanyResponseDTO> getCompaniesPage(Pageable pageable) {
 
         Page<Company> companiesPage = companyRepository.findAll(pageable);
@@ -238,6 +225,7 @@ public class CompanyService {
             public CompanyResponseDTO apply(Company company) {
                 CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
 
+                companyResponseDTO.setId(company.getId());
                 companyResponseDTO.setName(company.getName().toUpperCase(Locale.ROOT));
                 companyResponseDTO.setOwner(company.getOwner());
                 companyResponseDTO.setAddress(company.getAddress());
@@ -277,173 +265,58 @@ public class CompanyService {
 
     }
 
-
+    //**SELİM*********************** getCompanyWithStatus **********************SELİM**
     public List<CompanyResponseDTO> getCompaniesByCompanyStatus(CompanyStatus companyStatus) {
-        List<Company> company = companyRepository.findCompaniesByCompanyStatus(companyStatus);
+        List<Long> companyId = companyRepository.findCompaniesIdByCompanyStatus(companyStatus);
 
-        if (company.size()==0){
-            throw new ConflictException(String.format(ErrorMessage.COMPANY_WITH_STATUS_IS_NOT_EXIST_MESSAGE,companyStatus));
+        if (companyId.size() == 0) {
+            throw new ConflictException(String.format(ErrorMessage.COMPANY_WITH_STATUS_IS_NOT_EXIST_MESSAGE, companyStatus));
         }
 
         List<CompanyResponseDTO> companyResponseDTOs = new ArrayList<>();
 
-        for (Company companies : company) {
-
-            CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
-
-            companyResponseDTO.setName(companies.getName().toUpperCase(Locale.ROOT));
-            companyResponseDTO.setOwner(companies.getOwner());
-            companyResponseDTO.setAddress(companies.getAddress());
-            companyResponseDTO.setCountry(companies.getCountry());
-            companyResponseDTO.setCity(companies.getCity());
-            companyResponseDTO.setPhoneNumber(companies.getPhone());
-            companyResponseDTO.setLeadWhatsapp(companies.getLeadWhatsapp());
-            companyResponseDTO.setLastActivity(companies.getLastActivity());
-            companyResponseDTO.setLastActivityDate(companies.getLastActivityDate());
-            companyResponseDTO.setLinkedPage(companies.getLinkedPage());
-            companyResponseDTO.setTimeZone(companies.getTimeZone());
-            companyResponseDTO.setWebPage(companies.getWebPage());
-            companyResponseDTO.setRfq(companies.getRFQ());
-            companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(companies.getWhoFind()));
-            companyResponseDTO.setAbout(companies.getAbout());
-            companyResponseDTO.setFirstContactDate(companies.getFirstContactDate());
-            companyResponseDTO.setIsMailSent(companies.getIsMailSent());
-            companyResponseDTO.setIsMsgSent(companies.getIsMsgSent());
-            companyResponseDTO.setIsOrder(companies.getIsOrder());
-            companyResponseDTO.setNote(companies.getNote());
-            //companyResponseDTO.setLead(companyRequestDTO.);
-            //companyResponseDTO.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
-            // companyResponseDTO.setEmails(emailsService.findEmailsByCompanyName(companyRequestDTO.getName()));
-            companyResponseDTO.setCompanyStatus(companies.getCompanyStatus());
-            companyResponseDTO.setIndustry(companies.getIndustry());
-            companyResponseDTO.setCompanyWhereWasFound(companies.getCompanyWhereWasFound());
-            companyResponseDTO.setCompanyType(companies.getCompanyType());
-
-            companyResponseDTOs.add(companyResponseDTO);
+        for (Long id : companyId) {
+            // getCompanyById(id) kullanrak kodumuzu kısaltmış olduk
+            companyResponseDTOs.add(getCompanyById(id));
         }
         return companyResponseDTOs;
     }
 
+    //**SELİM*********************** getCompanyWithIndustry ********************SELİM**
     public List<CompanyResponseDTO> getCompaniesByIndustry(CompanyIndustry industry) {
-        List<Company> company = companyRepository.findCompaniesByIndustry(industry);
+        List<Long> companyId = companyRepository.findCompaniesIdByIndustry(industry);
 
-        if (company.size()==0){
-            throw new ConflictException(String.format(ErrorMessage.COMPANY_WITH_INDUSTRY_IS_NOT_EXIST_MESSAGE,industry));
+        if (companyId.size() == 0) {
+            throw new ConflictException(String.format(ErrorMessage.COMPANY_WITH_STATUS_IS_NOT_EXIST_MESSAGE, industry));
         }
 
         List<CompanyResponseDTO> companyResponseDTOs = new ArrayList<>();
 
-        for (Company companies : company) {
+        for (Long id : companyId) {
 
-            CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
-
-            companyResponseDTO.setName(companies.getName().toUpperCase(Locale.ROOT));
-            companyResponseDTO.setOwner(companies.getOwner());
-            companyResponseDTO.setAddress(companies.getAddress());
-            companyResponseDTO.setCountry(companies.getCountry());
-            companyResponseDTO.setCity(companies.getCity());
-            companyResponseDTO.setPhoneNumber(companies.getPhone());
-            companyResponseDTO.setLeadWhatsapp(companies.getLeadWhatsapp());
-            companyResponseDTO.setLastActivity(companies.getLastActivity());
-            companyResponseDTO.setLastActivityDate(companies.getLastActivityDate());
-            companyResponseDTO.setLinkedPage(companies.getLinkedPage());
-            companyResponseDTO.setTimeZone(companies.getTimeZone());
-            companyResponseDTO.setWebPage(companies.getWebPage());
-            companyResponseDTO.setRfq(companies.getRFQ());
-            companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(companies.getWhoFind()));
-            companyResponseDTO.setAbout(companies.getAbout());
-            companyResponseDTO.setFirstContactDate(companies.getFirstContactDate());
-            companyResponseDTO.setIsMailSent(companies.getIsMailSent());
-            companyResponseDTO.setIsMsgSent(companies.getIsMsgSent());
-            companyResponseDTO.setIsOrder(companies.getIsOrder());
-            companyResponseDTO.setNote(companies.getNote());
-            //companyResponseDTO.setLead(companyRequestDTO.);
-            //companyResponseDTO.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
-            // companyResponseDTO.setEmails(emailsService.findEmailsByCompanyName(companyRequestDTO.getName()));
-            companyResponseDTO.setCompanyStatus(companies.getCompanyStatus());
-            companyResponseDTO.setIndustry(companies.getIndustry());
-            companyResponseDTO.setCompanyWhereWasFound(companies.getCompanyWhereWasFound());
-            companyResponseDTO.setCompanyType(companies.getCompanyType());
-
-            companyResponseDTOs.add(companyResponseDTO);
+            companyResponseDTOs.add(getCompanyById(id));
         }
         return companyResponseDTOs;
 
 
-
-
-
-
     }
+    //**SELİM***********************getCompanyWithType ************************SELİM**
 
     public List<CompanyResponseDTO> getCompaniesByCompanyType(CompanyType companyType) {
-        List<Company> company = companyRepository.findCompaniesByCompanyType(companyType);
-        if (company.size()==0){
-            throw new ConflictException(String.format(ErrorMessage.COMPANY_WITH_TYPE_IS_NOT_EXIST_MESSAGE,companyType));
+        List<Long> companyId = companyRepository.findCompaniesIdByCompanyType(companyType);
+
+        if (companyId.size() == 0) {
+            throw new ConflictException(String.format(ErrorMessage.COMPANY_WITH_STATUS_IS_NOT_EXIST_MESSAGE, companyType));
         }
+
         List<CompanyResponseDTO> companyResponseDTOs = new ArrayList<>();
 
-        for (Company companies : company) {
+        for (Long id : companyId) {
 
-            CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
-
-            companyResponseDTO.setName(companies.getName().toUpperCase(Locale.ROOT));
-            companyResponseDTO.setOwner(companies.getOwner());
-            companyResponseDTO.setAddress(companies.getAddress());
-            companyResponseDTO.setCountry(companies.getCountry());
-            companyResponseDTO.setCity(companies.getCity());
-            companyResponseDTO.setPhoneNumber(companies.getPhone());
-            companyResponseDTO.setLeadWhatsapp(companies.getLeadWhatsapp());
-            companyResponseDTO.setLastActivity(companies.getLastActivity());
-            companyResponseDTO.setLastActivityDate(companies.getLastActivityDate());
-            companyResponseDTO.setLinkedPage(companies.getLinkedPage());
-            companyResponseDTO.setTimeZone(companies.getTimeZone());
-            companyResponseDTO.setWebPage(companies.getWebPage());
-            companyResponseDTO.setRfq(companies.getRFQ());
-            companyResponseDTO.setWhoFind(companyEmployeesService.getNameById(companies.getWhoFind()));
-            companyResponseDTO.setAbout(companies.getAbout());
-            companyResponseDTO.setFirstContactDate(companies.getFirstContactDate());
-            companyResponseDTO.setIsMailSent(companies.getIsMailSent());
-            companyResponseDTO.setIsMsgSent(companies.getIsMsgSent());
-            companyResponseDTO.setIsOrder(companies.getIsOrder());
-            companyResponseDTO.setNote(companies.getNote());
-            //companyResponseDTO.setLead(companyRequestDTO.);
-            //companyResponseDTO.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
-            // companyResponseDTO.setEmails(emailsService.findEmailsByCompanyName(companyRequestDTO.getName()));
-            companyResponseDTO.setCompanyStatus(companies.getCompanyStatus());
-            companyResponseDTO.setIndustry(companies.getIndustry());
-            companyResponseDTO.setCompanyWhereWasFound(companies.getCompanyWhereWasFound());
-            companyResponseDTO.setCompanyType(companies.getCompanyType());
-
-            companyResponseDTOs.add(companyResponseDTO);
-
-    }
+            companyResponseDTOs.add(getCompanyById(id));
+        }
         return companyResponseDTOs;
 
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +21,7 @@ import java.util.Date;
 
 public class CompanyResponseDTO {
 
+    private Long id;
     private String name;
 
     private String owner;
@@ -59,6 +61,8 @@ public class CompanyResponseDTO {
     private Boolean isOrder;
 
     private String note;
+
+    private String emails;
 
     private CompanyStatus companyStatus;
 
