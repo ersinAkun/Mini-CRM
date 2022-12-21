@@ -13,8 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.crm.domain.Company;
 import com.crm.domain.CompanyEmployees;
 import com.crm.domain.Role;
 import com.crm.domain.enums.RoleType;
@@ -40,26 +38,23 @@ public class CompanyEmployeesService {
 
 	private CompanyRepository companyRepository;
 
+	// private CompanyRepository companyRepository;
+
 	private RoleService roleService;
 
 	@Autowired
 	public CompanyEmployeesService(@Lazy PasswordEncoder passwordEncoder,
-			CompanyEmployeesRepository companyEmployeesRepository, RoleService roleService, CompanyRepository companyRepository) {
+			CompanyEmployeesRepository companyEmployeesRepository, RoleService roleService,
+			CompanyRepository companyRepository) {
 		super();
 		this.passwordEncoder = passwordEncoder;
 		this.companyEmployeesRepository = companyEmployeesRepository;
 		this.roleService = roleService;
-		this.companyRepository=companyRepository;
+		this.companyRepository = companyRepository;
 
-
-		
-		
 	}
 
-	
-
-
-//********************LoginEmployees********************
+	// ********************LoginEmployees********************
 	public CompanyEmployees getCurrentEmployee() {
 
 		String email = SecurityUtils.getCurrentUserLogin()
@@ -68,8 +63,6 @@ public class CompanyEmployeesService {
 		return companyEmployees;
 
 	}
-
-	
 
 	// *****CELEBI********CREATE EMPLOYEES**********************
 	public void createCompanyEmployees(CompanyEmployeesRequestDTO companyEmployeesRequestDTO) {
@@ -116,10 +109,6 @@ public class CompanyEmployeesService {
 
 		return companyEmployees;
 	}
-	
-	
-	
-	
 
 	// *****CELEBI********GET BY ID EMPLOYEES**********************
 	public CompanyEmployeesResponseDTO getEmployeesById(Long id) {
@@ -130,11 +119,10 @@ public class CompanyEmployeesService {
 		Set<Role> roles = new HashSet<>();
 		roles.add(role);
 
-		
-		List<String> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(id);
-					
+		List<String> companyNames = companyRepository.foundedCompaniesByCompanyEmployeesId(id);
+
 		CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
-			
+
 		companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
 		companyEmployeesResponseDTO.setId(companyEmployees.getId());
 		companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
@@ -150,7 +138,7 @@ public class CompanyEmployeesService {
 		companyEmployeesResponseDTO.setSpeaks(companyEmployees.getSpeaks());
 		companyEmployeesResponseDTO.setBuiltIn(companyEmployees.getBuiltIn());
 		companyEmployeesResponseDTO.setEmployeeDepartment(companyEmployees.getEmployeeDepartment());
-		companyEmployeesResponseDTO.setFoundedCompanies(companyNames);//sadece isimleri gelebilir.
+		companyEmployeesResponseDTO.setFoundedCompanies(companyNames);// sadece isimleri gelebilir.
 		companyEmployeesResponseDTO.setRoles(roles);
 
 		return companyEmployeesResponseDTO;
@@ -159,14 +147,14 @@ public class CompanyEmployeesService {
 	// ******CELEBI*******GET ALL EMPLOYEES**********************
 	public List<CompanyEmployeesResponseDTO> getAllEmployees() {
 		List<CompanyEmployees> companyEmployees = companyEmployeesRepository.findAll();
-		
-		
+
 		List<CompanyEmployeesResponseDTO> companyEmployeesResponseDTOs = new ArrayList<>();
 
 		for (CompanyEmployees employees : companyEmployees) {
-			
-			List<String> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(employees.getId());//[DEFGHNEME1, DEFGHNEME2]
-			
+
+			List<String> companyNames = companyRepository.foundedCompaniesByCompanyEmployeesId(employees.getId());// [DEFGHNEME1,
+																													// DEFGHNEME2]
+
 			CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
 			companyEmployeesResponseDTO.setId(employees.getId());
 			companyEmployeesResponseDTO.setFirstName(employees.getFirstName());
@@ -192,10 +180,6 @@ public class CompanyEmployeesService {
 		return companyEmployeesResponseDTOs;
 	}
 
-	
-	
-
-
 	// ****CELEBI*********GET PAGE EMPLOYEES*********************
 	public Page<CompanyEmployeesResponseDTO> getEmployeesPage(Pageable pageable) {
 		Page<CompanyEmployees> employeesPage = companyEmployeesRepository.findAll(pageable);
@@ -207,8 +191,9 @@ public class CompanyEmployeesService {
 					public CompanyEmployeesResponseDTO apply(CompanyEmployees companyEmployees) {
 						CompanyEmployeesResponseDTO companyEmployeesResponseDTO = new CompanyEmployeesResponseDTO();
 
-						List<String> companyNames= companyRepository.foundedCompaniesByCompanyEmployeesId(companyEmployees.getId());
-						
+						List<String> companyNames = companyRepository
+								.foundedCompaniesByCompanyEmployeesId(companyEmployees.getId());
+
 						companyEmployeesResponseDTO.setId(companyEmployees.getId());
 						companyEmployeesResponseDTO.setFirstName(companyEmployees.getFirstName());
 						companyEmployeesResponseDTO.setLastName(companyEmployees.getLastName());
@@ -242,9 +227,6 @@ public class CompanyEmployeesService {
 				() -> new ResourceNotFoundException(String.format(ErrorMessage.EMPLOYEES_NOT_FOUND_MESSAGE, id)));
 		return companyEmployees;
 	}
-
-	
-
 
 	// ********Request ten gelen Role bilgisini bizim istedigimiz ROLE_USER gibi
 	// sekle ceviriyor*****
@@ -311,7 +293,7 @@ public class CompanyEmployeesService {
 					companyEmployeesUpdateAdminRequestDTO.getEmail()));
 		}
 
-		
+		// TODO bakilacak
 		Set<String> employeesStrRoles = companyEmployeesUpdateAdminRequestDTO.getRoles();
 
 		Set<Role> roles = convertRoles(employeesStrRoles);
@@ -357,12 +339,7 @@ public class CompanyEmployeesService {
 		companyEmployeesRepository.save(companyEmployees);
 	}
 
-
-	
-	
-	
 	// ****CELEBI*********DELETE BY ID EMPLOYEES**********************
-
 	public void removeEmployeesById(Long id) {
 		CompanyEmployees companyEmployees = getCompanyEmployees(id);
 
@@ -375,18 +352,16 @@ public class CompanyEmployeesService {
 
 	}
 
-
+	// **selim** Employee ad ve soyadını birleştirip company response işlemleri için
+	// gönderir **selim**
 	public String getNameById(Long whoFind) {
-		return	 getCompanyEmployees(whoFind).getFirstName();
+		String firstName = getCompanyEmployees(whoFind).getFirstName();
 
+		String lastName = getCompanyEmployees(whoFind).getLastName();
 
+		String name = firstName + " " + lastName;
+
+		return name;
 	}
-
-
-	
-	
-	
-
-
 
 }
