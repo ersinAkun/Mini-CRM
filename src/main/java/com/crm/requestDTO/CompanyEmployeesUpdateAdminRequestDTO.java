@@ -2,9 +2,7 @@ package com.crm.requestDTO;
 
 
 
-import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
