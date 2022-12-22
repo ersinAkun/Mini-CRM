@@ -220,20 +220,17 @@ public class WorkManagementService {
 //	
 //		
 //	}
-	
+		//******GET TASK WITH STATUS****EMIN***22.12.2022
 	public List<WorkManagementResponseDTO> getTasksWithStatus(String status){
 		
 		List<WorkManagement> allTasksList = workManagementRepository.findAll();
 		
 		List<WorkManagementResponseDTO> tasksWithStatusList = new ArrayList<>();
-		
-		
-		
+			
 		for (WorkManagement task : allTasksList) {
 			
 			if(status.equals(task.getStatus().name()) ) {
-				
-				
+								
 				WorkManagementResponseDTO workManagementResponseDTO = new WorkManagementResponseDTO();
 				
 				workManagementResponseDTO.setAssigneeName(task.getAssignee().getFirstName());
@@ -248,16 +245,48 @@ public class WorkManagementService {
 				workManagementResponseDTO.setTitle(task.getTitle());
 				workManagementResponseDTO.setUpdateDate(task.getUpdateDate());
 				tasksWithStatusList.add(workManagementResponseDTO);
-				
-				
+								
 			}//if sonu
-			
-						
-			
+											
 		}//döngü sonu
 		
 		return tasksWithStatusList;
 	}
+
+	//******GET TASK WITH PRIORITY****EMIN***22.12.2022
+	public List<WorkManagementResponseDTO> getTasksWithPriority(String priority) {
+		
+		List<WorkManagement> allTasksList = workManagementRepository.findAll();
+		
+		List<WorkManagementResponseDTO> tasksWithPriorityList = new ArrayList<>();
+		
+for (WorkManagement task : allTasksList) {
+			
+			if(priority.equals(task.getPriority().name()) ) {
+								
+				WorkManagementResponseDTO workManagementResponseDTO = new WorkManagementResponseDTO();
+				
+				workManagementResponseDTO.setAssigneeName(task.getAssignee().getFirstName());
+				workManagementResponseDTO.setCategory(task.getCategory());
+				workManagementResponseDTO.setComments(task.getComments());
+				workManagementResponseDTO.setDescription(task.getDescription());
+				workManagementResponseDTO.setExpectedEndDate(task.getExpectedEndDate());
+				workManagementResponseDTO.setFinishedDate(task.getFinishedDate());
+				workManagementResponseDTO.setPriority(task.getPriority());
+				workManagementResponseDTO.setStartDate(task.getStartDate());
+				workManagementResponseDTO.setStatus(task.getStatus());
+				workManagementResponseDTO.setTitle(task.getTitle());
+				workManagementResponseDTO.setUpdateDate(task.getUpdateDate());
+				tasksWithPriorityList.add(workManagementResponseDTO);
+								
+			}//if sonu
+											
+		}//döngü sonu
+		
+		return tasksWithPriorityList;
+	}
+	
+	}
 	
 
-}
+
