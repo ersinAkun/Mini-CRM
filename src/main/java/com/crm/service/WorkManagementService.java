@@ -167,7 +167,7 @@ public class WorkManagementService {
 	public List<WorkManagementResponseDTO> getEmployeeTasks(Long id) {
 		//burada aldığım id employee id... ona atanan işleri bulabilmek için
 		@SuppressWarnings("unused")
-		CompanyEmployees employee= companyEmployeesService.getCompanyEmployees(id);
+		CompanyEmployees employee= companyEmployeesService.getCompanyEmployees(id);//burası bir nevi kontrol. böyle bir employee var mı yok mu diye
 		List<WorkManagement>  workManagementList= workManagementRepository.findTaskWithEmployeeId(id);
 		
 		List<WorkManagementResponseDTO> dtoList = new ArrayList<>();
@@ -191,7 +191,73 @@ public class WorkManagementService {
 		return dtoList;
 		
 	}
+
+//	public List<WorkManagementResponseDTO> getTasksWithStatus(String status) {
+//		
+//	  List<WorkManagement> tasksWithStatus = workManagementRepository.getTasksWithStatus(status);
+//	  
+//	  List<WorkManagementResponseDTO> tasksWithStatusList = new ArrayList<>();
+//	  
+//	  for (WorkManagement task : tasksWithStatus) {
+//		  
+//		  WorkManagementResponseDTO workManagementResponseDTO = new WorkManagementResponseDTO();
+//		  
+//		    workManagementResponseDTO.setAssigneeName(task.getAssignee().getFirstName());
+//			workManagementResponseDTO.setCategory(task.getCategory());
+//			workManagementResponseDTO.setComments(task.getComments());
+//			workManagementResponseDTO.setDescription(task.getDescription());
+//			workManagementResponseDTO.setExpectedEndDate(task.getExpectedEndDate());
+//			workManagementResponseDTO.setFinishedDate(task.getFinishedDate());
+//			workManagementResponseDTO.setPriority(task.getPriority());
+//			workManagementResponseDTO.setStartDate(task.getStartDate());
+//			workManagementResponseDTO.setStatus(task.getStatus());
+//			workManagementResponseDTO.setTitle(task.getTitle());
+//			workManagementResponseDTO.setUpdateDate(task.getUpdateDate());
+//			tasksWithStatusList.add(workManagementResponseDTO);
+//	}
+//	  
+//	  return tasksWithStatusList;
+//	
+//		
+//	}
 	
+	public List<WorkManagementResponseDTO> getTasksWithStatus(String status){
+		
+		List<WorkManagement> allTasksList = workManagementRepository.findAll();
+		
+		List<WorkManagementResponseDTO> tasksWithStatusList = new ArrayList<>();
+		
+		
+		
+		for (WorkManagement task : allTasksList) {
+			
+			if(status.equals(task.getStatus().name()) ) {
+				
+				
+				WorkManagementResponseDTO workManagementResponseDTO = new WorkManagementResponseDTO();
+				
+				workManagementResponseDTO.setAssigneeName(task.getAssignee().getFirstName());
+				workManagementResponseDTO.setCategory(task.getCategory());
+				workManagementResponseDTO.setComments(task.getComments());
+				workManagementResponseDTO.setDescription(task.getDescription());
+				workManagementResponseDTO.setExpectedEndDate(task.getExpectedEndDate());
+				workManagementResponseDTO.setFinishedDate(task.getFinishedDate());
+				workManagementResponseDTO.setPriority(task.getPriority());
+				workManagementResponseDTO.setStartDate(task.getStartDate());
+				workManagementResponseDTO.setStatus(task.getStatus());
+				workManagementResponseDTO.setTitle(task.getTitle());
+				workManagementResponseDTO.setUpdateDate(task.getUpdateDate());
+				tasksWithStatusList.add(workManagementResponseDTO);
+				
+				
+			}//if sonu
+			
+						
+			
+		}//döngü sonu
+		
+		return tasksWithStatusList;
+	}
 	
 
 }

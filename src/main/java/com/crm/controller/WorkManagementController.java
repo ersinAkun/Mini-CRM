@@ -37,7 +37,6 @@ public class WorkManagementController {
 	// tarihler genel anlamda kontrol edilmeli.
 	// örneğin işin bitiş tarihi create tarihinden önce olmamalı gibi.
 	@PostMapping("/create/{id}")
-	// @PreAuthorize("hasRole('ADMIN')")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> createTask(@Valid @RequestBody WorkManagementRequestDTO workManagementRequestDTO,
 			@PathVariable("id") Long EmpId) {
@@ -115,4 +114,37 @@ public class WorkManagementController {
 		List<WorkManagementResponseDTO> allEmployeeTasks = workManagementService.getEmployeeTasks(id);
 		return ResponseEntity.ok(allEmployeeTasks);
 	}
+	
+	//**********EMIN***Get Task With Statud***************
+	@GetMapping("/getTasksWithStatus/{status}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	public ResponseEntity<List<WorkManagementResponseDTO>> getTasksWithStatus(@PathVariable("status") String status){
+		List<WorkManagementResponseDTO> tasksWithStatus = workManagementService.getTasksWithStatus(status);	
+		
+			return ResponseEntity.ok(tasksWithStatus);	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
