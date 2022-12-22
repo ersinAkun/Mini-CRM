@@ -18,5 +18,14 @@ public interface WorkManagementRepository  extends JpaRepository<WorkManagement,
 	
 	@Query("SELECT w FROM WorkManagement w WHERE assignee.id=:id")
 	List<WorkManagement> findTaskWithEmployeeId(@Param("id")Long id);
+	
+	
+	
+	//@Query(value="SELECT * FROM tbl_work_management w WHERE status=:status",nativeQuery = true)
+	//@Query("SELECT w FROM WorkManagement w WHERE w.status=:stat")
+	//List<WorkManagement> getTasksWithStatus(@Param("stat") String status);
+	
+	
+	
 
 }
