@@ -115,7 +115,7 @@ public class WorkManagementController {
 		return ResponseEntity.ok(allEmployeeTasks);
 	}
 	
-	//**********EMIN***Get Task With Statud***************
+	//**********EMIN***Get Task With Status***************
 	@GetMapping("/getTasksWithStatus/{status}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<List<WorkManagementResponseDTO>> getTasksWithStatus(@PathVariable("status") String status){
@@ -124,6 +124,17 @@ public class WorkManagementController {
 			return ResponseEntity.ok(tasksWithStatus);	
 	
 	}
+	
+	
+	//**********EMIN***Get Task With Priority***************
+		@GetMapping("/getTasksWithPriority/{priority}")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+		public ResponseEntity<List<WorkManagementResponseDTO>> getTasksWithPriority(@PathVariable("priority") String priority){
+			List<WorkManagementResponseDTO> tasksWithPriority = workManagementService.getTasksWithPriority(priority);	
+			
+				return ResponseEntity.ok(tasksWithPriority);	
+		
+		}
 	
 	
 	
