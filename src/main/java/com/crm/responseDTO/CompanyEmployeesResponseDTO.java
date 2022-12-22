@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import com.crm.domain.Company;
 import com.crm.domain.Role;
 import com.crm.domain.enums.Department;
 import lombok.AllArgsConstructor;

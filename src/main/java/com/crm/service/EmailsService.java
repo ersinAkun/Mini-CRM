@@ -42,7 +42,8 @@ public class EmailsService {
     // @Autowired
     // private CompanyService companyService;
 
-    @Autowired
+    @SuppressWarnings("unused")
+	@Autowired
     private CompanyRepository companyRepository;
 
     //*****CELEBI********CREATE EMAILS**********************

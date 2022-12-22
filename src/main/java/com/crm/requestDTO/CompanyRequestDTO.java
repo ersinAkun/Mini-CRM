@@ -6,19 +6,17 @@ package com.crm.requestDTO;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.*;
-
-import com.crm.domain.Emails;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
 import com.crm.domain.enums.CompanyWhereWasFound;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

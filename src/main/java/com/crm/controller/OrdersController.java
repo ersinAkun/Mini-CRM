@@ -1,10 +1,7 @@
 package com.crm.controller;
 
 import java.util.List;
-import java.util.function.Function;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,12 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.crm.domain.Lead;
-import com.crm.requestDTO.LeadRequestDTO;
 import com.crm.requestDTO.OrdersRequestDTO;
 import com.crm.responseDTO.CrmResponse;
-import com.crm.responseDTO.LeadResponseDTO;
 import com.crm.responseDTO.OrdersResponseDTO;
 import com.crm.responseDTO.ResponseMessage;
 import com.crm.service.OrdersService;
@@ -78,7 +71,7 @@ public class OrdersController {
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id,@RequestBody OrdersRequestDTO ordersRequestDTO) {
+    public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id, @RequestBody OrdersRequestDTO ordersRequestDTO) {
         ordersService.updateOrder(id, ordersRequestDTO);
         CrmResponse crmResponse = new CrmResponse(ResponseMessage.ORDER_UPDATED_MESSAGE, true);
         return ResponseEntity.ok(crmResponse);

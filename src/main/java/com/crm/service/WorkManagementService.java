@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.crm.domain.CompanyEmployees;
 import com.crm.domain.WorkManagement;
 import com.crm.exception.ResourceNotFoundException;
@@ -167,6 +166,7 @@ public class WorkManagementService {
 
 	public List<WorkManagementResponseDTO> getEmployeeTasks(Long id) {
 		//burada aldığım id employee id... ona atanan işleri bulabilmek için
+		@SuppressWarnings("unused")
 		CompanyEmployees employee= companyEmployeesService.getCompanyEmployees(id);
 		List<WorkManagement>  workManagementList= workManagementRepository.findTaskWithEmployeeId(id);
 		

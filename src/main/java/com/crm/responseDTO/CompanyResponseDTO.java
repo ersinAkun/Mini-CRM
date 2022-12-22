@@ -1,5 +1,7 @@
 package com.crm.responseDTO;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import com.crm.domain.enums.CompanyIndustry;
 import com.crm.domain.enums.CompanyStatus;
 import com.crm.domain.enums.CompanyType;
@@ -8,11 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
