@@ -41,12 +41,19 @@ public class OrderedProducts {
 	private Double weight;
 
 	
+	//kaç tane sipariş alındı
+	//ayrı bir tablo olsun, orda adet miktarı order ürün kodu
+		
+
+
+
+	
 	@Column(length = 30, nullable = true)
 	private Double purchasePrice;
 
 
 	// orphanRemoval = true...hata alırsam sil
-	@OneToMany(orphanRemoval = true) 
+
 
 	@OneToMany(orphanRemoval = true) // orphanRemoval = true...hata alırsam sil
 
@@ -58,8 +65,8 @@ public class OrderedProducts {
 	@JoinColumn(name = "supplier_id")
 	private Supplier supplier;
 	
-	//@ManyToOne()
-	//@JoinColumn(name = "order_id")
-	//private Orders orders;
+	@ManyToOne()
+	@JoinColumn(name = "order_id")
+	private Orders orders;
 
 }

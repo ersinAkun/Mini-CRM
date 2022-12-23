@@ -41,9 +41,6 @@ public class OrdersResponseDTO {
 	
 	private LocalDate orderDate;//siparişi verdiği tarih
 
-
-
-	
 	private Double profit;
 	
 	private Double profitPercentage;
@@ -63,6 +60,9 @@ public class OrdersResponseDTO {
 	private CurrencyType currencyType;	
 	
 	private PaymentMethod paymentMethod;	
+	
+	//ürün adı gelebilir.
+	//supplier adı.
 	
 
 }
