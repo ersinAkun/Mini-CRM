@@ -10,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import com.crm.domain.ImageFile;
 import com.crm.domain.OrderedProducts;
+import com.crm.domain.Supplier;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.ImageFileRepository;
 import com.crm.repository.OrderedProductsRepository;
+import com.crm.repository.SupplierRepository;
 import com.crm.requestDTO.OrderedProductsRequestDTO;
 import com.crm.responseDTO.OrderedProductsResponseDTO;
 
@@ -33,6 +36,8 @@ public class OrderedProductsService {
 
 	@Autowired
 	SupplierService supplierService;
+	
+	@Autowired SupplierRepository supplierRepository;
 
 	// ******************SAVE PRODUCT*******EMİN*********
 	public void saveProduct(OrderedProductsRequestDTO orderedProductsRequestDTO, Long sID, String iID) {
@@ -127,14 +132,16 @@ public class OrderedProductsService {
 		orderedProductsRepository.save(orderedProducts);
 
 	}
-
+		//*****EMIN****GET PRODUCT BY ID******************
 	public OrderedProducts getOrderedProduct(Long id) {
 
 		OrderedProducts orderedProducts = orderedProductsRepository.findOrderedProductsById(id).orElseThrow(
 				() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 		return orderedProducts;
 	}
-
+	
+	
+	//*****EMIN****DELETE PRODUCT BY ID******************
 	public void removeById(Long id) {
 
 		OrderedProducts orderedProducts = getOrderedProduct(id);
@@ -143,6 +150,7 @@ public class OrderedProductsService {
 
 		orderedProductsRepository.delete(orderedProducts);
 	}
+	//*****EMIN****GET ALL PRODUCTs******************
 
 	public List<OrderedProductsResponseDTO> getAllOrderedProducts() {
 
@@ -173,6 +181,8 @@ public class OrderedProductsService {
 		// return orderedProductsMapper.pojoListToResponseList(orderedProductsList);
 
 	}
+	
+	//*****EMIN****GET All PRODUCTS PAGEBLE******************
 
 	public Page<OrderedProductsResponseDTO> findAllWithPage(Pageable pageable) {
 		
@@ -199,6 +209,42 @@ public class OrderedProductsService {
 			}
 		});
 		return responsePage;
+	}
+	
+	
+	//******EMIN***GET SUPPLIER PRODUCT'S ************
+	public List<OrderedProductsResponseDTO> getProductsWithSupplierId(Long supplierId) {
+		
+		@SuppressWarnings("unused")
+		Supplier supplier= supplierService.findSupplierById(supplierId);// böyle bir id var mı yok mu kontrol et
+		
+		List<OrderedProducts> orderedProducts = supplierRepository.getOrderedProductsWithSupplierID(supplierId);
+		
+		List<OrderedProductsResponseDTO> dtoList = new ArrayList<>();
+
+		for (OrderedProducts product : orderedProducts) {
+
+			OrderedProductsResponseDTO orderedProductsResponseDTO = new OrderedProductsResponseDTO();
+
+			orderedProductsResponseDTO.setId(product.getId());
+			//orderedProductsResponseDTO.setNetProfit(orderedProducts.getNetProfit());
+			orderedProductsResponseDTO.setProductCode(product.getProductCode());
+			orderedProductsResponseDTO.setProductName(product.getProductName());
+			orderedProductsResponseDTO.setPurchasePrice(product.getPurchasePrice());
+			//orderedProductsResponseDTO.setSalePrice(orderedProducts.getSalePrice());
+			orderedProductsResponseDTO.setSize(product.getSize());
+			orderedProductsResponseDTO.setWeight(product.getWeight());
+			orderedProductsResponseDTO.setSupplierName(product.getSupplier().getName());
+
+			dtoList.add(orderedProductsResponseDTO);
+
+		}
+
+		return dtoList;
+
+		
+		
+		
 	}
 
 }
