@@ -23,7 +23,7 @@ public interface WorkManagementRepository  extends JpaRepository<WorkManagement,
 	
 	//@Query(value="SELECT * FROM tbl_work_management w WHERE status=:status",nativeQuery = true)
 	//@Query("SELECT w FROM WorkManagement w WHERE w.status=:stat")
-	//List<WorkManagement> getTasksWithStatus(@Param("stat") String status);
+	//List<WorkManagement> getTasksWithStatus(@Param("stat")String status);
 	
 	
 	

@@ -129,7 +129,7 @@ public class WorkManagementController {
 	//**********EMIN***Get Task With Priority***************
 		@GetMapping("/getTasksWithPriority/{priority}")
 		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-		public ResponseEntity<List<WorkManagementResponseDTO>> getTasksWithPriority(@PathVariable("priority") String priority){
+		public ResponseEntity<List<WorkManagementResponseDTO>> getTasksWithPriority(@PathVariable("priority") String priority){//Enumtype kendi yapısıyla yazmayı dene
 			List<WorkManagementResponseDTO> tasksWithPriority = workManagementService.getTasksWithPriority(priority);	
 			
 				return ResponseEntity.ok(tasksWithPriority);	
