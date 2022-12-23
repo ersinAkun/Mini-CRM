@@ -30,14 +30,14 @@ public class OrdersService {
 		orders.setOrderAmount(ordersRequestDTO.getOrderAmount());
 		orders.setRfq(ordersRequestDTO.getRfq());
 		orders.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
-		orders.setTotalWeight(ordersRequestDTO.getTotalWeight());
-		orders.setFreightCost(ordersRequestDTO.getFreightCost());
-		orders.setForwarder(ordersRequestDTO.getForwarder());
+		//orders.setTotalWeight(ordersRequestDTO.getTotalWeight());
+		//orders.setFreightCost(ordersRequestDTO.getFreightCost());
+		//orders.setForwarder(ordersRequestDTO.getForwarder());
 		orders.setEstimatedDeliveryDate(ordersRequestDTO.getEstimatedDeliveryDate());
-		orders.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
+		//orders.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
 		orders.setOrderDate(today);
-		orders.setProfit(ordersRequestDTO.getProfit());
-		orders.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
+		//orders.setProfit(ordersRequestDTO.getProfit());
+		//orders.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
 		orders.setNotes(ordersRequestDTO.getNotes());
 		orders.setShipping(ordersRequestDTO.getShipping());
 		orders.setOrderStatus(ordersRequestDTO.getOrderStatus());
@@ -46,6 +46,7 @@ public class OrdersService {
 		orders.setOrderType(ordersRequestDTO.getOrderType());
 		orders.setCurrencyType(ordersRequestDTO.getCurrencyType());
 		orders.setPaymentMethod(ordersRequestDTO.getPaymentMethod());
+		
 		ordersRepository.save(orders);
 
 	}
@@ -128,14 +129,14 @@ public class OrdersService {
 		order.setOrderAmount(ordersRequestDTO.getOrderAmount());
 		order.setRfq(ordersRequestDTO.getRfq());
 		order.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
-		order.setTotalWeight(ordersRequestDTO.getTotalWeight());
-		order.setFreightCost(ordersRequestDTO.getFreightCost());
-		order.setForwarder(ordersRequestDTO.getForwarder());
+		//order.setTotalWeight(ordersRequestDTO.getTotalWeight());
+		//order.setFreightCost(ordersRequestDTO.getFreightCost());
+		//order.setForwarder(ordersRequestDTO.getForwarder());
 		order.setEstimatedDeliveryDate(ordersRequestDTO.getEstimatedDeliveryDate());
-		order.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
+		//order.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
 		order.setOrderDate(today);
-		order.setProfit(ordersRequestDTO.getProfit());
-		order.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
+		//order.setProfit(ordersRequestDTO.getProfit());
+		//order.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
 		order.setNotes(ordersRequestDTO.getNotes());
 		order.setShipping(ordersRequestDTO.getShipping());
 		order.setOrderStatus(ordersRequestDTO.getOrderStatus());

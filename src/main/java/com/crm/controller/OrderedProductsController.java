@@ -83,6 +83,7 @@ public class OrderedProductsController {
 	// *************EMIN ***GET ALL ORDERED PRODUCT 11.12.22************//
 
 	@GetMapping("/getAll")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<List<OrderedProductsResponseDTO>> getAllOrderedProducts() {
 
 		List<OrderedProductsResponseDTO> allProducts = orderedProductsService.getAllOrderedProducts();
@@ -93,6 +94,7 @@ public class OrderedProductsController {
 	// *************EMIN ***GET ALL ORDERED PRODUCT BY PAGE 11.12.22************//
 
 	@GetMapping("/pages")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Page<OrderedProductsResponseDTO>> getAllOrderedProductsWithPage(
 			@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("sort") String prop, // neye
 																												// göre
@@ -106,4 +108,17 @@ public class OrderedProductsController {
 		return ResponseEntity.ok(pageDTO);
 
 	}
+	
+	//*******EMIN*********getProductsWithSupplierId*****23.12.2022*******
+	@GetMapping("/getSupplierProducts/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	public ResponseEntity<List<OrderedProductsResponseDTO>> getProductsWithSupplierId(@PathVariable("id") Long supplierId) {
+
+		List<OrderedProductsResponseDTO> supplierProducts = orderedProductsService.getProductsWithSupplierId(supplierId);
+
+		return ResponseEntity.ok(supplierProducts);
+	}
+
+	
+	
 }
