@@ -39,12 +39,17 @@ public class OrderedProducts {
 
 	@Column(length = 30)
 	private Double weight;
-	
+
 	
 	@Column(length = 30, nullable = true)
 	private Double purchasePrice;
 
+
+	// orphanRemoval = true...hata alırsam sil
+	@OneToMany(orphanRemoval = true) 
+
 	@OneToMany(orphanRemoval = true) // orphanRemoval = true...hata alırsam sil
+
 	@JoinColumn(name = "orderedProduct_id")
 	private Set<ImageFile> image;
 
