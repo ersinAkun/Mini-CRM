@@ -35,13 +35,13 @@ public class OrderedProductsController {
 	OrderedProductsService orderedProductsService;
 
 	// *************EMİN ***ADD PRODUCT 10.12.22***************//
-	@PostMapping("/{sid}/add/") // sid= supplier id... yani bu ürün hangi üreticiye ait onu path'dan alcaz
+	@PostMapping("/add/") // sid= supplier id... yani bu ürün hangi üreticiye ait onu path'dan alcaz
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> createProduct(
-			@Valid @RequestBody OrderedProductsRequestDTO orderedProductsRequestDTO, @PathVariable("sid") Long sID,
-			@RequestParam("id") String iID) {// iID ise bu ürüne ait image id'si.
+			@Valid @RequestBody OrderedProductsRequestDTO orderedProductsRequestDTO, @RequestParam("sid") Long sID,
+			@RequestParam("pid") String iID,@RequestParam("oid") Long oId) {// iID ise bu ürüne ait image id'si.
 
-		orderedProductsService.saveProduct(orderedProductsRequestDTO, sID, iID);
+		orderedProductsService.saveProduct(orderedProductsRequestDTO, sID, iID, oId);
 		CrmResponse response = new CrmResponse();
 		response.setMessage(ResponseMessage.ORDERED_PRODUCT_CREATED_MESSAGE);
 		response.setSuccess(true);
@@ -83,6 +83,7 @@ public class OrderedProductsController {
 	// *************EMIN ***GET ALL ORDERED PRODUCT 11.12.22************//
 
 	@GetMapping("/getAll")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<List<OrderedProductsResponseDTO>> getAllOrderedProducts() {
 
 		List<OrderedProductsResponseDTO> allProducts = orderedProductsService.getAllOrderedProducts();
@@ -93,6 +94,7 @@ public class OrderedProductsController {
 	// *************EMIN ***GET ALL ORDERED PRODUCT BY PAGE 11.12.22************//
 
 	@GetMapping("/pages")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Page<OrderedProductsResponseDTO>> getAllOrderedProductsWithPage(
 			@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("sort") String prop, // neye
 																												// göre
@@ -106,4 +108,27 @@ public class OrderedProductsController {
 		return ResponseEntity.ok(pageDTO);
 
 	}
+	
+	//*******EMIN*********getProductsWithSupplierId*****23.12.2022*******
+	@GetMapping("/getSupplierProducts/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	public ResponseEntity<List<OrderedProductsResponseDTO>> getProductsWithSupplierId(@PathVariable("id") Long supplierId) {
+
+		List<OrderedProductsResponseDTO> supplierProducts = orderedProductsService.getProductsWithSupplierId(supplierId);
+
+		return ResponseEntity.ok(supplierProducts);
+	}
+	
+	//*******EMIN*********getProductsWithOrderId*****23.12.2022*******
+	
+	@GetMapping("/getProductWithOrderId/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	public ResponseEntity<List<OrderedProductsResponseDTO>> getProductsWithOrderId(@PathVariable("id") Long orderId) {
+
+		List<OrderedProductsResponseDTO> products = orderedProductsService.getProductsWithOrderId(orderId);
+
+		return ResponseEntity.ok(products);
+	}
+
+	
 }

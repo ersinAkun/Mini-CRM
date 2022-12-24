@@ -83,7 +83,7 @@ public class CompanyEmployees {
 
 	@ManyToMany // Company ve emplooye için 3.tablo company'i kim buldu
 	@JoinTable(name = "tbl_employee_company", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
-	List<Company> foundedCompanies = new ArrayList<>();
+	private List<Company> foundedCompanies = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.EAGER)// Roller için 3.tablo
 	@JoinTable(name = "t_employee_role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

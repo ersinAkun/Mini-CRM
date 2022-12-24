@@ -1,26 +1,18 @@
 package com.crm.service;
 
-
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.crm.domain.Lead;
 import com.crm.domain.Orders;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.OrdersRepository;
 import com.crm.requestDTO.OrdersRequestDTO;
-import com.crm.responseDTO.LeadResponseDTO;
 import com.crm.responseDTO.OrdersResponseDTO;
 
 @Service
@@ -38,14 +30,14 @@ public class OrdersService {
 		orders.setOrderAmount(ordersRequestDTO.getOrderAmount());
 		orders.setRfq(ordersRequestDTO.getRfq());
 		orders.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
-		orders.setTotalWeight(ordersRequestDTO.getTotalWeight());
-		orders.setFreightCost(ordersRequestDTO.getFreightCost());
-		orders.setForwarder(ordersRequestDTO.getForwarder());
+		//orders.setTotalWeight(ordersRequestDTO.getTotalWeight());
+		//orders.setFreightCost(ordersRequestDTO.getFreightCost());
+		//orders.setForwarder(ordersRequestDTO.getForwarder());
 		orders.setEstimatedDeliveryDate(ordersRequestDTO.getEstimatedDeliveryDate());
-		orders.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
+		//orders.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
 		orders.setOrderDate(today);
-		orders.setProfit(ordersRequestDTO.getProfit());
-		orders.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
+		//orders.setProfit(ordersRequestDTO.getProfit());
+		//orders.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
 		orders.setNotes(ordersRequestDTO.getNotes());
 		orders.setShipping(ordersRequestDTO.getShipping());
 		orders.setOrderStatus(ordersRequestDTO.getOrderStatus());
@@ -54,6 +46,7 @@ public class OrdersService {
 		orders.setOrderType(ordersRequestDTO.getOrderType());
 		orders.setCurrencyType(ordersRequestDTO.getCurrencyType());
 		orders.setPaymentMethod(ordersRequestDTO.getPaymentMethod());
+		
 		ordersRepository.save(orders);
 
 	}
@@ -136,14 +129,14 @@ public class OrdersService {
 		order.setOrderAmount(ordersRequestDTO.getOrderAmount());
 		order.setRfq(ordersRequestDTO.getRfq());
 		order.setOrderQuantity(ordersRequestDTO.getOrderQuantity());
-		order.setTotalWeight(ordersRequestDTO.getTotalWeight());
-		order.setFreightCost(ordersRequestDTO.getFreightCost());
-		order.setForwarder(ordersRequestDTO.getForwarder());
+		//order.setTotalWeight(ordersRequestDTO.getTotalWeight());
+		//order.setFreightCost(ordersRequestDTO.getFreightCost());
+		//order.setForwarder(ordersRequestDTO.getForwarder());
 		order.setEstimatedDeliveryDate(ordersRequestDTO.getEstimatedDeliveryDate());
-		order.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
+		//order.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
 		order.setOrderDate(today);
-		order.setProfit(ordersRequestDTO.getProfit());
-		order.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
+		//order.setProfit(ordersRequestDTO.getProfit());
+		//order.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
 		order.setNotes(ordersRequestDTO.getNotes());
 		order.setShipping(ordersRequestDTO.getShipping());
 		order.setOrderStatus(ordersRequestDTO.getOrderStatus());
