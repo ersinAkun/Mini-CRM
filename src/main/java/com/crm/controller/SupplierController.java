@@ -127,7 +127,7 @@ public class SupplierController {
 		}
 	
 		//*******ERSIN********getOrderedProductsWithSupplierId*****24.12.2022*******
-		@GetMapping("/getOrderedProducts/{id}")
+		@GetMapping("/getOrderedProductsBySupplierId/{id}")
 		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 		public ResponseEntity<List<OrderedProductsResponseDTO>> getOrderedProductsWithSupplierId(@PathVariable("id") Long supplierId) {
 
