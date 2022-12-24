@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.crm.repository.SupplierRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -71,5 +72,8 @@ public class OrderedProducts {
 	@ManyToOne()
 	@JoinColumn(name = "order_id")
 	private Orders orders;
+
+	
+	
 
 }

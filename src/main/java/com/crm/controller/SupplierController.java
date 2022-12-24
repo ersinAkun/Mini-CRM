@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.crm.domain.OrderedProducts;
 import com.crm.requestDTO.SupplierRequestDTO;
 import com.crm.responseDTO.CrmResponse;
+import com.crm.responseDTO.OrderedProductsResponseDTO;
 import com.crm.responseDTO.ResponseMessage;
 import com.crm.responseDTO.SupplierResponseDTO;
 import com.crm.service.SupplierService;
@@ -35,6 +38,7 @@ public class SupplierController {
 	
 	@Autowired
 	private SupplierService supplierService;
+	
 	
 	
 
@@ -122,7 +126,15 @@ public class SupplierController {
 			
 		}
 	
-	
+		//*******ERSIN********getOrderedProductsWithSupplierId*****24.12.2022*******
+		@GetMapping("/getOrderedProducts/{id}")
+		@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+		public ResponseEntity<List<OrderedProductsResponseDTO>> getOrderedProductsWithSupplierId(@PathVariable("id") Long supplierId) {
+
+			List<OrderedProductsResponseDTO> productsSupplier = supplierService.getOrderedProductsWithSupplierId(supplierId);
+
+			return ResponseEntity.ok(productsSupplier);
+		}
 	
 	
 	
