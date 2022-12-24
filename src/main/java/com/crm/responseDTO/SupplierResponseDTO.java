@@ -31,6 +31,8 @@ public class SupplierResponseDTO {
 	private String linkedPage;
 
 	private String webPage;
+	
+	//order id gösterilsin...
 
 	// private List<OrderedProductsResponseDTO> orderedProducts; // ön tarafa hangi
 	// ürünlerden sipariş aldıysa onu da dönelim.
