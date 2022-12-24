@@ -102,9 +102,6 @@ public class Company {
     private Lead lead;
 
 
-//  @OneToMany
-//  private List<Orders> orders;
-
     @Enumerated(EnumType.STRING)
     private CompanyStatus companyStatus;
 

@@ -39,10 +39,10 @@ public class LeadController {
 
 
 	// ******* CREATE LEAD ****/
-	@PostMapping("/create")
+	@PostMapping("/create/{cid}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<CrmResponse> createLead(@Valid @RequestBody LeadRequestDTO leadRequestDTO) {
-		leadService.createLead(leadRequestDTO);
+	public ResponseEntity<CrmResponse> createLead(@Valid @PathVariable("cid")Long id, @RequestBody  LeadRequestDTO leadRequestDTO) {
+		leadService.createLead(leadRequestDTO,id);
 
 		CrmResponse crmResponse = new CrmResponse();
 		crmResponse.setMessage(ResponseMessage.LEAD_CREATE_RESPONSE);
