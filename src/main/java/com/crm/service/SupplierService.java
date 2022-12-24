@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.crm.domain.OrderedProducts;
 import com.crm.domain.Supplier;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
+import com.crm.repository.OrderedProductsRepository;
 import com.crm.repository.SupplierRepository;
 import com.crm.requestDTO.SupplierRequestDTO;
+import com.crm.responseDTO.OrderedProductsResponseDTO;
 import com.crm.responseDTO.SupplierResponseDTO;
 
 
@@ -20,10 +24,12 @@ public class SupplierService {
 
 	@Autowired
 
-
 	private SupplierRepository supplierRepository;
 
-
+	@Autowired
+	private OrderedProductsRepository orderedProductsRepository;
+	
+	
 
 	public Supplier findSupplierById(Long id) {
 		Supplier supplier = supplierRepository.findById(id).orElseThrow(
@@ -163,6 +169,44 @@ public class SupplierService {
 		supplierRepository.deleteById(supplier.getId());
 
 	}
+
+	
+
+	public List<OrderedProductsResponseDTO> getOrderedProductsWithSupplierId(Long supplierId) {
+		
+		List<OrderedProducts> orderedProductList = orderedProductsRepository.findProductsWithSupplierId(supplierId);
+		List<OrderedProductsResponseDTO> dtoList = new ArrayList<>();
+		
+			
+		//List<OrderedProductsResponseDTO> dtoList = new ArrayList<>();
+
+		for(OrderedProducts w : orderedProductList) {
+			
+			OrderedProductsResponseDTO orderedProductsResponseDTO = new OrderedProductsResponseDTO();
+			
+			//orderedProductsResponseDTO.setNetProfit(null);
+			orderedProductsResponseDTO.setProductCode(w.getProductCode());
+			orderedProductsResponseDTO.setProductName(w.getProductName());
+			orderedProductsResponseDTO.setPurchasePrice(w.getPurchasePrice());
+			//orderedProductsResponseDTO.setSalePrice(null);
+			orderedProductsResponseDTO.setSize(w.getSize());
+			orderedProductsResponseDTO.setSupplierName(w.getSupplier().getName());
+			orderedProductsResponseDTO.setWeight(w.getWeight());
+			
+			dtoList.add(orderedProductsResponseDTO);
+			
+			
+		}
+		
+		return dtoList;
+		
+	}
+		
+		
+		
+	
+
+	
 
 	
 
