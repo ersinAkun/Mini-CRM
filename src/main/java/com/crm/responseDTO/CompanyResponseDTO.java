@@ -11,6 +11,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -59,7 +63,7 @@ public class CompanyResponseDTO {
 
     private String note;
 
-    private String emails;
+    private List emails;
 
     private CompanyStatus companyStatus;
 

@@ -129,7 +129,7 @@ public class CompanyService {
         company.setTimeZone(companyRequestDTO.getTimeZone());
         company.setWebPage(companyRequestDTO.getWebPage());
         company.setRFQ(companyRequestDTO.getRfq());
-        // company.setWhoFind(companyRequestDTO.get);
+        company.setWhoFind(companyRequestDTO.getWhoFind());
         company.setAbout(companyRequestDTO.getAbout());
         company.setIsMailSent(companyRequestDTO.getIsMailSent());
         company.setIsMsgSent(companyRequestDTO.getIsMsgSent());
@@ -184,8 +184,17 @@ public class CompanyService {
         companyResponseDTO.setIndustry(company.getIndustry());
         companyResponseDTO.setCompanyWhereWasFound(company.getCompanyWhereWasFound());
         companyResponseDTO.setCompanyType(company.getCompanyType());
-        //list halindeki emailleri responsa tek bir string değerinde kaydeder
-        companyResponseDTO.setEmails(emailsService.getEmailsTypeString(id));
+
+
+        //companyle bağlantılı emaillerin email kısımlarını responsa list halinde kaydeder
+        company = findCompanyById(id);
+        List<String> emails = new ArrayList<>();
+        if (company.getEmails() != null) {
+            for (Emails email1 : company.getEmails()) {
+                emails.add(email1.getEmail());
+            }
+        }
+        companyResponseDTO.setEmails(emails);
 
         return companyResponseDTO;
     }
