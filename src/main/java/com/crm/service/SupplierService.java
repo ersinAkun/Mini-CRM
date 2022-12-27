@@ -3,6 +3,9 @@ package com.crm.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+
+import com.crm.domain.Orders;
+import com.crm.repository.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +25,8 @@ public class SupplierService {
 
 
 	private SupplierRepository supplierRepository;
-
+	@Autowired
+	private OrdersRepository ordersRepository;
 
 
 	public Supplier findSupplierById(Long id) {
@@ -47,7 +51,7 @@ public class SupplierService {
 		supplier.setOwnerWhatsapp(supplierRequestDTO.getOwnerWhatsapp());
 		supplier.setWebPage(supplierRequestDTO.getWebPage());
 		supplier.setLinkedPage(supplierRequestDTO.getLinkedPage());
-		
+
 
 		supplierRepository.save(supplier);
 
