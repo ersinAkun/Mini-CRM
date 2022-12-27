@@ -2,14 +2,8 @@ package com.crm.domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import com.crm.domain.enums.Department;
 import com.crm.domain.enums.LeadStatus;
 import lombok.AllArgsConstructor;
@@ -38,8 +32,8 @@ public class Lead {
 	@Column(length = 50,unique = true)// nullable = false, 
 	private String email;
 
-	//@OneToOne
-	//private Company company;// ilişkiden gelsin.
+	@OneToOne
+	private Company company;// ilişkiden gelsin.
 
 	@Column(length = 50)
 	private String industry;// bunu company üzerinden çekip set edebiliriz.

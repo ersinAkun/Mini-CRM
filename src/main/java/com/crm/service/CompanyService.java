@@ -7,6 +7,7 @@ import com.crm.domain.enums.CompanyType;
 import com.crm.exception.ConflictException;
 import com.crm.repository.CompanyEmployeesRepository;
 import com.crm.repository.EmailsRepository;
+import com.crm.repository.LeadRepository;
 import com.crm.requestDTO.CompanyRequestDTO;
 import com.crm.responseDTO.CompanyResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class CompanyService {
     private EmailsRepository emailsRepository;
     @Autowired
     private EmailsService emailsService;
+    @Autowired
+    private LeadRepository leadRepository;
 
 
     //COMPANYEMPLOYEES İÇİN KULLANILIYOR**EMRULLAH
@@ -87,7 +90,7 @@ public class CompanyService {
         company.setIsMsgSent(companyRequestDTO.getIsMsgSent());
         company.setIsOrder(companyRequestDTO.getIsOrder());
         company.setNote(companyRequestDTO.getNote());
-        //company.setLead(companyRequestDTO.);
+        //company.setLead(leadRepository.findById(companyRequestDTO.getLeadId()) );
         //company.setOrders(ordersService.findOrdersByCompanyId(companyRequestDTO.get));
         company.setCompanyStatus(companyRequestDTO.getCompanyStatus());
         company.setIndustry(companyRequestDTO.getIndustry());

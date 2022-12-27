@@ -3,6 +3,7 @@ package com.crm.domain;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -98,9 +99,8 @@ public class Company {
     @OneToOne(fetch = FetchType.LAZY)
     private Lead lead;
 
-
-//  @OneToMany
-//  private List<Orders> orders;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Emails> emails;
 
     @Enumerated(EnumType.STRING)
     private CompanyStatus companyStatus;
@@ -117,9 +117,6 @@ public class Company {
     @Enumerated(EnumType.STRING)
     private CompanyType companyType;
 
-
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Emails> emails;
 
 
 }

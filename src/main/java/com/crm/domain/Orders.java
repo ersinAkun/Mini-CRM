@@ -2,16 +2,9 @@ package com.crm.domain;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.crm.domain.enums.CurrencyType;
 import com.crm.domain.enums.OrderStatus;
@@ -83,17 +76,17 @@ public class Orders {
 	 * "role_id")) private Set<Role> roles = new HashSet<>();
 	 */
 
-	//@ManyToMany() // mappedBy = "supplier"
-	//@JoinTable(name = "tbl_Order_Supplier", joinColumns = @JoinColumn(name = "supplier_id"), inverseJoinColumns = @JoinColumn(name = "orders_id"))
-	//private List<Supplier> supplier = new ArrayList<>();
+	@ManyToMany() // mappedBy = "supplier"
+	@JoinTable(name = "tbl_Order_Supplier", joinColumns = @JoinColumn(name = "supplier_id"), inverseJoinColumns = @JoinColumn(name = "orders_id"))
+	private List<Supplier> suppliers;
 
 	// onetomany dene
 	
-	@OneToMany(mappedBy = "orders")
-	private List<Supplier> suppliers;
+	//@OneToMany(mappedBy = "orders" ,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	//private List<Supplier> suppliers;
 	
 
-	 @OneToMany(mappedBy = "orders")
+	@OneToMany(mappedBy = "orders")
 	private List<OrderedProducts> orderedProducts;//bu siparişe ait ürünleri listele
 
 	@Enumerated(EnumType.STRING)
