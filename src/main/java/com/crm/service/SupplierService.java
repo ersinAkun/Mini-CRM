@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import com.crm.domain.OrderedProducts;
 import com.crm.domain.Orders;
+import com.crm.repository.OrderedProductsRepository;
 import com.crm.repository.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
 import com.crm.repository.SupplierRepository;
 import com.crm.requestDTO.SupplierRequestDTO;
+import com.crm.responseDTO.OrderedProductsResponseDTO;
 import com.crm.responseDTO.SupplierResponseDTO;
 
 
@@ -22,12 +25,13 @@ import com.crm.responseDTO.SupplierResponseDTO;
 public class SupplierService {
 
 	@Autowired
-
-
 	private SupplierRepository supplierRepository;
+	
 	@Autowired
 	private OrdersRepository ordersRepository;
 
+	@Autowired
+	private OrderedProductsRepository orderedProductsRepository;
 
 	public Supplier findSupplierById(Long id) {
 		Supplier supplier = supplierRepository.findById(id).orElseThrow(
@@ -167,6 +171,36 @@ public class SupplierService {
 		supplierRepository.deleteById(supplier.getId());
 
 	}
+
+	public List<OrderedProductsResponseDTO> getOrderedProductsWithSupplierId(Long supplierId) {
+
+        List<OrderedProducts> orderedProductList = orderedProductsRepository.findProductsWithSupplierId(supplierId);
+        List<OrderedProductsResponseDTO> dtoList = new ArrayList<>();
+
+
+        //List<OrderedProductsResponseDTO> dtoList = new ArrayList<>();
+
+        for(OrderedProducts w : orderedProductList) {
+
+            OrderedProductsResponseDTO orderedProductsResponseDTO = new OrderedProductsResponseDTO();
+
+            //orderedProductsResponseDTO.setNetProfit(null);
+            orderedProductsResponseDTO.setProductCode(w.getProductCode());
+            orderedProductsResponseDTO.setProductName(w.getProductName());
+            orderedProductsResponseDTO.setPurchasePrice(w.getPurchasePrice());
+            //orderedProductsResponseDTO.setSalePrice(null);
+            orderedProductsResponseDTO.setSize(w.getSize());
+            orderedProductsResponseDTO.setSupplierName(w.getSupplier().getName());
+            orderedProductsResponseDTO.setWeight(w.getWeight());
+
+            dtoList.add(orderedProductsResponseDTO);
+
+
+        }
+
+        return dtoList;
+
+    }
 
 	
 

@@ -32,7 +32,7 @@ public class OrdersService {
 
 //*************   CREATE ORDER  *******************/
 
-    public void createOrders(OrdersRequestDTO ordersRequestDTO, Long id) {
+    public void createOrders(OrdersRequestDTO ordersRequestDTO) {
         Orders orders = new Orders();
 
         orders.setOrderAmount(ordersRequestDTO.getOrderAmount());
@@ -94,6 +94,7 @@ public class OrdersService {
         ordersResponseDTO.setOrderType(orders.getOrderType());
         ordersResponseDTO.setCurrencyType(orders.getCurrencyType());
         ordersResponseDTO.setPaymentMethod(orders.getPaymentMethod());
+        
         return ordersResponseDTO;
 
 
