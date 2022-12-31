@@ -2,10 +2,13 @@ package com.crm.requestDTO;
 
 
 import java.time.LocalDate;
+import java.util.List;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.crm.domain.Supplier;
 import com.crm.domain.enums.CurrencyType;
 import com.crm.domain.enums.OrderStatus;
 import com.crm.domain.enums.OrderType;
@@ -75,7 +78,8 @@ public class OrdersRequestDTO {
 	@Size(max = 200)
 	private String notes;
 
-	
+	private List<Long> supplierIds;
+
 	@Enumerated(EnumType.STRING)
 	private Shipment shipping;
 	@Enumerated(EnumType.STRING)

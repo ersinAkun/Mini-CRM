@@ -103,6 +103,7 @@ public class CompanyRequestDTO {
      //kontrol repoya kaydedilirken yapılıyor
 	private List<String> emails;
 
+	private Long LeadId;
 
 	@Enumerated(EnumType.STRING)
 	private CompanyStatus companyStatus;

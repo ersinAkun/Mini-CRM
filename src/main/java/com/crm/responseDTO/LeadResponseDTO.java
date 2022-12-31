@@ -26,7 +26,7 @@ public class LeadResponseDTO {
 	private String email;
 
 
-	private Company company;
+	private String company;
 
 	private String industry;
 

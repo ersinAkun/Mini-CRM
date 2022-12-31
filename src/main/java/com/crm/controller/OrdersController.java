@@ -2,6 +2,8 @@ package com.crm.controller;
 
 import java.util.List;
 import javax.validation.Valid;
+
+import com.crm.requestDTO.OrdersUpdateRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,11 +37,10 @@ public class OrdersController {
 
 // ***********  CREATE ORDER  *****************/
 
-    @PostMapping("/create")
-    @PreAuthorize("hasRole('ADMIN') or hasRole ('USER')")
-
-    public ResponseEntity<CrmResponse> createOrder(@Valid @RequestBody OrdersRequestDTO ordersRequestDTO) {
-        ordersService.createOrders(ordersRequestDTO);
+    @PostMapping("/create/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id, @RequestBody OrdersRequestDTO ordersRequestDTO) {
+        ordersService.createOrders(ordersRequestDTO,id);
 
         CrmResponse crmResponse = new CrmResponse();
         crmResponse.setMessage(ResponseMessage.ORDER_CREATE_RESPONSE);
@@ -71,8 +72,8 @@ public class OrdersController {
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id, @RequestBody OrdersRequestDTO ordersRequestDTO) {
-        ordersService.updateOrder(id, ordersRequestDTO);
+    public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id, @RequestBody OrdersUpdateRequestDTO ordersUpdateRequestDTO) {
+        ordersService.updateOrder(id, ordersUpdateRequestDTO);
         CrmResponse crmResponse = new CrmResponse(ResponseMessage.ORDER_UPDATED_MESSAGE, true);
         return ResponseEntity.ok(crmResponse);
     }
