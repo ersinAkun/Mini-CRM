@@ -61,13 +61,13 @@ public class OrderedProducts {
 	@JoinColumn(name = "orderedProduct_id")
 	private Set<ImageFile> image;
 
-	@JsonIgnore // stackoverflow olmaması için.
+	@JsonIgnore // stackoverflow olmaması için.     MANY TO MANY
 	@ManyToOne()
 	@JoinColumn(name = "supplier_id")
 	private Supplier supplier;
 	
 	@ManyToOne()
-	@JoinColumn(name = "order_id")
+	@JoinColumn(name = "order_id")   // MANY TO MANY
 	private Orders orders;
 
 	

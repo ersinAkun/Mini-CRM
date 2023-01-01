@@ -77,7 +77,7 @@ public class Orders {
 	 */
 
 	@ManyToMany() // mappedBy = "supplier"
-	@JoinTable(name = "tbl_Order_Supplier", joinColumns = @JoinColumn(name = "supplier_id"), inverseJoinColumns = @JoinColumn(name = "orders_id"))
+	@JoinTable(name = "tbl_Order_Supplier", joinColumns = @JoinColumn(name = "orders_id"), inverseJoinColumns = @JoinColumn(name = "supplier_id"))
 	private List<Supplier> suppliers;
 
 	// onetomany dene

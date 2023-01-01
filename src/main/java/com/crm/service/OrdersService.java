@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.crm.domain.OrderedProducts;
 import com.crm.domain.Orders;
 import com.crm.exception.ResourceNotFoundException;
 import com.crm.exception.message.ErrorMessage;
+import com.crm.repository.OrderedProductsRepository;
 import com.crm.repository.OrdersRepository;
 import com.crm.requestDTO.OrdersRequestDTO;
 import com.crm.responseDTO.OrdersResponseDTO;
@@ -25,10 +28,14 @@ public class OrdersService {
     private OrdersRepository ordersRepository;
 
     LocalDate today = LocalDate.now();
+    
     @Autowired
     private SupplierRepository supplierRepository;
     @Autowired
     private SupplierService supplierService;
+    
+    @Autowired
+    OrderedProductsRepository orderedProductsRepository;
 
 //*************   CREATE ORDER  *******************/
 
@@ -43,7 +50,7 @@ public class OrdersService {
         //orders.setForwarder(ordersRequestDTO.getForwarder());
         orders.setEstimatedDeliveryDate(ordersRequestDTO.getEstimatedDeliveryDate());
         //orders.setDeliveryDate(ordersRequestDTO.getDeliveryDate());
-        orders.setOrderDate(today);
+        orders.setOrderDate(ordersRequestDTO.getOrderDate());
         //orders.setProfit(ordersRequestDTO.getProfit());
         //orders.setProfitPercentage(ordersRequestDTO.getProfitPercentage());
         orders.setNotes(ordersRequestDTO.getNotes());
@@ -137,21 +144,20 @@ public class OrdersService {
 
 // ********* ORDERS UPDATE  ************************/ 
 
-    public void updateOrder(Long id, OrdersUpdateRequestDTO ordersUpdateRequestDTO) {
-        Orders order = ordersRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.format(ErrorMessage.ORDER_UPDATE_RESPONSE_MESSAGE, id)));
-        ;
+    public void updateOrder(Long oid, OrdersUpdateRequestDTO ordersUpdateRequestDTO) {
+        Orders order = ordersRepository.findById(oid).orElseThrow(
+                () -> new ResourceNotFoundException(String.format(ErrorMessage.ORDER_UPDATE_RESPONSE_MESSAGE, oid)));
 
 
         order.setOrderAmount(ordersUpdateRequestDTO.getOrderAmount());
         order.setRfq(ordersUpdateRequestDTO.getRfq());
-        order.setOrderQuantity(ordersUpdateRequestDTO.getOrderQuantity());
-        order.setTotalWeight(ordersUpdateRequestDTO.getTotalWeight());
+        order.setOrderQuantity(ordersUpdateRequestDTO.getOrderQuantity());//ekstra mal isterse son adet fiyatı gelsin.
+        order.setTotalWeight(getTotalWeight(oid, ordersUpdateRequestDTO));//metot yazalım mı
         order.setFreightCost(ordersUpdateRequestDTO.getFreightCost());
         order.setForwarder(ordersUpdateRequestDTO.getForwarder());
         order.setEstimatedDeliveryDate(ordersUpdateRequestDTO.getEstimatedDeliveryDate());
         order.setDeliveryDate(ordersUpdateRequestDTO.getDeliveryDate());
-        order.setOrderDate(today);
+        order.setOrderDate(ordersUpdateRequestDTO.getOrderDate());
         order.setProfit(ordersUpdateRequestDTO.getProfit());
         order.setProfitPercentage(ordersUpdateRequestDTO.getProfitPercentage());
         order.setNotes(ordersUpdateRequestDTO.getNotes());
@@ -217,7 +223,30 @@ public class OrdersService {
     }
 
 
+
+
+
+public Double getTotalWeight(Long id,OrdersUpdateRequestDTO ordersUpdateRequestDTO) {
+	
+	List<OrderedProducts> orderedProducts = orderedProductsRepository.findProductsWithOrderId(id);
+	
+	double totalWeight=0;
+	
+	for (OrderedProducts op : orderedProducts) {
+		
+		totalWeight+= op.getWeight() * ordersUpdateRequestDTO.getOrderQuantity();
+		
+	}
+	return totalWeight;
+	
+	
+	
 }
+
+}
+
+
+
 
 
 

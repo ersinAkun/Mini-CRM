@@ -57,7 +57,7 @@ public class OrdersUpdateRequestDTO {
     //@NotNull(message = "Please provide Estimated Delivery Date")
     private LocalDate estimatedDeliveryDate;//planlanan teslim tarihi
 
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")  orderUpdateRequestDTO
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     //@NotNull(message = "Please provide Delivery Date")
     private LocalDate deliveryDate;//teslim tarihi(gerçekleşen)
 

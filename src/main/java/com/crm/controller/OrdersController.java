@@ -70,10 +70,10 @@ public class OrdersController {
 
 // **************  UPDATE ORDER  ****************/
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{oid}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id, @RequestBody OrdersUpdateRequestDTO ordersUpdateRequestDTO) {
-        ordersService.updateOrder(id, ordersUpdateRequestDTO);
+    public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("oid") Long oid, @RequestBody OrdersUpdateRequestDTO ordersUpdateRequestDTO) {
+        ordersService.updateOrder(oid, ordersUpdateRequestDTO);
         CrmResponse crmResponse = new CrmResponse(ResponseMessage.ORDER_UPDATED_MESSAGE, true);
         return ResponseEntity.ok(crmResponse);
     }
