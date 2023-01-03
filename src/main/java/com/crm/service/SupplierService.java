@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import com.crm.domain.OrderedProducts;
 import com.crm.domain.Orders;
+import com.crm.repository.OrderedProductsRepository;
 import com.crm.repository.OrdersRepository;
+import com.crm.responseDTO.OrderedProductsResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,154 +24,173 @@ import com.crm.responseDTO.SupplierResponseDTO;
 @Service
 public class SupplierService {
 
-	@Autowired
+    @Autowired
 
 
-	private SupplierRepository supplierRepository;
-	@Autowired
-	private OrdersRepository ordersRepository;
+    private SupplierRepository supplierRepository;
+    @Autowired
+    private OrdersRepository ordersRepository;
+    @Autowired
+    OrderedProductsRepository orderedProductsRepository;
+
+    public Supplier findSupplierById(Long id) {
+        Supplier supplier = supplierRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+        return supplier;
+    }
+
+    //***************  create 11.12.2022 ERSIN  ********************
+
+    public void createSupplier(SupplierRequestDTO supplierRequestDTO) {
+
+        Supplier supplier = new Supplier();
+
+        supplier.setName(supplierRequestDTO.getName());//unique
+        supplier.setOwnerFirstName(supplierRequestDTO.getOwnerFirstName());
+        supplier.setEmail(supplierRequestDTO.getEmail());
+        supplier.setOwnerLastName(supplierRequestDTO.getOwnerLastName());
+        supplier.setAddress(supplierRequestDTO.getAddress());
+        supplier.setCity(supplierRequestDTO.getCity());
+        supplier.setPhone(supplierRequestDTO.getPhone());
+        supplier.setOwnerWhatsapp(supplierRequestDTO.getOwnerWhatsapp());
+        supplier.setWebPage(supplierRequestDTO.getWebPage());
+        supplier.setLinkedPage(supplierRequestDTO.getLinkedPage());
 
 
-	public Supplier findSupplierById(Long id) {
-		Supplier supplier = supplierRepository.findById(id).orElseThrow(
-				() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
-		return supplier;
-	}
+        supplierRepository.save(supplier);
 
-	//***************  create 11.12.2022 ERSIN  ********************
-
-	public void createSupplier( SupplierRequestDTO supplierRequestDTO) {
-	
-		Supplier supplier = new Supplier();
-		
-		supplier.setName(supplierRequestDTO.getName());//unique 
-		supplier.setOwnerFirstName(supplierRequestDTO.getOwnerFirstName());
-		supplier.setEmail(supplierRequestDTO.getEmail());
-		supplier.setOwnerLastName(supplierRequestDTO.getOwnerLastName());
-		supplier.setAddress(supplierRequestDTO.getAddress());
-		supplier.setCity(supplierRequestDTO.getCity());
-		supplier.setPhone(supplierRequestDTO.getPhone());
-		supplier.setOwnerWhatsapp(supplierRequestDTO.getOwnerWhatsapp());
-		supplier.setWebPage(supplierRequestDTO.getWebPage());
-		supplier.setLinkedPage(supplierRequestDTO.getLinkedPage());
+    }
 
 
-		supplierRepository.save(supplier);
+    public List<SupplierResponseDTO> getAllSupplier() {
+        List<Supplier> suppliers = supplierRepository.findAll();
 
-	}
+        List<SupplierResponseDTO> supplierResponseDTOs = new ArrayList<>();
+
+        for (Supplier w : suppliers) {
+
+            SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
+
+            supplierResponseDTO.setName(w.getName());
+            supplierResponseDTO.setEmail(w.getEmail());
+            supplierResponseDTO.setOwnerFirstName(w.getOwnerFirstName());
+            supplierResponseDTO.setOwnerLastName(w.getOwnerLastName());
+            supplierResponseDTO.setAddress(w.getAddress());
+            supplierResponseDTO.setCity(w.getCity());
+            supplierResponseDTO.setPhone(w.getPhone());
+            supplierResponseDTO.setOwnerWhatsapp(w.getOwnerWhatsapp());
+            supplierResponseDTO.setWebPage(w.getWebPage());
+
+            supplierResponseDTOs.add(supplierResponseDTO);
+        }
+        return supplierResponseDTOs;
+
+    }
 
 
+    public SupplierResponseDTO getSupplierById(Long id) {
 
-	public List<SupplierResponseDTO> getAllSupplier() {
-		List<Supplier> suppliers = supplierRepository.findAll();
-		
-		List<SupplierResponseDTO> supplierResponseDTOs = new ArrayList<>();
-		
-		for(Supplier w : suppliers) {
-			
-			SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
-			
-			supplierResponseDTO.setName(w.getName());
-			supplierResponseDTO.setEmail(w.getEmail());
-			supplierResponseDTO.setOwnerFirstName(w.getOwnerFirstName());
-			supplierResponseDTO.setOwnerLastName(w.getOwnerLastName());
-			supplierResponseDTO.setAddress(w.getAddress());
-			supplierResponseDTO.setCity(w.getCity());
-			supplierResponseDTO.setPhone(w.getPhone());
-			supplierResponseDTO.setOwnerWhatsapp(w.getOwnerWhatsapp());
-			supplierResponseDTO.setWebPage(w.getWebPage());
-			
-			supplierResponseDTOs.add(supplierResponseDTO);
-		}
-		return supplierResponseDTOs;
-		
-	}
-	
-	
+        Supplier supplier = supplierRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 
-	public SupplierResponseDTO getSupplierById(Long id)  {
-	
-	Supplier supplier = supplierRepository.findById(id).orElseThrow(()->
-	new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+        SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
 
-	SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
-	
-	supplierResponseDTO.setName(supplier.getName());
-	supplierResponseDTO.setEmail(supplier.getEmail());
-	supplierResponseDTO.setOwnerFirstName(supplier.getOwnerFirstName());
-	supplierResponseDTO.setOwnerLastName(supplier.getOwnerLastName());
-	supplierResponseDTO.setAddress(supplier.getAddress());
-	supplierResponseDTO.setCity(supplier.getCity());
-	supplierResponseDTO.setPhone(supplier.getPhone());
-	supplierResponseDTO.setOwnerWhatsapp(supplier.getOwnerWhatsapp());
-	supplierResponseDTO.setWebPage(supplier.getWebPage());
-	
-		return supplierResponseDTO;
-	}
-	
-	
-	
-	
-	
-	
+        supplierResponseDTO.setName(supplier.getName());
+        supplierResponseDTO.setEmail(supplier.getEmail());
+        supplierResponseDTO.setOwnerFirstName(supplier.getOwnerFirstName());
+        supplierResponseDTO.setOwnerLastName(supplier.getOwnerLastName());
+        supplierResponseDTO.setAddress(supplier.getAddress());
+        supplierResponseDTO.setCity(supplier.getCity());
+        supplierResponseDTO.setPhone(supplier.getPhone());
+        supplierResponseDTO.setOwnerWhatsapp(supplier.getOwnerWhatsapp());
+        supplierResponseDTO.setWebPage(supplier.getWebPage());
 
-	public void updateSupplier(Long id,  SupplierRequestDTO supplierRequestDTO) {
-		Supplier foundSupplier = supplierRepository.findById(id).orElseThrow(()->
-		new ResourceNotFoundException(String.format(ErrorMessage.SUPPLIER_UPDATE_RESPONSE_MESSAGE, id)));
+        return supplierResponseDTO;
+    }
 
-		foundSupplier.setName(supplierRequestDTO.getName());
-		foundSupplier.setEmail(supplierRequestDTO.getEmail());
-		foundSupplier.setOwnerFirstName(supplierRequestDTO.getOwnerFirstName());
-		foundSupplier.setOwnerLastName(supplierRequestDTO.getOwnerLastName());
-		foundSupplier.setAddress(supplierRequestDTO.getAddress());
-		foundSupplier.setCity(supplierRequestDTO.getCity());
-		foundSupplier.setPhone(supplierRequestDTO.getPhone());
-		foundSupplier.setOwnerWhatsapp(supplierRequestDTO.getOwnerWhatsapp());
-		foundSupplier.setWebPage(supplierRequestDTO.getWebPage());
 
-		supplierRepository.save(foundSupplier);
-	}
+    public void updateSupplier(Long id, SupplierRequestDTO supplierRequestDTO) {
+        Supplier foundSupplier = supplierRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(ErrorMessage.SUPPLIER_UPDATE_RESPONSE_MESSAGE, id)));
 
-	
-	
+        foundSupplier.setName(supplierRequestDTO.getName());
+        foundSupplier.setEmail(supplierRequestDTO.getEmail());
+        foundSupplier.setOwnerFirstName(supplierRequestDTO.getOwnerFirstName());
+        foundSupplier.setOwnerLastName(supplierRequestDTO.getOwnerLastName());
+        foundSupplier.setAddress(supplierRequestDTO.getAddress());
+        foundSupplier.setCity(supplierRequestDTO.getCity());
+        foundSupplier.setPhone(supplierRequestDTO.getPhone());
+        foundSupplier.setOwnerWhatsapp(supplierRequestDTO.getOwnerWhatsapp());
+        foundSupplier.setWebPage(supplierRequestDTO.getWebPage());
 
-	public Page<SupplierResponseDTO> getAllWithPage(Pageable pageable){
-		
-		Page<Supplier> supplierPage = supplierRepository.findAll(pageable);
-		Page<SupplierResponseDTO> responsePage = supplierPage.map(new Function<Supplier, SupplierResponseDTO>(){
+        supplierRepository.save(foundSupplier);
+    }
 
-			public SupplierResponseDTO apply(Supplier supplier) {
-				
-				SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
-					
-				supplierResponseDTO.setName(supplier.getName());
-				supplierResponseDTO.setEmail(supplier.getEmail());
-				supplierResponseDTO.setOwnerFirstName(supplier.getOwnerFirstName());
-				supplierResponseDTO.setOwnerLastName(supplier.getOwnerLastName());
-				supplierResponseDTO.setAddress(supplier.getAddress());
-				supplierResponseDTO.setCity(supplier.getCity());
-				supplierResponseDTO.setPhone(supplier.getPhone());
-				supplierResponseDTO.setOwnerWhatsapp(supplier.getOwnerWhatsapp());
-				supplierResponseDTO.setWebPage(supplier.getWebPage());
-					
-				return supplierResponseDTO;
-			}
-			
-		});
-		return responsePage;
-		
 
-	}
+    public Page<SupplierResponseDTO> getAllWithPage(Pageable pageable) {
 
-	public void deleteSupplier(Long id) throws ResourceNotFoundException{
-		Supplier supplier = supplierRepository.findById(id).orElseThrow(
-				()-> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
-		//supplierRepository.delete(supplier);
-		supplierRepository.deleteById(supplier.getId());
+        Page<Supplier> supplierPage = supplierRepository.findAll(pageable);
+        Page<SupplierResponseDTO> responsePage = supplierPage.map(new Function<Supplier, SupplierResponseDTO>() {
 
-	}
+            public SupplierResponseDTO apply(Supplier supplier) {
 
-	
+                SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
 
+                supplierResponseDTO.setName(supplier.getName());
+                supplierResponseDTO.setEmail(supplier.getEmail());
+                supplierResponseDTO.setOwnerFirstName(supplier.getOwnerFirstName());
+                supplierResponseDTO.setOwnerLastName(supplier.getOwnerLastName());
+                supplierResponseDTO.setAddress(supplier.getAddress());
+                supplierResponseDTO.setCity(supplier.getCity());
+                supplierResponseDTO.setPhone(supplier.getPhone());
+                supplierResponseDTO.setOwnerWhatsapp(supplier.getOwnerWhatsapp());
+                supplierResponseDTO.setWebPage(supplier.getWebPage());
+
+                return supplierResponseDTO;
+            }
+
+        });
+        return responsePage;
+
+
+    }
+
+    public void deleteSupplier(Long id) throws ResourceNotFoundException {
+        Supplier supplier = supplierRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+        //supplierRepository.delete(supplier);
+        supplierRepository.deleteById(supplier.getId());
+
+    }
+
+    public List<OrderedProductsResponseDTO> getOrderedProductsWithSupplierId(Long supplierId) {
+
+        List<OrderedProducts> orderedProductList = orderedProductsRepository.findProductsWithSupplierId(supplierId);
+        List<OrderedProductsResponseDTO> dtoList = new ArrayList<>();
+
+
+        //List<OrderedProductsResponseDTO> dtoList = new ArrayList<>();
+
+        for (OrderedProducts w : orderedProductList) {
+
+            OrderedProductsResponseDTO orderedProductsResponseDTO = new OrderedProductsResponseDTO();
+
+            //orderedProductsResponseDTO.setNetProfit(null);
+            orderedProductsResponseDTO.setProductCode(w.getProductCode());
+            orderedProductsResponseDTO.setProductName(w.getProductName());
+            orderedProductsResponseDTO.setPurchasePrice(w.getPurchasePrice());
+            //orderedProductsResponseDTO.setSalePrice(null);
+            orderedProductsResponseDTO.setSize(w.getSize());
+            orderedProductsResponseDTO.setSupplierName(w.getSupplier().getName());
+            orderedProductsResponseDTO.setWeight(w.getWeight());
+
+            dtoList.add(orderedProductsResponseDTO);
+
+
+        }
+
+        return dtoList;
+
+    }
 
 }

@@ -76,8 +76,8 @@ public class Orders {
 	 * "role_id")) private Set<Role> roles = new HashSet<>();
 	 */
 
-	@ManyToMany() // mappedBy = "supplier"
-	@JoinTable(name = "tbl_Order_Supplier", joinColumns = @JoinColumn(name = "supplier_id"), inverseJoinColumns = @JoinColumn(name = "orders_id"))
+	@ManyToMany
+	@JoinTable(name = "tbl_Order_Supplier", joinColumns = @JoinColumn(name = "orders_id"), inverseJoinColumns = @JoinColumn(name = "supplier_id"))
 	private List<Supplier> suppliers;
 
 	// onetomany dene
@@ -86,7 +86,8 @@ public class Orders {
 	//private List<Supplier> suppliers;
 	
 
-	@OneToMany(mappedBy = "orders")
+	@ManyToMany
+	@JoinTable(name = "tbl_Order_OrderedProducts", joinColumns = @JoinColumn(name = "orders_id"), inverseJoinColumns = @JoinColumn(name = "orderedProducts_id"))
 	private List<OrderedProducts> orderedProducts;//bu siparişe ait ürünleri listele
 
 	@Enumerated(EnumType.STRING)

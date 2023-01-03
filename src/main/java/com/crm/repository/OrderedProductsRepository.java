@@ -3,6 +3,8 @@ package com.crm.repository;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.crm.domain.Supplier;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,8 +28,9 @@ public interface OrderedProductsRepository extends JpaRepository<OrderedProducts
 	List<OrderedProducts> findProductsWithSupplierId(@Param("id")Long supplierId);
 	
 
-	@Query("SELECT o FROM OrderedProducts o WHERE o.orders.id=:id")
+	@Query("SELECT o FROM OrderedProducts o WHERE o.id=:id")
 	List<OrderedProducts> findProductsWithOrderId(@Param("id")Long orderId);
 
-	
+	@Query("select o from OrderedProducts o where o.id=:id")
+    OrderedProducts getOrderedProduct(@Param("id") Long id);
 }

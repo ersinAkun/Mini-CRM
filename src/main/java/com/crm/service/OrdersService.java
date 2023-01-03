@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import com.crm.domain.OrderedProducts;
 import com.crm.domain.Supplier;
+import com.crm.repository.OrderedProductsRepository;
 import com.crm.repository.SupplierRepository;
 import com.crm.requestDTO.OrdersUpdateRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +31,12 @@ public class OrdersService {
     private SupplierRepository supplierRepository;
     @Autowired
     private SupplierService supplierService;
+    @Autowired
+    private OrderedProductsRepository orderedProductsRepository;
 
 //*************   CREATE ORDER  *******************/
 
-    public void createOrders(OrdersRequestDTO ordersRequestDTO, Long id) {
+    public void createOrders(OrdersRequestDTO ordersRequestDTO) {
         Orders orders = new Orders();
 
         orders.setOrderAmount(ordersRequestDTO.getOrderAmount());
@@ -61,6 +65,14 @@ public class OrdersService {
             suppliers.add(supplier);
         }
         orders.setSuppliers(suppliers);
+
+        List orderedProducts = new ArrayList<>();
+        for (Long orderedProductId:  ordersRequestDTO.getOrderedProductIds()  ) {
+            OrderedProducts orderedProduct = orderedProductsRepository.getOrderedProduct(orderedProductId);
+            orderedProducts.add(orderedProduct);
+        }
+        orders.setOrderedProducts(orderedProducts);
+
 
         ordersRepository.save(orders);
 

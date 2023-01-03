@@ -85,7 +85,7 @@ public class OrderedProductsService {
 
 		orderedProducts.setSize(orderedProductsRequestDTO.getSize());
 		orderedProducts.setWeight(orderedProductsRequestDTO.getWeight());
-		orderedProducts.setOrders(order);
+		//orderedProducts.setOrders(order);
 
 		orderedProductsRepository.save(orderedProducts);
 	}

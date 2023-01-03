@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.crm.domain.OrderedProducts;
 import com.crm.domain.Supplier;
 import com.crm.domain.enums.CurrencyType;
 import com.crm.domain.enums.OrderStatus;
@@ -79,6 +80,8 @@ public class OrdersRequestDTO {
 	private String notes;
 
 	private List<Long> supplierIds;
+
+	private List<Long> orderedProductIds;
 
 	@Enumerated(EnumType.STRING)
 	private Shipment shipping;

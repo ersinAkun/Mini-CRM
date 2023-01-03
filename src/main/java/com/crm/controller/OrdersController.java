@@ -37,10 +37,10 @@ public class OrdersController {
 
 // ***********  CREATE ORDER  *****************/
 
-    @PostMapping("/create/{id}")
+    @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<CrmResponse> updateLead(@Valid @PathVariable("id") Long id, @RequestBody OrdersRequestDTO ordersRequestDTO) {
-        ordersService.createOrders(ordersRequestDTO,id);
+    public ResponseEntity<CrmResponse> updateLead(@Valid @RequestBody OrdersRequestDTO ordersRequestDTO) {
+        ordersService.createOrders(ordersRequestDTO);
 
         CrmResponse crmResponse = new CrmResponse();
         crmResponse.setMessage(ResponseMessage.ORDER_CREATE_RESPONSE);

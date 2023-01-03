@@ -2,6 +2,7 @@ package com.crm.responseDTO;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.crm.domain.enums.CurrencyType;
 import com.crm.domain.enums.OrderStatus;
@@ -59,7 +60,11 @@ public class OrdersResponseDTO {
 	
 	private CurrencyType currencyType;	
 	
-	private PaymentMethod paymentMethod;	
+	private PaymentMethod paymentMethod;
+
+	private List<String> suppliers;
+
+	private List<String> OrderedProducts;
 	
 	//ürün adı gelebilir.
 	//supplier adı.
