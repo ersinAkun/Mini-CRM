@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Setter
 @Getter
@@ -48,7 +50,8 @@ public class OrderedProductsRequestDTO {
 	//@NotNull(message="Please provide NetProfit")
 	//@NotBlank
     private Double netProfit;
-	
+
+	private List<Long> supplierIds;
 	
 //	@Size(max=15)
 //	@NotNull(message="Please provide SalePrice")

@@ -24,7 +24,7 @@ public interface OrderedProductsRepository extends JpaRepository<OrderedProducts
 	@EntityGraph(attributePaths = "id")
 	Optional<OrderedProducts>findOrderedProductsById(Long id);
 	
-	@Query("SELECT o FROM OrderedProducts o WHERE o.supplier.id=:id")
+	@Query("SELECT o FROM OrderedProducts o WHERE o.suppliers=:id")
 	List<OrderedProducts> findProductsWithSupplierId(@Param("id")Long supplierId);
 	
 
