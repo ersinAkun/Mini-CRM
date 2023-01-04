@@ -62,9 +62,10 @@ public class Supplier {
     //@JoinColumn(name = "orders_id")
     //private Orders orders;
 
-   @ManyToMany(mappedBy = "suppliers")
-   private List<Orders> orders;
+    @ManyToMany(mappedBy = "suppliers")
+    private List<Orders> orders;
 
-
+    @ManyToMany(mappedBy = "suppliers")
+    private List<OrderedProducts> orderedProducts;
 
 }

@@ -70,7 +70,13 @@ public class OrderedProductsService {
 		imFiles.add(imageFile);
 
 		orderedProducts.setImage(imFiles);
-		orderedProducts.setSupplier(supplierService.findSupplierById(sID));
+
+		List suppliers = new ArrayList<>();
+		for (Long supplierId:  orderedProductsRequestDTO.getSupplierIds()  ) {
+			Supplier supplier = supplierRepository.getSuplierById(supplierId);
+			suppliers.add(supplier);
+		}
+		orderedProducts.setSuppliers(suppliers);
 
 		orderedProducts.setProductCode(orderedProductsRequestDTO.getProductCode());
 		orderedProducts.setProductName(orderedProductsRequestDTO.getProductName());
@@ -111,7 +117,7 @@ public class OrderedProductsService {
 
 		orderedProductsResponseDTO.setSize(orderedProducts.getSize());
 		orderedProductsResponseDTO.setWeight(orderedProducts.getWeight());
-		orderedProductsResponseDTO.setSupplierName(orderedProducts.getSupplier().getName());
+		//orderedProductsResponseDTO.setSupplierName(orderedProducts.getSupplier().getName());
 
 		return orderedProductsResponseDTO;
 
@@ -141,7 +147,7 @@ public class OrderedProductsService {
 		 */
 
 		orderedProducts.setImage(imFiles);
-		orderedProducts.setSupplier(supplierService.findSupplierById(sId));
+		//orderedProducts.setSupplier(supplierService.findSupplierById(sId));
 
 		orderedProducts.setProductCode(orderedProductsRequestDTO.getProductCode());
 		orderedProducts.setProductName(orderedProductsRequestDTO.getProductName());
@@ -204,7 +210,7 @@ public class OrderedProductsService {
 
 			orderedProductsResponseDTO.setSize(orderedProducts.getSize());
 			orderedProductsResponseDTO.setWeight(orderedProducts.getWeight());
-			orderedProductsResponseDTO.setSupplierName(orderedProducts.getSupplier().getName());
+			//orderedProductsResponseDTO.setSupplierName(orderedProducts.getSupplier().getName());
 
 			dtoList.add(orderedProductsResponseDTO);
 
@@ -242,7 +248,7 @@ public class OrderedProductsService {
 
 				orderedProductsResponseDTO.setSize(orderedProducts.getSize());
 				orderedProductsResponseDTO.setWeight(orderedProducts.getWeight());
-				orderedProductsResponseDTO.setSupplierName(orderedProducts.getSupplier().getName());
+				//orderedProductsResponseDTO.setSupplierName(orderedProducts.getSupplier().getName());
 
 				return orderedProductsResponseDTO;
 				
@@ -272,7 +278,7 @@ public class OrderedProductsService {
 			orderedProductsResponseDTO.setPurchasePrice(product.getPurchasePrice());
 			orderedProductsResponseDTO.setSize(product.getSize());
 			orderedProductsResponseDTO.setWeight(product.getWeight());
-			orderedProductsResponseDTO.setSupplierName(product.getSupplier().getName());
+			//orderedProductsResponseDTO.setSupplierName(product.getSupplier().getName());
 
 			dtoList.add(orderedProductsResponseDTO);
 
@@ -305,7 +311,7 @@ List<OrderedProducts> orderedProducts = orderedProductsRepository.findProductsWi
 			orderedProductsResponseDTO.setPurchasePrice(product.getPurchasePrice());
 			orderedProductsResponseDTO.setSize(product.getSize());
 			orderedProductsResponseDTO.setWeight(product.getWeight());
-			orderedProductsResponseDTO.setSupplierName(product.getSupplier().getName());
+			//orderedProductsResponseDTO.setSupplierName(product.getSupplier().getName());
 
 			dtoList.add(orderedProductsResponseDTO);
 

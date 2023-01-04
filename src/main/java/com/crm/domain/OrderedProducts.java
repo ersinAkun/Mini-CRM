@@ -56,10 +56,14 @@ public class OrderedProducts {
 	@JoinColumn(name = "orderedProduct_id")
 	private Set<ImageFile> image;
 
-	@JsonIgnore // stackoverflow olmaması için.
-	@ManyToOne()
-	@JoinColumn(name = "supplier_id")
-	private Supplier supplier;
+	//@JsonIgnore // stackoverflow olmaması için.
+	//@ManyToOne()
+	//@JoinColumn(name = "supplier_id")
+	//private Supplier supplier;
+
+	@ManyToMany
+	@JoinTable(name = "tbl_OrderedProducts_Supplier", joinColumns = @JoinColumn(name = "orderedProduct_id"), inverseJoinColumns = @JoinColumn(name = "supplier_id"))
+	private List<Supplier> suppliers;
 
 	@ManyToMany(mappedBy = "suppliers")
 	private List<Orders> orders;

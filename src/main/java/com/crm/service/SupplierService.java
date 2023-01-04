@@ -181,7 +181,7 @@ public class SupplierService {
             orderedProductsResponseDTO.setPurchasePrice(w.getPurchasePrice());
             //orderedProductsResponseDTO.setSalePrice(null);
             orderedProductsResponseDTO.setSize(w.getSize());
-            orderedProductsResponseDTO.setSupplierName(w.getSupplier().getName());
+           // orderedProductsResponseDTO.setSupplierName(w.getSupplier().getName());
             orderedProductsResponseDTO.setWeight(w.getWeight());
 
             dtoList.add(orderedProductsResponseDTO);
