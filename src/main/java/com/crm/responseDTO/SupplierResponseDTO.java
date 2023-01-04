@@ -32,6 +32,7 @@ public class SupplierResponseDTO {
 
 	private String webPage;
 	
+	
 	//order id gösterilsin...
 
 	// private List<OrderedProductsResponseDTO> orderedProducts; // ön tarafa hangi

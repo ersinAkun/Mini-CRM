@@ -92,6 +92,7 @@ public class Company {
 
     @Column(length = 10, nullable = false)
     private Boolean isOrder;
+    
 
     @Column(length = 255)
     private String note;
