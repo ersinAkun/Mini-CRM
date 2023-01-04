@@ -45,7 +45,7 @@ public class OrderedProductsService {
 	@Autowired OrdersRepository ordersRepository;
 
 	// ******************SAVE PRODUCT*******EMİN*********
-	public void saveProduct(OrderedProductsRequestDTO orderedProductsRequestDTO, Long sID, String iID,Long oId) {
+	public void saveProduct(OrderedProductsRequestDTO orderedProductsRequestDTO, String iID,Long oId) {
 
 		// buraya bu ürün önceden eklenmiş mi onun kontrolünü yapacak bir metod yazmam
 		// lazım.

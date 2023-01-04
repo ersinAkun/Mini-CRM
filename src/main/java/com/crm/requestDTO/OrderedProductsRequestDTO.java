@@ -37,12 +37,12 @@ public class OrderedProductsRequestDTO {
 	private Double weight;
 	  
 	//@Size(max=15)
-	@NotNull(message="Please provide PurhasePrice")
+	//@NotNull(message="Please provide PurhasePrice")
 	//@NotBlank
 	private Double purchasePrice;//fiyat ne türden olcak. tl mi € mu filan?	
 	
 	//@Size(max=15)
-	@NotNull(message="Please provide SalePrice")
+	//@NotNull(message="Please provide SalePrice")
 	//@NotBlank
     private Double salePrice;//fiyat ne türden olcak. tl mi € mu filan?	
 	
