@@ -38,10 +38,10 @@ public class OrderedProductsController {
 	@PostMapping("/add/") // sid= supplier id... yani bu ürün hangi üreticiye ait onu path'dan alcaz
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<CrmResponse> createProduct(
-			@Valid @RequestBody OrderedProductsRequestDTO orderedProductsRequestDTO, @RequestParam("sid") Long sID,
+			@Valid @RequestBody OrderedProductsRequestDTO orderedProductsRequestDTO,
 			@RequestParam("pid") String iID,@RequestParam("oid") Long oId) {// iID ise bu ürüne ait image id'si.
 
-		orderedProductsService.saveProduct(orderedProductsRequestDTO, sID, iID, oId);
+		orderedProductsService.saveProduct(orderedProductsRequestDTO, iID, oId);
 		CrmResponse response = new CrmResponse();
 		response.setMessage(ResponseMessage.ORDERED_PRODUCT_CREATED_MESSAGE);
 		response.setSuccess(true);
